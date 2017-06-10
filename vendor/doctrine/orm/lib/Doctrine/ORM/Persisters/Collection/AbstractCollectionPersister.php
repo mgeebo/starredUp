@@ -88,7 +88,7 @@ abstract class AbstractCollectionPersister implements CollectionPersister
             return false;
         }
 
-        // If Entity is scheduled for inclusion, it is not in this collection.
+        // If MappedSuperClassBase is scheduled for inclusion, it is not in this collection.
         // We can assure that because it would have return true before on array check
         return ! ($entityState === UnitOfWork::STATE_MANAGED && $this->uow->isScheduledForInsert($entity));
     }

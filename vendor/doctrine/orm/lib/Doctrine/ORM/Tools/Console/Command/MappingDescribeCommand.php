@@ -71,7 +71,7 @@ EOT
     }
 
     /**
-     * Display all the mapping information for a single Entity.
+     * Display all the mapping information for a single MappedSuperclassBase.
      *
      * @param string                 $entityName    Full or partial entity class name
      * @param EntityManagerInterface $entityManager
@@ -178,14 +178,14 @@ EOT
 
         if ( ! $matches) {
             throw new \InvalidArgumentException(sprintf(
-                'Could not find any mapped Entity classes matching "%s"',
+                'Could not find any mapped MappedSuperclassBase classes matching "%s"',
                 $entityName
             ));
         }
 
         if (count($matches) > 1) {
             throw new \InvalidArgumentException(sprintf(
-                'Entity name "%s" is ambigous, possible matches: "%s"',
+                'MappedSuperclassBase name "%s" is ambigous, possible matches: "%s"',
                 $entityName, implode(', ', $matches)
             ));
         }
@@ -286,7 +286,7 @@ EOT
     private function formatEntityListeners(array $entityListeners)
     {
         return $this->formatField(
-            'Entity listeners',
+            'MappedSuperclassBase listeners',
             array_map(
                 function ($entityListener) {
                     return get_class($entityListener);

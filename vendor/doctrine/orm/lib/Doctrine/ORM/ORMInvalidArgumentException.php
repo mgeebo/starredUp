@@ -54,7 +54,7 @@ class ORMInvalidArgumentException extends \InvalidArgumentException
      */
     static public function scheduleInsertTwice($entity)
     {
-        return new self("Entity " . self::objToStr($entity) . " can not be scheduled for insertion twice.");
+        return new self("MappedSuperClassBase " . self::objToStr($entity) . " can not be scheduled for insertion twice.");
     }
 
     /**
@@ -121,7 +121,7 @@ class ORMInvalidArgumentException extends \InvalidArgumentException
      */
     static public function entityNotManaged($entity)
     {
-        return new self("Entity " . self::objToStr($entity) . " is not managed. An entity is managed if its fetched " .
+        return new self("MappedSuperClassBase " . self::objToStr($entity) . " is not managed. An entity is managed if its fetched " .
                 "from the database or registered as new through EntityManager#persist");
     }
 
@@ -133,7 +133,7 @@ class ORMInvalidArgumentException extends \InvalidArgumentException
      */
     static public function entityHasNoIdentity($entity, $operation)
     {
-        return new self("Entity has no identity, therefore " . $operation ." cannot be performed. " . self::objToStr($entity));
+        return new self("MappedSuperClassBase has no identity, therefore " . $operation ." cannot be performed. " . self::objToStr($entity));
     }
 
     /**
@@ -144,7 +144,7 @@ class ORMInvalidArgumentException extends \InvalidArgumentException
      */
     static public function entityIsRemoved($entity, $operation)
     {
-        return new self("Entity is removed, therefore " . $operation ." cannot be performed. " . self::objToStr($entity));
+        return new self("MappedSuperclassBase is removed, therefore " . $operation ." cannot be performed. " . self::objToStr($entity));
     }
 
     /**

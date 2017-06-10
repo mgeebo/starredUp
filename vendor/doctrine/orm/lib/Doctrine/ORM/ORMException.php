@@ -68,7 +68,7 @@ class ORMException extends Exception
     public static function entityMissingForeignAssignedId($entity, $relatedEntity)
     {
         return new self(
-            "Entity of type " . get_class($entity) . " has identity through a foreign entity " . get_class($relatedEntity) . ", " .
+            "MappedSuperClassBase of type " . get_class($entity) . " has identity through a foreign entity " . get_class($relatedEntity) . ", " .
             "however this entity has no identity itself. You have to call EntityManager#persist() on the related entity " .
             "and make sure that an identifier was generated before trying to persist '" . get_class($entity) . "'. In case " .
             "of Post Insert ID Generation (such as MySQL Auto-Increment) this means you have to call " .
@@ -84,7 +84,7 @@ class ORMException extends Exception
      */
     public static function entityMissingAssignedIdForField($entity, $field)
     {
-        return new self("Entity of type " . get_class($entity) . " is missing an assigned ID for field  '" . $field . "'. " .
+        return new self("MappedSuperClassBase of type " . get_class($entity) . " is missing an assigned ID for field  '" . $field . "'. " .
             "The identifier generation strategy for this entity requires the ID field to be populated before ".
             "EntityManager#persist() is called. If you want automatically generated identifiers instead " .
             "you need to adjust the metadata mapping accordingly."
@@ -182,7 +182,7 @@ class ORMException extends Exception
     public static function invalidFindByCall($entityName, $fieldName, $method)
     {
         return new self(
-            "Entity '".$entityName."' has no field '".$fieldName."'. ".
+            "MappedSuperClassBase '".$entityName."' has no field '".$fieldName."'. ".
             "You can therefore not call '".$method."' on the entities' repository"
         );
     }
@@ -269,7 +269,7 @@ class ORMException extends Exception
     public static function unknownEntityNamespace($entityNamespaceAlias)
     {
         return new self(
-            "Unknown Entity namespace alias '$entityNamespaceAlias'."
+            "Unknown MappedSuperClassBase namespace alias '$entityNamespaceAlias'."
         );
     }
 

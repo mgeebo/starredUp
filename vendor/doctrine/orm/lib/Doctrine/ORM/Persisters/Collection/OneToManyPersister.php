@@ -90,7 +90,7 @@ class OneToManyPersister extends AbstractCollectionPersister
         $persister = $this->uow->getEntityPersister($mapping['targetEntity']);
 
         // only works with single id identifier entities. Will throw an
-        // exception in Entity Persisters if that is not the case for the
+        // exception in MappedSuperClassBase Persisters if that is not the case for the
         // 'mappedBy' field.
         $criteria = new Criteria(Criteria::expr()->eq($mapping['mappedBy'], $collection->getOwner()));
 
@@ -122,7 +122,7 @@ class OneToManyPersister extends AbstractCollectionPersister
         $persister = $this->uow->getEntityPersister($mapping['targetEntity']);
 
         // only works with single id identifier entities. Will throw an
-        // exception in Entity Persisters if that is not the case for the
+        // exception in MappedSuperClassBase Persisters if that is not the case for the
         // 'mappedBy' field.
         $criteria = new Criteria();
 
@@ -145,7 +145,7 @@ class OneToManyPersister extends AbstractCollectionPersister
         $persister = $this->uow->getEntityPersister($mapping['targetEntity']);
 
         // only works with single id identifier entities. Will throw an
-        // exception in Entity Persisters if that is not the case for the
+        // exception in MappedSuperClassBase Persisters if that is not the case for the
         // 'mappedBy' field.
         $criteria = new Criteria(Criteria::expr()->eq($mapping['mappedBy'], $collection->getOwner()));
 

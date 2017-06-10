@@ -357,7 +357,7 @@ use Doctrine\Common\Util\ClassUtils;
     }
 
     /**
-     * Finds an Entity by its identifier.
+     * Finds an MappedSuperClassBase by its identifier.
      *
      * @param string       $entityName  The class name of the entity to find.
      * @param mixed        $id          The identity of the entity to find.

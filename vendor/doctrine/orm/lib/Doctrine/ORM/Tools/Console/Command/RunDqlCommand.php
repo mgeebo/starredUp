@@ -63,7 +63,7 @@ class RunDqlCommand extends Command
             ),
             new InputOption(
                 'depth', null, InputOption::VALUE_REQUIRED,
-                'Dumping depth of Entity graph.', 7
+                'Dumping depth of MappedSuperclassBase graph.', 7
             ),
             new InputOption(
                 'show-sql', null, InputOption::VALUE_NONE,

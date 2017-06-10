@@ -44,13 +44,13 @@ class MappingException extends \Doctrine\ORM\ORMException
     {
         if (false !== ($parent = get_parent_class($entityName))) {
             return new self(sprintf(
-                'No identifier/primary key specified for Entity "%s" sub class of "%s". Every Entity must have an identifier/primary key.',
+                'No identifier/primary key specified for MappedSuperclassBase "%s" sub class of "%s". Every MappedSuperclassBase must have an identifier/primary key.',
                 $entityName, $parent
             ));
         }
 
         return new self(sprintf(
-            'No identifier/primary key specified for Entity "%s". Every Entity must have an identifier/primary key.',
+            'No identifier/primary key specified for MappedSuperclassBase "%s". Every MappedSuperclassBase must have an identifier/primary key.',
             $entityName
         ));
 
@@ -467,7 +467,7 @@ class MappingException extends \Doctrine\ORM\ORMException
     public static function invalidClassInDiscriminatorMap($className, $owningClass)
     {
         return new self(
-            "Entity class '$className' used in the discriminator map of class '$owningClass' ".
+            "MappedSuperclassBase class '$className' used in the discriminator map of class '$owningClass' ".
             "does not exist."
         );
     }
@@ -497,7 +497,7 @@ class MappingException extends \Doctrine\ORM\ORMException
      */
     public static function missingDiscriminatorMap($className)
     {
-        return new self("Entity class '$className' is using inheritance but no discriminator map was defined.");
+        return new self("MappedSuperclassBase class '$className' is using inheritance but no discriminator map was defined.");
     }
 
     /**
@@ -507,7 +507,7 @@ class MappingException extends \Doctrine\ORM\ORMException
      */
     public static function missingDiscriminatorColumn($className)
     {
-        return new self("Entity class '$className' is using inheritance but no discriminator column was defined.");
+        return new self("MappedSuperclassBase class '$className' is using inheritance but no discriminator column was defined.");
     }
 
     /**
@@ -677,7 +677,7 @@ class MappingException extends \Doctrine\ORM\ORMException
     public static function mappedClassNotPartOfDiscriminatorMap($className, $rootClassName)
     {
         return new self(
-            "Entity '" . $className . "' has to be part of the discriminator map of '" . $rootClassName . "' " .
+            "MappedSuperclassBase '" . $className . "' has to be part of the discriminator map of '" . $rootClassName . "' " .
             "to be properly mapped in the inheritance hierarchy. Alternatively you can make '".$className."' an abstract class " .
             "to avoid this exception from occurring."
         );
@@ -691,7 +691,7 @@ class MappingException extends \Doctrine\ORM\ORMException
      */
     public static function lifecycleCallbackMethodNotFound($className, $methodName)
     {
-        return new self("Entity '" . $className . "' has no method '" . $methodName . "' to be registered as lifecycle callback.");
+        return new self("MappedSuperclassBase '" . $className . "' has no method '" . $methodName . "' to be registered as lifecycle callback.");
     }
 
     /**
@@ -702,7 +702,7 @@ class MappingException extends \Doctrine\ORM\ORMException
      */
     public static function entityListenerClassNotFound($listenerName, $className)
     {
-        return new self(sprintf('Entity Listener "%s" declared on "%s" not found.', $listenerName, $className));
+        return new self(sprintf('MappedSuperclassBase Listener "%s" declared on "%s" not found.', $listenerName, $className));
     }
 
     /**
@@ -714,7 +714,7 @@ class MappingException extends \Doctrine\ORM\ORMException
      */
     public static function entityListenerMethodNotFound($listenerName, $methodName, $className)
     {
-        return new self(sprintf('Entity Listener "%s" declared on "%s" has no method "%s".', $listenerName, $className, $methodName));
+        return new self(sprintf('MappedSuperclassBase Listener "%s" declared on "%s" has no method "%s".', $listenerName, $className, $methodName));
     }
 
     /**
@@ -726,7 +726,7 @@ class MappingException extends \Doctrine\ORM\ORMException
      */
     public static function duplicateEntityListener($listenerName, $methodName, $className)
     {
-        return new self(sprintf('Entity Listener "%s#%s()" in "%s" was already declared, but it must be declared only once.', $listenerName, $methodName, $className));
+        return new self(sprintf('MappedSuperclassBase Listener "%s#%s()" in "%s" was already declared, but it must be declared only once.', $listenerName, $methodName, $className));
     }
 
     /**
@@ -737,7 +737,7 @@ class MappingException extends \Doctrine\ORM\ORMException
      */
     public static function invalidFetchMode($className, $annotation)
     {
-        return new self("Entity '" . $className . "' has a mapping with invalid fetch mode '" . $annotation . "'");
+        return new self("MappedSuperclassBase '" . $className . "' has a mapping with invalid fetch mode '" . $annotation . "'");
     }
 
     /**
@@ -747,7 +747,7 @@ class MappingException extends \Doctrine\ORM\ORMException
      */
     public static function compositeKeyAssignedIdGeneratorRequired($className)
     {
-        return new self("Entity '". $className . "' has a composite identifier but uses an ID generator other than manually assigning (Identity, Sequence). This is not supported.");
+        return new self("MappedSuperclassBase '". $className . "' has a composite identifier but uses an ID generator other than manually assigning (Identity, Sequence). This is not supported.");
     }
 
     /**

@@ -57,7 +57,7 @@ class CacheException extends ORMException
      */
     public static function nonCacheableEntity($entityName)
     {
-        return new self(sprintf('Entity "%s" not configured as part of the second-level cache.', $entityName));
+        return new self(sprintf('MappedSuperclassBase "%s" not configured as part of the second-level cache.', $entityName));
     }
 
     /**
@@ -67,6 +67,6 @@ class CacheException extends ORMException
      */
     public static function nonCacheableEntityAssociation($entityName, $field)
     {
-        return new self(sprintf('Entity association field "%s#%s" not configured as part of the second-level cache.', $entityName, $field));
+        return new self(sprintf('MappedSuperclassBase association field "%s#%s" not configured as part of the second-level cache.', $entityName, $field));
     }
 }

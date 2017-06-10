@@ -228,7 +228,7 @@ interface EntityManagerInterface extends ObjectManager
     public function getConfiguration();
 
     /**
-     * Check if the Entity manager is open or closed.
+     * Check if the MappedSuperClassBase manager is open or closed.
      *
      * @return bool
      */
@@ -288,7 +288,7 @@ interface EntityManagerInterface extends ObjectManager
     public function isFiltersStateClean();
 
     /**
-     * Checks whether the Entity Manager has filters.
+     * Checks whether the MappedSuperClassBase Manager has filters.
      *
      * @return boolean True, if the EM has a filter collection.
      */

@@ -359,7 +359,7 @@ class ClassMetadataInfo implements ClassMetadata
      * The mapping definition array has the following values:
      *
      * - <b>fieldName</b> (string)
-     * The name of the field in the Entity.
+     * The name of the field in the MappedSuperclassBase.
      *
      * - <b>type</b> (string)
      * The type name of the mapped field. Can be one of Doctrine's mapping types
@@ -2585,7 +2585,7 @@ class ClassMetadataInfo implements ClassMetadata
      * @deprecated Deprecated since version 2.4 in favor of \Doctrine\ORM\Event\ListenersInvoker
      *
      * @param string $lifecycleEvent The lifecycle event.
-     * @param object $entity         The Entity on which the event occurred.
+     * @param object $entity         The MappedSuperclassBase on which the event occurred.
      *
      * @return void
      */

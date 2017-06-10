@@ -1039,7 +1039,7 @@ public function __construct(<params>)
             ? '(repositoryClass="' . $metadata->customRepositoryClassName . '")'
             : '';
 
-        return $prefix . ($metadata->isMappedSuperclass ? 'MappedSuperclass' : 'Entity') . $customRepository;
+        return $prefix . ($metadata->isMappedSuperclass ? 'MappedSuperclass' : 'MappedSuperclassBase') . $customRepository;
     }
 
     /**

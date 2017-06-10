@@ -51,7 +51,7 @@ class CollectionRegionCommand extends Command
 
 
         $this->setHelp(<<<EOT
-The <info>%command.name%</info> command is meant to clear a second-level cache collection regions for an associated Entity Manager.
+The <info>%command.name%</info> command is meant to clear a second-level cache collection regions for an associated MappedSuperClassBase Manager.
 It is possible to delete/invalidate all collection region, a specific collection region or flushes the cache provider.
 
 The execution type differ on how you execute the command.

@@ -393,7 +393,7 @@ class ResultSetMappingBuilder extends ResultSetMapping
                     }
                 } else {
                     if(!isset($classMetadata->fieldMappings[$fieldName])) {
-                        throw new \InvalidArgumentException("Entity '".$classMetadata->name."' has no field '".$fieldName."'. ");
+                        throw new \InvalidArgumentException("MappedSuperclassBase '".$classMetadata->name."' has no field '".$fieldName."'. ");
                     }
                     $this->addFieldResult($alias, $field['column'], $fieldName, $classMetadata->name);
                 }

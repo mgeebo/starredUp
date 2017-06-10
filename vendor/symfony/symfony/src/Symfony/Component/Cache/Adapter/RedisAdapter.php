@@ -36,7 +36,7 @@ class RedisAdapter extends AbstractAdapter
     /**
      * @param \Redis|\RedisArray|\RedisCluster|\Predis\Client $redisClient     The redis client
      * @param string                                          $namespace       The default namespace
-     * @param integer                                         $defaultLifetime The default lifetime
+     * @param int                                             $defaultLifetime The default lifetime
      */
     public function __construct($redisClient, $namespace = '', $defaultLifetime = 0)
     {
@@ -302,6 +302,14 @@ class RedisAdapter extends AbstractAdapter
             }
             foreach ($results as $k => list($h, $c)) {
                 $results[$k] = $connections[$h][$c];
+            }
+        } elseif ($this->redis instanceof \RedisCluster) {
+            // phpredis doesn't support pipelining with RedisCluster
+            // see https://github.com/phpredis/phpredis/blob/develop/cluster.markdown#pipelining
+            $results = array();
+            foreach ($generator() as $command => $args) {
+                $results[] = call_user_func_array(array($this->redis, $command), $args);
+                $ids[] = $args[0];
             }
         } else {
             $this->redis->multi(\Redis::PIPELINE);

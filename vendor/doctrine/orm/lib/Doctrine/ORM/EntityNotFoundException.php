@@ -20,7 +20,7 @@
 namespace Doctrine\ORM;
 
 /**
- * Exception thrown when a Proxy fails to retrieve an Entity result.
+ * Exception thrown when a Proxy fails to retrieve an MappedSuperclassBase result.
  *
  * @author robo
  * @since 2.0
@@ -45,7 +45,7 @@ class EntityNotFoundException extends ORMException
 
 
         return new self(
-            'Entity of type \'' . $className . '\'' . ($ids ? ' for IDs ' . implode(', ', $ids) : '') . ' was not found'
+            'MappedSuperclassBase of type \'' . $className . '\'' . ($ids ? ' for IDs ' . implode(', ', $ids) : '') . ' was not found'
         );
     }
 }

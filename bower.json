@@ -4,6 +4,18 @@
   "dependencies": {
     "bootstrap": "*",
     "angular": "*"
-  }
+  },
 
+  "install": {
+    "base":  "web",
+    "path": {
+      "js": "{name}/js",
+      "css": "{name}/css",
+      "less": "{name}/css",
+      "eot": "{name}/fonts",
+      "svg": "{name}/fonts",
+      "ttf": "{name}/fonts",
+      "woff": "{name}/fonts"
+    }
+  }
 }

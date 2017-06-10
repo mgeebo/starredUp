@@ -270,7 +270,7 @@ class UnitOfWork implements PropertyChangedListener
     private $readOnlyObjects = array();
 
     /**
-     * Map of Entity Class-Names and corresponding IDs that should eager loaded when requested.
+     * Map of MappedSuperclassBase Class-Names and corresponding IDs that should eager loaded when requested.
      *
      * @var array
      */
@@ -400,7 +400,7 @@ class UnitOfWork implements PropertyChangedListener
                 $this->getCollectionPersister($collectionToUpdate->getMapping())->update($collectionToUpdate);
             }
 
-            // Entity deletions come last and need to be in reverse commit order
+            // MappedSuperclassBase deletions come last and need to be in reverse commit order
             if ($this->entityDeletions) {
                 for ($count = count($commitOrder), $i = $count - 1; $i >= 0 && $this->entityDeletions; --$i) {
                     $this->executeDeletions($commitOrder[$i]);
@@ -472,7 +472,7 @@ class UnitOfWork implements PropertyChangedListener
         $state = $this->getEntityState($entity);
 
         if ($state !== self::STATE_MANAGED && $state !== self::STATE_REMOVED) {
-            throw new \InvalidArgumentException("Entity has to be managed or scheduled for removal for single computation " . self::objToStr($entity));
+            throw new \InvalidArgumentException("MappedSuperclassBase has to be managed or scheduled for removal for single computation " . self::objToStr($entity));
         }
 
         $class = $this->em->getClassMetadata(get_class($entity));
@@ -627,7 +627,7 @@ class UnitOfWork implements PropertyChangedListener
         }
 
         if ( ! isset($this->originalEntityData[$oid])) {
-            // Entity is either NEW or MANAGED but not yet fully persisted (only has an id).
+            // MappedSuperclassBase is either NEW or MANAGED but not yet fully persisted (only has an id).
             // These result in an INSERT.
             $this->originalEntityData[$oid] = $actualData;
             $changeSet = array();
@@ -648,7 +648,7 @@ class UnitOfWork implements PropertyChangedListener
 
             $this->entityChangeSets[$oid] = $changeSet;
         } else {
-            // Entity is "fully" MANAGED: it was already fully persisted before
+            // MappedSuperclassBase is "fully" MANAGED: it was already fully persisted before
             // and we have a copy of the original data
             $originalData           = $this->originalEntityData[$oid];
             $isChangeTrackingNotify = $class->isChangeTrackingNotify();
@@ -1100,7 +1100,7 @@ class UnitOfWork implements PropertyChangedListener
                 $this->entityStates[$oid]
             );
 
-            // Entity with this $oid after deletion treated as NEW, even if the $oid
+            // MappedSuperclassBase with this $oid after deletion treated as NEW, even if the $oid
             // is obtained by a new entity because the old one went out of scope.
             //$this->entityStates[$oid] = self::STATE_NEW;
             if ( ! $class->isIdentifierNatural()) {
@@ -1680,7 +1680,7 @@ class UnitOfWork implements PropertyChangedListener
                 break;
 
             case self::STATE_REMOVED:
-                // Entity becomes managed again
+                // MappedSuperclassBase becomes managed again
                 unset($this->entityDeletions[$oid]);
                 $this->addToIdentityMap($entity);
 
@@ -3002,9 +3002,9 @@ class UnitOfWork implements PropertyChangedListener
     }
 
     /**
-     * Gets the EntityPersister for an Entity.
+     * Gets the EntityPersister for an MappedSuperclassBase.
      *
-     * @param string $entityName The name of the Entity.
+     * @param string $entityName The name of the MappedSuperclassBase.
      *
      * @return \Doctrine\ORM\Persisters\Entity\EntityPersister
      */

@@ -89,7 +89,7 @@ class DebugUnitOfWorkListener
             fwrite($fh, "Class: ". $className . "\n");
 
             foreach ($map as $entity) {
-                fwrite($fh, " Entity: " . $this->getIdString($entity, $uow) . " " . spl_object_hash($entity)."\n");
+                fwrite($fh, " MappedSuperClassBase: " . $this->getIdString($entity, $uow) . " " . spl_object_hash($entity)."\n");
                 fwrite($fh, "  Associations:\n");
 
                 $cm = $em->getClassMetadata($className);
