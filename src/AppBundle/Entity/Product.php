@@ -26,14 +26,14 @@ class Product
     /**
      * @var string
      *
-     * @ORM\Column(name="product_name", type="string", length=50)
+     * @ORM\Column(name="product_name", type="string", length=255)
      */
     private $productName;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="product_description", type="string", length=255, nullable=true)
+     * @ORM\Column(name="product_description", type="text", nullable=true)
      */
     private $productDescription;
 
@@ -45,6 +45,13 @@ class Product
     private $productRating;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="review_count", type="integer")
+     */
+    private $reviewCount;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="product_manufacturer", type="string", length=50, nullable=true)
@@ -54,9 +61,9 @@ class Product
     /**
      * @var string
      *
-     * @ORM\Column(name="product_sku", type="string", length=255, unique=true)
+     * @ORM\Column(name="upc", type="string", length=12, unique=true)
      */
-    private $productSku;
+    private $upc;
 
     /**
      * @var string
@@ -174,25 +181,25 @@ class Product
     /**
      * Set productSku
      *
-     * @param string $productSku
+     * @param string $upc
      *
      * @return Products
      */
-    public function setProductSku($productSku)
+    public function setUpc($upc)
     {
-        $this->productSku = $productSku;
+        $this->upc = $upc;
 
         return $this;
     }
 
     /**
-     * Get productSku
+     * Get upc
      *
      * @return string
      */
-    public function getProductSku()
+    public function getUpc()
     {
-        return $this->productSku;
+        return $this->upc;
     }
 
     /**
@@ -217,6 +224,29 @@ class Product
     public function getProductImage()
     {
         return $this->productImage;
+    }
+
+    /**
+     * Get reviewCount
+     * @return int
+     */
+    public function getReviewCount()
+    {
+        return $this->reviewCount;
+    }
+
+    /**
+     * Set reviewCount
+     *
+     * @param int $reviewCount
+     *
+     * return $this
+     */
+    public function setReviewCount($reviewCount)
+    {
+        $this->reviewCount = $reviewCount;
+
+        return $this;
     }
 }
 
