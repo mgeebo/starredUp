@@ -7,12 +7,13 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ExternalProviderRawData
  *
- * @ORM\Table(name="external_provider_raw_data")
+ * @ORM\Table(name="external_provider_raw_data",indexes={@ORM\Index(name="product", columns={"external_provider_id", "upc"})})
  * @ORM\Entity
  */
 class ExternalProviderRawData
 {
     use BaseTrait;
+
     /**
      * @var int
      *
@@ -20,7 +21,7 @@ class ExternalProviderRawData
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    private $externalRawDataId;
 
     /**
      * @var int
@@ -32,32 +33,25 @@ class ExternalProviderRawData
     /**
      * @var string
      *
-     * @ORM\Column(name="external_provider_data", type="string", length=255)
+     * @ORM\Column(name="external_provider_data", type="text")
      */
     private $externalProviderData;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="upc", type="string", length=12, unique=true)
+     */
+    private $upc;
 
     /**
      * Get id
      *
      * @return int
      */
-    public function getId()
+    public function getExternalRawDataId()
     {
-        return $this->id;
-    }
-
-    /**
-     * Set externalProviderId
-     *
-     * @param integer $externalProviderId
-     *
-     * @return ExternalProviderRawData
-     */
-    public function setExternalProviderId($externalProviderId)
-    {
-        $this->externalProviderId = $externalProviderId;
-
-        return $this;
+        return $this->externalRawDataId;
     }
 
     /**
@@ -71,11 +65,25 @@ class ExternalProviderRawData
     }
 
     /**
+     * Set externalProviderId
+     *
+     * @param string $externalProviderId
+     *
+     * @return string
+     */
+    public function setExternalProviderId($externalProviderId)
+    {
+        $this->externalProviderId = $externalProviderId;
+
+        return $this;
+    }
+
+    /**
      * Set externalProviderData
      *
      * @param string $externalProviderData
      *
-     * @return ExternalProviderRawData
+     * @return $this
      */
     public function setExternalProviderData($externalProviderData)
     {
@@ -94,5 +102,27 @@ class ExternalProviderRawData
         return $this->externalProviderData;
     }
 
+    /**
+     * set upc
+     *
+     * @param string $upc
+     *
+     * @return $this
+     */
+    public function setUpc($upc)
+    {
+        $this->upc = $upc;
+
+        return $this;
+    }
+
+    /**
+     * get upc
+     * @return stromg
+     */
+    public function getUpc()
+    {
+        return $this->upc;
+    }
 }
 

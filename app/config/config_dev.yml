@@ -32,3 +32,7 @@ monolog:
 
 #swiftmailer:
 #    delivery_addresses: ['me@example.com']
+framework:
+    cache:
+        app: cache.adapter.redis
+        default_redis_provider: "redis://localhost"

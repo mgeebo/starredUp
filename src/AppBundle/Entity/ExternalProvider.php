@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table(name="external_providers")
  */
-class ExternalProviders
+class ExternalProvider
 {
     use BaseTrait;
 
