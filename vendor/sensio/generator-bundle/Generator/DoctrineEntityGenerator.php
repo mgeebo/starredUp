@@ -53,18 +53,18 @@ class DoctrineEntityGenerator extends Generator
         // configure the bundle (needed if the bundle does not contain any Entities yet)
         $config = $this->registry->getManager(null)->getConfiguration();
         $config->setEntityNamespaces(array_merge(
-            array($bundle->getName() => $bundle->getNamespace().'\\MappedSuperclassBase'),
+            array($bundle->getName() => $bundle->getNamespace().'\\Entity'),
             $config->getEntityNamespaces()
         ));
 
         $entityClass = $this->registry->getAliasNamespace($bundle->getName()).'\\'.$entity;
-        $entityPath = $bundle->getPath().'/MappedSuperclassBase/'.str_replace('\\', '/', $entity).'.php';
+        $entityPath = $bundle->getPath().'/Entity/'.str_replace('\\', '/', $entity).'.php';
         if (file_exists($entityPath)) {
-            throw new \RuntimeException(sprintf('MappedSuperclassBase "%s" already exists.', $entityClass));
+            throw new \RuntimeException(sprintf('Entity "%s" already exists.', $entityClass));
         }
 
         $class = new ClassMetadataInfo($entityClass, $config->getNamingStrategy());
-        $class->customRepositoryClassName = str_replace('\\MappedSuperclassBase\\', '\\Repository\\', $entityClass).'Repository';
+        $class->customRepositoryClassName = str_replace('\\Entity\\', '\\Repository\\', $entityClass).'Repository';
         $class->mapField(array('fieldName' => 'id', 'type' => 'integer', 'id' => true));
         $class->setIdGeneratorType(ClassMetadataInfo::GENERATOR_TYPE_AUTO);
         foreach ($fields as $field) {

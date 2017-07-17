@@ -23,14 +23,18 @@ class ExternalDataProviderController extends Controller
      * @Route("/add/product")
      * @Method({"POST"})
      */
-    public function postProducts(Request $request)
+    public function postProductsAndReviews(Request $request)
     {
         $productIds = $request->request->get('productId');
+        // remove any whitespace
+        $productIds = preg_replace('/\s+/', '', $productIds);
 
         $em = $this->get('doctrine')->getEntityManager();
         $walmart = new Walmart($em);
-        $success = $walmart->consume($productIds);
+        $success = $walmart->consume(trim($productIds));
 
         return new Response((string)$success);
     }
+
+
 }
