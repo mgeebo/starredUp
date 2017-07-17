@@ -79,7 +79,7 @@ EOT
         $format = Validators::validateFormat($input->getOption('format'));
         $fields = $this->parseFields($input->getOption('fields'));
 
-        $questionHelper->writeSection($output, 'MappedSuperclassBase generation');
+        $questionHelper->writeSection($output, 'Entity generation');
 
         $bundle = $this->getContainer()->get('kernel')->getBundle($bundle);
 
@@ -123,7 +123,7 @@ EOT
         $bundleNames = array_keys($this->getContainer()->get('kernel')->getBundles());
 
         while (true) {
-            $question = new Question($questionHelper->getQuestion('The MappedSuperclassBase shortcut name', $input->getOption('entity')), $input->getOption('entity'));
+            $question = new Question($questionHelper->getQuestion('The Entity shortcut name', $input->getOption('entity')), $input->getOption('entity'));
             $question->setValidator(array('Sensio\Bundle\GeneratorBundle\Command\Validators', 'validateEntityName'));
             $question->setAutocompleterValues($bundleNames);
             $entity = $questionHelper->ask($input, $output, $question);
@@ -139,11 +139,11 @@ EOT
             try {
                 $b = $this->getContainer()->get('kernel')->getBundle($bundle);
 
-                if (!file_exists($b->getPath().'/MappedSuperclassBase/'.str_replace('\\', '/', $entity).'.php')) {
+                if (!file_exists($b->getPath().'/Entity/'.str_replace('\\', '/', $entity).'.php')) {
                     break;
                 }
 
-                $output->writeln(sprintf('<bg=red>MappedSuperclassBase "%s:%s" already exists</>.', $bundle, $entity));
+                $output->writeln(sprintf('<bg=red>Entity "%s:%s" already exists</>.', $bundle, $entity));
             } catch (\Exception $e) {
                 $output->writeln(sprintf('<bg=red>Bundle "%s" does not exist.</>', $bundle));
             }

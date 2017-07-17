@@ -109,7 +109,7 @@ EOT
             $entityClass = $this->getContainer()->get('doctrine')->getAliasNamespace($bundle).'\\'.$entity;
             $metadata = $this->getEntityMetadata($entityClass);
         } catch (\Exception $e) {
-            throw new \RuntimeException(sprintf('MappedSuperclassBase "%s" does not exist in the "%s" bundle. Create it with the "doctrine:generate:entity" command and then execute this command again.', $entity, $bundle));
+            throw new \RuntimeException(sprintf('Entity "%s" does not exist in the "%s" bundle. Create it with the "doctrine:generate:entity" command and then execute this command again.', $entity, $bundle));
         }
 
         $bundle = $this->getContainer()->get('kernel')->getBundle($bundle);
@@ -158,7 +158,7 @@ EOT
             $input->setOption('entity', $input->getArgument('entity'));
         }
 
-        $question = new Question($questionHelper->getQuestion('The MappedSuperclassBase shortcut name', $input->getOption('entity')), $input->getOption('entity'));
+        $question = new Question($questionHelper->getQuestion('The Entity shortcut name', $input->getOption('entity')), $input->getOption('entity'));
         $question->setValidator(array('Sensio\Bundle\GeneratorBundle\Command\Validators', 'validateEntityName'));
 
         $autocompleter = new EntitiesAutoCompleter($this->getContainer()->get('doctrine')->getManager());
@@ -173,7 +173,7 @@ EOT
             $entityClass = $this->getContainer()->get('doctrine')->getAliasNamespace($bundle).'\\'.$entity;
             $metadata = $this->getEntityMetadata($entityClass);
         } catch (\Exception $e) {
-            throw new \RuntimeException(sprintf('MappedSuperclassBase "%s" does not exist in the "%s" bundle. You may have mistyped the bundle name or maybe the entity doesn\'t exist yet (create it first with the "doctrine:generate:entity" command).', $entity, $bundle));
+            throw new \RuntimeException(sprintf('Entity "%s" does not exist in the "%s" bundle. You may have mistyped the bundle name or maybe the entity doesn\'t exist yet (create it first with the "doctrine:generate:entity" command).', $entity, $bundle));
         }
 
         // write?

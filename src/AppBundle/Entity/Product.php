@@ -111,7 +111,7 @@ class Product
      *
      * @param string $productDescription
      *
-     * @return Products
+     * @return string
      */
     public function setProductDescription($productDescription)
     {
@@ -135,7 +135,7 @@ class Product
      *
      * @param float $productRating
      *
-     * @return Products
+     * @return string
      */
     public function setProductRating($productRating)
     {
@@ -159,7 +159,7 @@ class Product
      *
      * @param string $productManufacturer
      *
-     * @return Products
+     * @return string
      */
     public function setProductManufacturer($productManufacturer)
     {
@@ -183,7 +183,7 @@ class Product
      *
      * @param string $upc
      *
-     * @return Products
+     * @return string
      */
     public function setUpc($upc)
     {
