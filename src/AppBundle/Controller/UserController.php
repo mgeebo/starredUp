@@ -6,7 +6,7 @@
  * Time: 9:10 PM
  */
 
-namespace AppBundle\Controller\Backend;
+namespace AppBundle\Controller;
 
 
 class UserController
