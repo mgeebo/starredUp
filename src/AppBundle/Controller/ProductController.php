@@ -2,20 +2,43 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Product;
+use Doctrine\ORM\EntityManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Doctrine\ORM\Mapping\Annotation;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\DependencyInjection\Container;
+use Swagger\Annotations as SWG;
 
-class ProductController extends Controller
+/**
+ * @SWG\Path(
+ *   path="/products"
+ * )
+ */
+class ProductController extends ApiController
 {
-    /**
-     * @Route("/test/add")
-     * @Method({"POST"})
-     */
-    public function addProduct(Request $request) {
-            return new Response("Awww yes");
+    protected $em;
+
+    public function __construct() {
     }
+
+    /**
+    * @SWG\Get(
+    *     path="/products/{product_id}",
+    *     @SWG\Response(response="200", description="Success")
+    * )
+    *
+    * @Route("/products/{id}")
+    * @Method({"GET"})
+    */
+    public function getProduct($id)
+    {
+
+        return new Response("Product");
+    }
+
+
 
 }
