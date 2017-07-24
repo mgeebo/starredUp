@@ -58,9 +58,9 @@ class User
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="DOB", type="date")
+     * @ORM\Column(name="dob", type="date")
      */
-    private $dOB;
+    private $dob;
 
     /**
      * @var bool
@@ -201,27 +201,27 @@ class User
     }
 
     /**
-     * Set dOB
+     * Set dob
      *
-     * @param \DateTime $dOB
+     * @param \DateTime $dob
      *
      * @return User
      */
-    public function setDOB($dOB)
+    public function setDOB($dob)
     {
-        $this->dOB = $dOB;
+        $this->dob = $dob;
 
         return $this;
     }
 
     /**
-     * Get dOB
+     * Get dob
      *
      * @return \DateTime
      */
     public function getDOB()
     {
-        return $this->dOB;
+        return $this->dob;
     }
 
     /**
