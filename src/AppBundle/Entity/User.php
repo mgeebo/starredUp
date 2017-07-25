@@ -5,12 +5,15 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ *  Users
+ *
  * @ORM\Entity
  * @ORM\Table(name="users")
  */
 class User
 {
     use BaseTrait;
+
     /**
      * @var int
      *
@@ -18,7 +21,7 @@ class User
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    private $userId;
 
     /**
      * @var string
@@ -75,9 +78,9 @@ class User
      *
      * @return int
      */
-    public function getId()
+    public function getUserId()
     {
-        return $this->id;
+        return $this->userId;
     }
 
     /**
