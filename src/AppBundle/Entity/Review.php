@@ -7,12 +7,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Reviews
+ * Review
  *
  * @ORM\Table(name="reviews")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ReviewsRepository")
  */
-class Reviews
+class Review
 {
     //<editor-fold desc="Variables">
 
