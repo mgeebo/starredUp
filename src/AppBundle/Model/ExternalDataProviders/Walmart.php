@@ -40,7 +40,6 @@ class Walmart implements ConsumeRawData
     CONST HEADERS = ['Accept' => 'application/json'];
 
     protected $em;
-    protected $serializer;
 
     public function __construct(EntityManager $em)
     {
