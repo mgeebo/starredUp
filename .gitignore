@@ -16,4 +16,4 @@
 /vendor/*
 composer.lock
 !/vendor/autoload.php
-!/vendor/composer/
+/vendor/
