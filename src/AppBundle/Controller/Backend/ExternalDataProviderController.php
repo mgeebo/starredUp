@@ -18,7 +18,6 @@ use Doctrine\ORM\ORMException;
 
 class ExternalDataProviderController extends Controller
 {
-
     /**
      * @Route("/add/product")
      * @Method({"POST"})
@@ -32,7 +31,6 @@ class ExternalDataProviderController extends Controller
         $em = $this->get('doctrine')->getEntityManager();
         $walmart = new Walmart($em);
         $success = $walmart->consume(trim($productIds));
-
         return new Response((string)$success);
     }
 

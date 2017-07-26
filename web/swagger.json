@@ -20,8 +20,39 @@
                 }
             }
         },
-        "/products/{product_id}": {
+        "/products/{productId}": {
             "get": {
+                "summary": "Get a single product",
+                "parameters": [
+                    {
+                        "name": "productId",
+                        "in": "path",
+                        "description": "Get a product from a product id",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Product JSON array"
+                    },
+                    "default": {
+                        "description": "unexpected error"
+                    }
+                }
+            }
+        },
+        "/products/{product_id}": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/products/{product_id}/remove": {
+            "post": {
                 "responses": {
                     "200": {
                         "description": "Success"
@@ -37,226 +68,7 @@
                     }
                 }
             }
-        },
-        "api/3rd-party": {
-            "get": {
-                "responses": {
-                    "200": {
-                        "description": "a response"
-                    }
-                }
-            }
-        },
-        "api/test1": {
-            "get": {
-                "summary": "Example summary",
-                "description": "Example description...\nMore description...",
-                "responses": {
-                    "200": {
-                        "description": "a response"
-                    }
-                }
-            }
-        },
-        "api/test2": {
-            "get": {
-                "summary": "Example summary",
-                "responses": {
-                    "200": {
-                        "description": "a response"
-                    }
-                }
-            }
-        },
-        "/pi/{item_name}": {
-            "get": {
-                "summary": "Get protected item",
-                "parameters": [
-                    {
-                        "$ref": "#/parameters/ItemName"
-                    }
-                ],
-                "responses": {
-                    "default": {
-                        "$ref": "#/responses/Item"
-                    }
-                }
-            }
-        },
-        "/users/{id}": {
-            "put": {
-                "tags": [
-                    "users"
-                ],
-                "summary": "Update user entry",
-                "operationId": "updateUser",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "UUID",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "name": "user",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/User"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "success"
-                    },
-                    "default": {
-                        "description": "error",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "tags": [
-                    "users"
-                ],
-                "summary": "Remove user entry",
-                "operationId": "deleteUser",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "UUID",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "success"
-                    },
-                    "default": {
-                        "description": "error",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
-                        }
-                    }
-                }
-            },
-            "options": {
-                "responses": {
-                    "200": {
-                        "description": "Some CORS stuff"
-                    }
-                }
-            },
-            "head": {
-                "responses": {
-                    "200": {
-                        "description": "Only checking if it exists"
-                    }
-                }
-            }
         }
     },
-    "definitions": {
-        "Child": {
-            "properties": {
-                "isBaby": {
-                    "type": "boolean"
-                },
-                "firstname": {
-                    "type": "string"
-                },
-                "lastname": {
-                    "type": "string"
-                }
-            }
-        },
-        "ChildWithDocBlocks": {
-            "properties": {
-                "isBaby": {
-                    "type": "boolean"
-                },
-                "firstname": {
-                    "type": "string"
-                },
-                "lastname": {
-                    "type": "string"
-                }
-            }
-        },
-        "Customer": {
-            "properties": {
-                "firstname": {
-                    "description": "The firstname of the customer.",
-                    "type": "string"
-                },
-                "lastname": {
-                    "description": "The lastname of the customer.",
-                    "type": "string"
-                },
-                "tags": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "submittedBy": {
-                    "$ref": "#/definitions/Customer"
-                },
-                "friends": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/Customer"
-                    }
-                }
-            }
-        },
-        "Hello": {
-            "properties": {
-                "greet": {}
-            }
-        },
-        "NestedProperty": {
-            "properties": {
-                "parentProperty": {
-                    "properties": {
-                        "babyProperty": {
-                            "properties": {
-                                "theBabyOfBaby": {
-                                    "properties": {
-                                        "theBabyOfBabyBaby": {
-                                            "type": "string"
-                                        }
-                                    },
-                                    "type": "boolean"
-                                }
-                            },
-                            "type": "boolean"
-                        }
-                    },
-                    "type": "boolean"
-                }
-            }
-        }
-    },
-    "parameters": {
-        "ItemName": {
-            "name": "ItemName",
-            "in": "path",
-            "description": "protected item name",
-            "required": true,
-            "type": "string",
-            "maxLength": 256
-        }
-    },
-    "responses": {
-        "Item": {
-            "description": "A protected item"
-        }
-    }
+    "definitions": {}
 }
