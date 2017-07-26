@@ -21,6 +21,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use AppBundle\Service\ExternalProviderService;
 use Monolog\Logger;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 use Unirest;
 
 
@@ -37,6 +40,7 @@ class Walmart implements ConsumeRawData
     CONST HEADERS = ['Accept' => 'application/json'];
 
     protected $em;
+    protected $serializer;
 
     public function __construct(EntityManager $em)
     {
@@ -63,6 +67,7 @@ class Walmart implements ConsumeRawData
         $provider = $repository->findOneByProviderName(self::NAME);
 
         $walmartItemIds = [];
+
         foreach($itemIds as $itemId) {
             // first call to get item by UPC
             $upcData = ['format' => self::FORMAT, 'apiKey' => $provider->getProviderKey(), 'upc' => $itemId];
@@ -70,7 +75,6 @@ class Walmart implements ConsumeRawData
             // now we have the Walmart product id's
             array_push($walmartItemIds, $upcResponse->body->items[0]->itemId);
         }
-
         $walmartItemIds = implode(',', $walmartItemIds);
         // get items by Walmart product id's
         $itemData = ['format' => self::FORMAT, 'apiKey' => $provider->getProviderKey(), 'ids' => $walmartItemIds];
@@ -79,9 +83,8 @@ class Walmart implements ConsumeRawData
         if (!$raw_data = $this->saveRawData(self::NAME, $items)) {
             return false;
         }
-        $this->processData($raw_data);
 
-        return true;
+        return $this->processData($raw_data);
     }
 
 
@@ -103,24 +106,24 @@ class Walmart implements ConsumeRawData
                             ->findOneBy(['externalProviderId' => $extProId, 'upc' => $d->upc]);
                     $rd = new ExternalProviderProductRawData();
                     if (!is_null($productExists)) {
-                        $rd->setId($productExists)
+                        $rd->setId($extProId)
                             ->setExternalProviderData(json_encode($d));
                         $this->em->persist($rd);
-                        $rawData[$k]['updated'] = $d;
+                        $rawData[$k] = $d;
                     } else {
                         $rd->setExternalProviderId($extProId)
                             ->setExternalProviderData(json_encode($d))
                             ->setUpc($d->upc);
                         // tells Doctrine you want to (eventually) save the Product
                         $this->em->persist($rd);
-                        $rawData[$k]['added'] = $d;
+                        $rawData[$k] = $d;
                     }
                 }
             }
         } else {
             return false;
         }
-        die(dump($rawData));
+
         return $rawData;
     }
 
@@ -137,7 +140,7 @@ class Walmart implements ConsumeRawData
         foreach ($data as $d) {
             $product = new Product();
             $product->setProductName($d->name)
-                ->setProductDescription($d->longDescription)
+                ->setProductDescription(json_encode($d->longDescription))
                 ->setProductRating($d->customerRating)
                 ->setReviewCount($d->numReviews)
                 ->setProductManufacturer($d->brandName)
@@ -159,7 +162,7 @@ class Walmart implements ConsumeRawData
             }
         }
 
-        return "";
+        return true;
     }
 
     public function processReviews()

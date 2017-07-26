@@ -4,10 +4,9 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Product;
 use Doctrine\ORM\EntityManager;
-use Psr\Log\LoggerInterface;
+use Doctrine\ORM\EntityRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Doctrine\ORM\Mapping\Annotation;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,26 +27,59 @@ class ProductController extends ApiController
 {
     /**
     * @SWG\Get(
-    *     path="/products/{product_id}",
-    *     @SWG\Response(response="200", description="Success")
-    * )
-    *
+    *     path="/products/{productId}",
+    *     summary="Get a single product",
+    *     @SWG\Parameter(
+    *       name="productId",
+    *       in="path",
+    *       description="Get a product from a product id",
+    *       required=true,
+    *       type="integer"
+    *     ),
+    *     @SWG\Response(response="200",
+    *       description="Product JSON array",
+    *     ),
+    *     @SWG\Response(
+    *       response="default",
+    *       description="unexpected error",
+    *     )
+    *   )
     * @Route("/products/{id}")
     * @Method({"GET"})
     */
     public function getProduct($id)
     {
-        $this->em = $this->container->get('doctrine');
-        $products = $this->em->getRepository('AppBundle:Product');
-        $result = $products->find($id);
+        $em = $this->getDoctrine();
+        $product = $em->getRepository('AppBundle:Product')
+            ->findByProductId($id);
 
-        $encoders = [new JsonEncoder()];
-        $normalizers = array(new ObjectNormalizer());
+        $jsonContent = $this->serializer->serialize($product[0], 'json');
+        return new Response(htmlentities($jsonContent));
+    }
 
-        $serializer = new Serializer($normalizers, $encoders);
+    /**
+     * @SWG\Post(
+     *     path="/products/{product_id}",
+     *     @SWG\Response(response="200", description="Success")
+     * )
+     *
+     * @Route("/products/{id}")
+     * @Method({"POST"})
+     */
+    public function addProduct() {
 
-        $jsonContent = $serializer->serialize($result, 'json');
-        return new JsonResponse($jsonContent);
+    }
+    /**
+     * @SWG\Post(
+     *     path="/products/{product_id}/remove",
+     *     @SWG\Response(response="200", description="Success")
+     * )
+     *
+     * @Route("/products/{id}/remove")
+     * @Method({"POST"})
+     */
+    public function removeProduct() {
+
     }
 
 
