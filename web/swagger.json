@@ -22,40 +22,125 @@
         },
         "/products/{productId}": {
             "get": {
-                "summary": "Get a single product",
+                "tags": [
+                    "product"
+                ],
+                "summary": "Get a single product by ID",
+                "description": "Return JSON object of a single product",
+                "operationId": "getProduct",
+                "produces": [
+                    "application/json"
+                ],
                 "parameters": [
                     {
                         "name": "productId",
                         "in": "path",
-                        "description": "Get a product from a product id",
+                        "description": "Product ID of the desired product",
                         "required": true,
                         "type": "integer"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Product JSON array"
+                        "description": "Success => [product => {product}]"
                     },
-                    "default": {
-                        "description": "unexpected error"
+                    "404": {
+                        "description": "No product found"
                     }
                 }
             }
         },
-        "/products/{product_id}": {
+        "/products/add": {
             "post": {
+                "tags": [
+                    "product"
+                ],
+                "summary": "Save or Update a single product with a payload",
+                "description": "Return JSON with the effected product ID",
+                "operationId": "addProduct",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "productId",
+                        "in": "body",
+                        "description": "The product ID, only needed if updating",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "productName",
+                        "in": "body",
+                        "description": "The product name",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "productDescription",
+                        "in": "body",
+                        "description": "A short or long description of the product",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "productManufacturer",
+                        "in": "body",
+                        "description": "The manufacurer of the product",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "upc",
+                        "in": "body",
+                        "description": "The product UPC",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "isActive",
+                        "in": "body",
+                        "description": "If the product is active, only needed if updating an inactive product",
+                        "required": false,
+                        "type": "integer"
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "Success"
+                        "description": "Success => [productId => {productId}]"
+                    },
+                    "404": {
+                        "description": "No product found for id {productId}"
                     }
                 }
             }
         },
         "/products/{product_id}/remove": {
             "post": {
+                "tags": [
+                    "product"
+                ],
+                "summary": "Deactivate a product",
+                "description": "Return JSON object of the effected product and isActive status",
+                "operationId": "removeProduct",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "productId",
+                        "in": "path",
+                        "description": "The product ID of the product to be deactivated",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "Success"
+                        "description": "Success => [productId => {productId}, isActive => {isActive}]"
+                    },
+                    "400": {
+                        "description": "Product has already been removed"
                     }
                 }
             }

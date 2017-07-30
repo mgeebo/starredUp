@@ -40,14 +40,14 @@ class Product
     /**
      * @var float
      *
-     * @ORM\Column(name="product_rating", type="float")
+     * @ORM\Column(name="product_rating", type="float", nullable=true)
      */
     private $productRating;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="review_count", type="integer")
+     * @ORM\Column(name="review_count", type="integer", nullable=true)
      */
     private $reviewCount;
 
