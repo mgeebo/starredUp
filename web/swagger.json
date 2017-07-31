@@ -20,11 +20,127 @@
                 }
             }
         },
-        "/products/{product_id}": {
+        "/products/{productId}": {
             "get": {
+                "tags": [
+                    "product"
+                ],
+                "summary": "Get a single product by ID",
+                "description": "Return JSON object of a single product",
+                "operationId": "getProduct",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "productId",
+                        "in": "path",
+                        "description": "Product ID of the desired product",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "Success"
+                        "description": "Success => [product => {product}]"
+                    },
+                    "404": {
+                        "description": "No product found"
+                    }
+                }
+            }
+        },
+        "/products/add": {
+            "post": {
+                "tags": [
+                    "product"
+                ],
+                "summary": "Save or Update a single product with a payload",
+                "description": "Return JSON with the effected product ID",
+                "operationId": "addProduct",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "productId",
+                        "in": "body",
+                        "description": "The product ID, only needed if updating",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "productName",
+                        "in": "body",
+                        "description": "The product name",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "productDescription",
+                        "in": "body",
+                        "description": "A short or long description of the product",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "productManufacturer",
+                        "in": "body",
+                        "description": "The manufacurer of the product",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "upc",
+                        "in": "body",
+                        "description": "The product UPC",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "isActive",
+                        "in": "body",
+                        "description": "If the product is active, only needed if updating an inactive product",
+                        "required": false,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success => [productId => {productId}]"
+                    },
+                    "404": {
+                        "description": "No product found for id {productId}"
+                    }
+                }
+            }
+        },
+        "/products/{product_id}/remove": {
+            "post": {
+                "tags": [
+                    "product"
+                ],
+                "summary": "Deactivate a product",
+                "description": "Return JSON object of the effected product and isActive status",
+                "operationId": "removeProduct",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "productId",
+                        "in": "path",
+                        "description": "The product ID of the product to be deactivated",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success => [productId => {productId}, isActive => {isActive}]"
+                    },
+                    "400": {
+                        "description": "Product has already been removed"
                     }
                 }
             }
@@ -37,226 +153,7 @@
                     }
                 }
             }
-        },
-        "api/3rd-party": {
-            "get": {
-                "responses": {
-                    "200": {
-                        "description": "a response"
-                    }
-                }
-            }
-        },
-        "api/test1": {
-            "get": {
-                "summary": "Example summary",
-                "description": "Example description...\nMore description...",
-                "responses": {
-                    "200": {
-                        "description": "a response"
-                    }
-                }
-            }
-        },
-        "api/test2": {
-            "get": {
-                "summary": "Example summary",
-                "responses": {
-                    "200": {
-                        "description": "a response"
-                    }
-                }
-            }
-        },
-        "/pi/{item_name}": {
-            "get": {
-                "summary": "Get protected item",
-                "parameters": [
-                    {
-                        "$ref": "#/parameters/ItemName"
-                    }
-                ],
-                "responses": {
-                    "default": {
-                        "$ref": "#/responses/Item"
-                    }
-                }
-            }
-        },
-        "/users/{id}": {
-            "put": {
-                "tags": [
-                    "users"
-                ],
-                "summary": "Update user entry",
-                "operationId": "updateUser",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "UUID",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "name": "user",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/User"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "success"
-                    },
-                    "default": {
-                        "description": "error",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "tags": [
-                    "users"
-                ],
-                "summary": "Remove user entry",
-                "operationId": "deleteUser",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "UUID",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "success"
-                    },
-                    "default": {
-                        "description": "error",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
-                        }
-                    }
-                }
-            },
-            "options": {
-                "responses": {
-                    "200": {
-                        "description": "Some CORS stuff"
-                    }
-                }
-            },
-            "head": {
-                "responses": {
-                    "200": {
-                        "description": "Only checking if it exists"
-                    }
-                }
-            }
         }
     },
-    "definitions": {
-        "Child": {
-            "properties": {
-                "isBaby": {
-                    "type": "boolean"
-                },
-                "firstname": {
-                    "type": "string"
-                },
-                "lastname": {
-                    "type": "string"
-                }
-            }
-        },
-        "ChildWithDocBlocks": {
-            "properties": {
-                "isBaby": {
-                    "type": "boolean"
-                },
-                "firstname": {
-                    "type": "string"
-                },
-                "lastname": {
-                    "type": "string"
-                }
-            }
-        },
-        "Customer": {
-            "properties": {
-                "firstname": {
-                    "description": "The firstname of the customer.",
-                    "type": "string"
-                },
-                "lastname": {
-                    "description": "The lastname of the customer.",
-                    "type": "string"
-                },
-                "tags": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "submittedBy": {
-                    "$ref": "#/definitions/Customer"
-                },
-                "friends": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/Customer"
-                    }
-                }
-            }
-        },
-        "Hello": {
-            "properties": {
-                "greet": {}
-            }
-        },
-        "NestedProperty": {
-            "properties": {
-                "parentProperty": {
-                    "properties": {
-                        "babyProperty": {
-                            "properties": {
-                                "theBabyOfBaby": {
-                                    "properties": {
-                                        "theBabyOfBabyBaby": {
-                                            "type": "string"
-                                        }
-                                    },
-                                    "type": "boolean"
-                                }
-                            },
-                            "type": "boolean"
-                        }
-                    },
-                    "type": "boolean"
-                }
-            }
-        }
-    },
-    "parameters": {
-        "ItemName": {
-            "name": "ItemName",
-            "in": "path",
-            "description": "protected item name",
-            "required": true,
-            "type": "string",
-            "maxLength": 256
-        }
-    },
-    "responses": {
-        "Item": {
-            "description": "A protected item"
-        }
-    }
+    "definitions": {}
 }

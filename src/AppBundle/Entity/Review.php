@@ -14,6 +14,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Review
 {
+    use BaseTrait;
+
     //<editor-fold desc="Variables">
 
     /**
@@ -56,27 +58,6 @@ class Review
      * @ORM\Column(name="rating", type="float")
      */
     private $rating;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="is_active", type="boolean")
-     */
-    private $isActive;
-
-    /**
-     * @var DateTime
-     *
-     * @ORM\Column(name="create_date", type="DateTime")
-     */
-    private $createDate;
-
-    /**
-     * @var DateTime
-     *
-     * @ORM\Column(name="update_date", type="DateTime")
-     */
-    private $updateDate;
 
     //</editor-fold>
 
@@ -184,30 +165,6 @@ class Review
     public function getCreateDate()
     {
         return $this->createDate;
-    }
-
-    /**
-     * @param DateTime $createDate
-     */
-    public function setCreateDate($createDate)
-    {
-        $this->createDate = $createDate;
-    }
-
-    /**
-     * @return DateTime
-     */
-    public function getUpdateDate()
-    {
-        return $this->updateDate;
-    }
-
-    /**
-     * @param DateTime $updateDate
-     */
-    public function setUpdateDate($updateDate)
-    {
-        $this->updateDate = $updateDate;
     }
 
     //</editor-fold>
