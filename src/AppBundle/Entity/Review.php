@@ -31,7 +31,6 @@ class Review
      * @var int
      *
      * @ORM\Column(name="product_id", type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $productId;
 
@@ -39,7 +38,6 @@ class Review
      * @var int
      *
      * @ORM\Column(name="user_id", type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $userId;
 
