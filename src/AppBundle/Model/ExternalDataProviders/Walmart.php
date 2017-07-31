@@ -107,7 +107,6 @@ class Walmart implements ConsumeRawData
                     $rawProduct = $this->em->getRepository('AppBundle:ExternalProviderProductRawData')
                             ->findOneBy(['externalProviderId' => $extProId, 'upc' => $d->upc]);
                     if (!is_null($rawProduct)) {
-//                        die(dump($rawProduct));
                         $rawProduct->setExternalProviderData(json_encode($d));
                         $this->em->persist($rawProduct);
                         $rawData[$k] = $d;
