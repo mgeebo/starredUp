@@ -3,32 +3,33 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Swagger\Annotations as SWG;
 
 /**
- *  Users
- *
+ * Members
+ * @SWG\Definition(required={"MemberName", "First_Name", "Last_Name", "Email", "Password", "dob"}, type="object")
+ * @ORM\Table(name="members")
  * @ORM\Entity
- * @ORM\Table(name="users")
  */
-class User
+class Member
 {
     use BaseTrait;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="user_id", type="integer")
+     * @ORM\Column(name="member_id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $userId;
+    private $memberId;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Username", type="string", length=20, unique=true)
+     * @ORM\Column(name="MemberName", type="string", length=20, unique=true)
      */
-    private $username;
+    private $memberName;
 
     /**
      * @var string
@@ -59,7 +60,7 @@ class User
     private $password;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      *
      * @ORM\Column(name="dob", type="date")
      */
@@ -78,33 +79,33 @@ class User
      *
      * @return int
      */
-    public function getUserId()
+    public function getMemberId()
     {
-        return $this->userId;
+        return $this->memberId;
     }
 
     /**
-     * Set username
+     * Set memberName
      *
-     * @param string $username
+     * @param string $memberName
      *
-     * @return User
+     * @return Member
      */
-    public function setUsername($username)
+    public function setMemberName($memberName)
     {
-        $this->username = $username;
+        $this->memberName = $memberName;
 
         return $this;
     }
 
     /**
-     * Get username
+     * Get memberName
      *
      * @return string
      */
-    public function getUsername()
+    public function getMemberName()
     {
-        return $this->username;
+        return $this->MemberName;
     }
 
     /**
@@ -112,7 +113,7 @@ class User
      *
      * @param string $firstName
      *
-     * @return User
+     * @return Member
      */
     public function setFirstName($firstName)
     {
@@ -136,7 +137,7 @@ class User
      *
      * @param string $lastName
      *
-     * @return User
+     * @return Member
      */
     public function setLastName($lastName)
     {
@@ -160,7 +161,7 @@ class User
      *
      * @param string $email
      *
-     * @return User
+     * @return Member
      */
     public function setEmail($email)
     {
@@ -184,7 +185,7 @@ class User
      *
      * @param string $password
      *
-     * @return User
+     * @return Member
      */
     public function setPassword($password)
     {
@@ -208,7 +209,7 @@ class User
      *
      * @param \DateTime $dob
      *
-     * @return User
+     * @return Member
      */
     public function setDOB($dob)
     {
@@ -232,7 +233,7 @@ class User
      *
      * @param boolean $isAdmin
      *
-     * @return User
+     * @return Member
      */
     public function setIsAdmin($isAdmin)
     {
