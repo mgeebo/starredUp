@@ -139,30 +139,6 @@ class Review
         $this->rating = $rating;
     }
 
-    /**
-     * @return bool
-     */
-    public function isActive()
-    {
-        return $this->isActive;
-    }
-
-    /**
-     * @param bool $isActive
-     */
-    public function setIsActive($isActive)
-    {
-        $this->isActive = $isActive;
-    }
-
-    /**
-     * @return DateTime
-     */
-    public function getCreateDate()
-    {
-        return $this->createDate;
-    }
-
     //</editor-fold>
 
     //<editor-fold desc="Methods">
