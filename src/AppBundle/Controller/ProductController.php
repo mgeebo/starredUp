@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\ORMException;
 use Doctrine\ORM\ORMInvalidArgumentException;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use InvalidArgumentException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Doctrine\ORM\Mapping\Annotation;
@@ -28,7 +29,7 @@ class ProductController extends ApiController
 {
     /**
     * @SWG\Get(
-    *     tags={"product"},
+    *     tags={"products"},
     *     path="/products/{productId}",
     *     summary="Get a single product by ID",
     *     description="Return JSON object of a single product",
@@ -45,21 +46,21 @@ class ProductController extends ApiController
     *       description="Success => [product => {product}]"
     *     ),
     *     @SWG\Response(response="404",
-    *       description="No product found"
+    *       description="No product found for ID: {productId}"
     *     )
     *   )
     *
-    * @Route("/products/{id}")
+    * @Route("/products/{productId}")
     * @Method({"GET"})
     */
-    public function getProduct($id)
+    public function getProduct($productId)
     {
         $em = $this->getDoctrine();
 
         try {
-            $product = $em->getRepository(Product::class)->findByProductId($id);
+            $product = $em->getRepository(Product::class)->findByProductId($productId);
         } catch (InvalidArgumentException $e) {
-            throw $this->createNotFoundException('No product found.');
+            return new JsonResponse(["No product found for ID: $productId"], 404);
         }
 
         if (!empty($product)) {
@@ -77,53 +78,19 @@ class ProductController extends ApiController
 
     /**
      * @SWG\Post(
-     *     tags={"product"},
+     *     tags={"products"},
      *     path="/products/add",
      *     summary="Save or Update a single product with a payload",
      *     description="Return JSON with the effected product ID",
      *     operationId="addProduct",
+     *     consumes={"application/json"},
      *     produces={"application/json"},
      *     @SWG\Parameter(
-     *       name="productId",
+     *       name="body",
      *       in="body",
-     *       description="The product ID, only needed if updating",
-     *       required=false,
-     *       type="integer"
-     *     ),
-     *     @SWG\Parameter(
-     *       name="productName",
-     *       in="body",
-     *       description="The product name",
+     *       description="Update a product by adding the productId to the payload",
      *       required=true,
-     *       type="string"
-     *     ),
-     *     @SWG\Parameter(
-     *       name="productDescription",
-     *       in="body",
-     *       description="A short or long description of the product",
-     *       required=false,
-     *       type="string"
-     *     ),
-     *     @SWG\Parameter(
-     *       name="productManufacturer",
-     *       in="body",
-     *       description="The manufacurer of the product",
-     *       required=false,
-     *       type="string"
-     *     ),
-     *     @SWG\Parameter(
-     *       name="upc",
-     *       in="body",
-     *       description="The product UPC",
-     *       required=true,
-     *       type="string"
-     *     ),
-     *     @SWG\Parameter(
-     *       name="isActive",
-     *       in="body",
-     *       description="If the product is active, only needed if updating an inactive product",
-     *       required=false,
-     *       type="integer"
+     *       @SWG\Schema(ref="#/definitions/Product")
      *     ),
      *     @SWG\Response(response="200",
      *       description="Success => [productId => {productId}]"
@@ -144,7 +111,7 @@ class ProductController extends ApiController
         if (!is_null($productId = $prop['productId'])) {
             $product = $em->getRepository(Product::class)->find($productId);
             if (!$product) {
-                throw $this->createNotFoundException('No product found for id '.$productId);
+                return new JsonResponse(["No product found for ID: $productId"], 404);
             }
         }
 
@@ -167,19 +134,20 @@ class ProductController extends ApiController
             echo $e->getMessage();
         }
 
-        return new Response(json_encode([
+        return new JsonResponse([
             "success" => [
                 "productId" => $product->getProductId()
             ]
-        ]));
+        ]);
     }
     /**
      * @SWG\Post(
-     *     tags={"product"},
-     *     path="/products/{product_id}/remove",
+     *     tags={"products"},
+     *     path="/products/{productId}/remove",
      *     summary="Deactivate a product",
      *     description="Return JSON object of the effected product and isActive status",
      *     operationId="removeProduct",
+     *     consumes={"application/json"},
      *     produces={"application/json"},
      *     @SWG\Parameter(
      *       name="productId",
@@ -191,22 +159,25 @@ class ProductController extends ApiController
      *     @SWG\Response(response="200",
      *      description="Success => [productId => {productId}, isActive => {isActive}]"
      *     ),
-     *      @SWG\Response(response="400",
+     *      @SWG\Response(response="404",
+     *       description="No product found for ID: {productId}"
+     *     ),
+     *      @SWG\Response(response="409",
      *       description="Product has already been removed"
      *     )
      * )
      *
-     * @Route("/products/{id}/remove")
+     * @Route("/products/{productId}/remove")
      * @Method({"POST"})
      */
-    public function removeProduct($id) {
+    public function removeProduct($productId) {
         $em = $this->getDoctrine()->getManager();
-        if (is_null($product = $em->getRepository(Product::class)->find($id))) {
-            throw $this->createNotFoundException('No product found for id '.$id);
+        if (is_null($product = $em->getRepository(Product::class)->find($productId))) {
+            return new JsonResponse(["No product found for ID: $productId"], 404);
         }
 
         if ($product->getIsActive() == false) {
-            Return new \HttpException("Product has already been removed", 400);
+            return new JsonResponse(["Product has already been removed"], 409);
         }
 
         $product->setIsActive(0);
@@ -214,16 +185,16 @@ class ProductController extends ApiController
         try {
             $em->persist($product);
             $em->flush();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             echo $e->getMessage();
         }
 
-        return new Response(json_encode([
+        return new JsonResponse([
             "success" => [
                 "productId" => $product->getProductId(),
                 "isActive" => $product->getIsActive()
             ]
-        ]));
+        ]);
     }
 
 

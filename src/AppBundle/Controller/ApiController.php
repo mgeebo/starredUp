@@ -18,7 +18,7 @@ use Symfony\Component\Serializer\Serializer;
  * @package AppBundle\Controller
  *
  * @SWG\Swagger(
- *     host="localhost:8000",
+ *     host="127.0.0.1:8000",
  *     schemes={"http"},
  *     @SWG\Info(
  *         version="1.0",

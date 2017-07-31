@@ -16,11 +16,6 @@ use Symfony\Component\HttpFoundation\Response;
 class ReviewController extends ApiController
 {
     /**
-     * @SWG\Get(
-     *     path="/reviews/{review_id}",
-     *     @SWG\Response(response="200", description="Success")
-     * )
-     *
      * @Route("/reviews/{id}")
      * @Method({"GET"})
      */
