@@ -1,116 +1,111 @@
 <?php
 
+//<editor-fold desc="Description">...//</editor-fold>
+
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * Review
+ *
  * @ORM\Table(name="reviews")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ReviewsRepository")
  */
 class Review
 {
     use BaseTrait;
 
+    //<editor-fold desc="Variables">
+
     /**
-     * @ORM\Column(type="integer")
+     * @var int
+     *
+     * @ORM\Column(name="review_id", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $review_id;
+    private $reviewId;
 
     /**
-     * @ORM\Column(type="integer")
+     * @var int
+     *
+     * @ORM\Column(name="product_id", type="integer")
      */
-    private $product_id;
+    private $productId;
 
     /**
-     * @ORM\Column(type="integer")
+     * @var int
+     *
+     * @ORM\Column(name="user_id", type="integer")
      */
-    private $user_id;
+    private $userId;
 
     /**
-     * @ORM\Column(length=255)
+     * @var string
+     * @ORM\Column(name="description", type="string", length=255)
      */
     private $description;
 
     /**
-     * @ORM\Column(type="decimal", precision=3, scale=2)
+     * @var double
+     * @ORM\Column(name="rating", type="float")
      */
     private $rating;
 
-    /**
-     * Set id
-     *
-     * @param integer $id
-     *
-     * @return Review
-     */
-    public function setId($review_id)
-    {
-        $this->review_id = $review_id;
+    //</editor-fold>
 
-        return $this;
+    //<editor-fold desc="Getters & Setters">
+
+    /**
+     * @return int
+     */
+    public function getReviewId()
+    {
+        return $this->reviewId;
     }
 
     /**
-     * Get id
-     *
-     * @return integer
+     * @param int $reviewId
      */
-    public function getId()
+    public function setReviewId($reviewId)
     {
-        return $this->review_id;
+        $this->reviewId = $reviewId;
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getProductId()
     {
-        return $this->product_id;
+        return $this->productId;
     }
 
     /**
-     * @param mixed $product_id
+     * @param int $productId
      */
-    public function setProductId($product_id)
+    public function setProductId($productId)
     {
-        $this->product_id = $product_id;
+        $this->productId = $productId;
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getUserId()
     {
-        return $this->user_id;
+        return $this->userId;
     }
 
     /**
-     * @param mixed $user_id
+     * @param int $userId
      */
-    public function setUserId($user_id)
+    public function setUserId($userId)
     {
-        $this->user_id = $user_id;
-    }
-    /**
-     * Set description
-     *
-     * @param string $description
-     *
-     * @return Review
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-
-        return $this;
+        $this->userId = $userId;
     }
 
     /**
-     * Get description
-     *
      * @return string
      */
     public function getDescription()
@@ -119,23 +114,15 @@ class Review
     }
 
     /**
-     * Set rating
-     *
-     * @param string $rating
-     *
-     * @return Review
+     * @param string $description
      */
-    public function setRating($rating)
+    public function setDescription($description)
     {
-        $this->rating = $rating;
-
-        return $this;
+        $this->description = $description;
     }
 
     /**
-     * Get rating
-     *
-     * @return string
+     * @return float
      */
     public function getRating()
     {
@@ -143,12 +130,23 @@ class Review
     }
 
     /**
-     * Get reviewId
-     *
-     * @return integer
+     * @param float $rating
      */
-    public function getReviewId()
+    public function setRating($rating)
     {
-        return $this->review_id;
+        $this->rating = $rating;
     }
+
+    //</editor-fold>
+
+    //<editor-fold desc="Methods">
+
+    /*
+     * Will calculate the Rating based on an id or a number
+     */
+    public static function CalculateRating()
+    {}
+
+    //</editor-fold>
 }
+
