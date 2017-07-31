@@ -31,7 +31,6 @@ class Review
      * @var int
      *
      * @ORM\Column(name="product_id", type="integer")
-     * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $productId;
@@ -40,21 +39,18 @@ class Review
      * @var int
      *
      * @ORM\Column(name="user_id", type="integer")
-     * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $userId;
 
     /**
      * @var string
-     *
      * @ORM\Column(name="description", type="string", length=255)
      */
     private $description;
 
     /**
      * @var double
-     *
      * @ORM\Column(name="rating", type="float")
      */
     private $rating;
