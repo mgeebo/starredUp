@@ -4,7 +4,7 @@
         "title": "StarredUp API",
         "version": "1.0"
     },
-    "host": "localhost:8000",
+    "host": "127.0.0.1:8000",
     "schemes": [
         "http"
     ],
@@ -23,7 +23,7 @@
         "/products/{productId}": {
             "get": {
                 "tags": [
-                    "product"
+                    "products"
                 ],
                 "summary": "Get a single product by ID",
                 "description": "Return JSON object of a single product",
@@ -45,7 +45,7 @@
                         "description": "Success => [product => {product}]"
                     },
                     "404": {
-                        "description": "No product found"
+                        "description": "No product found for ID: {productId}"
                     }
                 }
             }
@@ -53,56 +53,26 @@
         "/products/add": {
             "post": {
                 "tags": [
-                    "product"
+                    "products"
                 ],
                 "summary": "Save or Update a single product with a payload",
                 "description": "Return JSON with the effected product ID",
                 "operationId": "addProduct",
+                "consumes": [
+                    "application/json"
+                ],
                 "produces": [
                     "application/json"
                 ],
                 "parameters": [
                     {
-                        "name": "productId",
+                        "name": "body",
                         "in": "body",
-                        "description": "The product ID, only needed if updating",
-                        "required": false,
-                        "type": "integer"
-                    },
-                    {
-                        "name": "productName",
-                        "in": "body",
-                        "description": "The product name",
+                        "description": "Update a product by adding the productId to the payload",
                         "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "name": "productDescription",
-                        "in": "body",
-                        "description": "A short or long description of the product",
-                        "required": false,
-                        "type": "string"
-                    },
-                    {
-                        "name": "productManufacturer",
-                        "in": "body",
-                        "description": "The manufacurer of the product",
-                        "required": false,
-                        "type": "string"
-                    },
-                    {
-                        "name": "upc",
-                        "in": "body",
-                        "description": "The product UPC",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "name": "isActive",
-                        "in": "body",
-                        "description": "If the product is active, only needed if updating an inactive product",
-                        "required": false,
-                        "type": "integer"
+                        "schema": {
+                            "$ref": "#/definitions/Product"
+                        }
                     }
                 ],
                 "responses": {
@@ -115,14 +85,17 @@
                 }
             }
         },
-        "/products/{product_id}/remove": {
+        "/products/{productId}/remove": {
             "post": {
                 "tags": [
-                    "product"
+                    "products"
                 ],
                 "summary": "Deactivate a product",
                 "description": "Return JSON object of the effected product and isActive status",
                 "operationId": "removeProduct",
+                "consumes": [
+                    "application/json"
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -139,21 +112,58 @@
                     "200": {
                         "description": "Success => [productId => {productId}, isActive => {isActive}]"
                     },
-                    "400": {
+                    "404": {
+                        "description": "No product found for ID: {productId}"
+                    },
+                    "409": {
                         "description": "Product has already been removed"
-                    }
-                }
-            }
-        },
-        "/reviews/{review_id}": {
-            "get": {
-                "responses": {
-                    "200": {
-                        "description": "Success"
                     }
                 }
             }
         }
     },
-    "definitions": {}
+    "definitions": {
+        "Product": {
+            "required": [
+                "productName",
+                "upc"
+            ],
+            "properties": {
+                "productId": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "productName": {
+                    "type": "string",
+                    "example": "Amazon Echo"
+                },
+                "productDescription": {
+                    "type": "string",
+                    "example": "null"
+                },
+                "productRating": {
+                    "type": "number",
+                    "format": "float",
+                    "example": "null"
+                },
+                "reviewCount": {
+                    "type": "integer",
+                    "example": "null"
+                },
+                "productManufacturer": {
+                    "type": "string",
+                    "example": "Amazon"
+                },
+                "upc": {
+                    "type": "string",
+                    "example": "848719071733"
+                },
+                "productImage": {
+                    "type": "string",
+                    "example": "null"
+                }
+            },
+            "type": "object"
+        }
+    }
 }

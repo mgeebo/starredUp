@@ -3,10 +3,11 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Swagger\Annotations as SWG;
 
 /**
  * Products
- *
+ * @SWG\Definition(required={"productName", "upc"}, type="object")
  * @ORM\Table(name="products")
  * @ORM\Entity
  */
@@ -16,7 +17,7 @@ class Product
 
     /**
      * @var int
-     *
+     * @SWG\Property(example=1)
      * @ORM\Column(name="product_id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -25,49 +26,49 @@ class Product
 
     /**
      * @var string
-     *
+     * @SWG\Property(example="Amazon Echo")
      * @ORM\Column(name="product_name", type="string", length=255)
      */
     private $productName;
 
     /**
      * @var string
-     *
+     * @SWG\Property(example="null")
      * @ORM\Column(name="product_description", type="text", nullable=true)
      */
     private $productDescription;
 
     /**
      * @var float
-     *
+     * @SWG\Property(example="null")
      * @ORM\Column(name="product_rating", type="float", nullable=true)
      */
     private $productRating;
 
     /**
      * @var int
-     *
+     * @SWG\Property(example="null")
      * @ORM\Column(name="review_count", type="integer", nullable=true)
      */
     private $reviewCount;
 
     /**
      * @var string
-     *
+     * @SWG\Property(example="Amazon")
      * @ORM\Column(name="product_manufacturer", type="string", length=50, nullable=true)
      */
     private $productManufacturer;
 
     /**
      * @var string
-     *
+     * @SWG\Property(example="848719071733")
      * @ORM\Column(name="upc", type="string", length=12, unique=true)
      */
     private $upc;
 
     /**
      * @var string
-     *
+     * @SWG\Property(example="null")
      * @ORM\Column(name="product_image", type="string", length=255, nullable=true)
      */
     private $productImage;
