@@ -60,7 +60,7 @@ class Member
     private $password;
 
     /**
-     * @var /DateTime
+     * @var \DateTime
      *
      * @ORM\Column(name="dob", type="date")
      */
