@@ -182,7 +182,7 @@ class Walmart implements ConsumeRawData
     {
         $repository = $this->em->getRepository('AppBundle:ExternalProvider');
         $provider = $repository->findOneByProviderName(self::NAME);
-        foreach($itemIds as $id) {
+        foreach ($itemIds as $id) {
             $itemData = ['format' => self::FORMAT, 'apiKey' => $provider->getProviderKey(), 'id' => $id];
             $reviewResponse = Unirest\Request::get(self::REVIEWS_URL, self::HEADERS, $itemData);
 
@@ -190,4 +190,5 @@ class Walmart implements ConsumeRawData
             die(dump($reviews));
 
         }
+    }
 }
