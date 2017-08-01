@@ -9,6 +9,7 @@
         "http"
     ],
     "paths": {
+        "/members": {},
         "/products": {},
         "/reviews": {},
         "/swagger": {
@@ -16,6 +17,107 @@
                 "responses": {
                     "200": {
                         "description": "Success"
+                    }
+                }
+            }
+        },
+        "/members/{memberId}": {
+            "get": {
+                "tags": [
+                    "members"
+                ],
+                "summary": "Get a single member by ID",
+                "description": "Return JSON object of a single member",
+                "operationId": "getMember",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "memberId",
+                        "in": "path",
+                        "description": "Member ID of the desired member",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success => [member => {member}]"
+                    },
+                    "404": {
+                        "description": "No member found for ID: {memberId}"
+                    }
+                }
+            }
+        },
+        "/members/add": {
+            "post": {
+                "tags": [
+                    "members"
+                ],
+                "summary": "Save or Update a single member with a payload",
+                "description": "Return JSON with the effected member ID",
+                "operationId": "addMember",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Update a member by adding the memberId to the payload",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Member"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success => [memberId => {memberId}]"
+                    },
+                    "404": {
+                        "description": "No member found for id {memberId}"
+                    }
+                }
+            }
+        },
+        "/members/{memberId}/remove": {
+            "post": {
+                "tags": [
+                    "members"
+                ],
+                "summary": "Deactivate a member",
+                "description": "Return JSON object of the effected member and isActive status",
+                "operationId": "removeMember",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "memberId",
+                        "in": "path",
+                        "description": "The member ID of the member to be deactivated",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success => [memberId => {memberId}, isActive => {isActive}]"
+                    },
+                    "404": {
+                        "description": "No member found for ID: {memberId}"
+                    },
+                    "409": {
+                        "description": "Member has already been removed"
                     }
                 }
             }
@@ -123,6 +225,17 @@
         }
     },
     "definitions": {
+        "Member": {
+            "required": [
+                "MemberName",
+                "First_Name",
+                "Last_Name",
+                "Email",
+                "Password",
+                "dob"
+            ],
+            "type": "object"
+        },
         "Product": {
             "required": [
                 "productName",
