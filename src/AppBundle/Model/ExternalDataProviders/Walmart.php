@@ -35,7 +35,8 @@ class Walmart implements ConsumeRawData
      * http://api.walmartlabs.com/v1/reviews/46708411?format=json&apiKey=ep7npckux5mvje859n62btkz
      */
     CONST NAME = "Walmart";
-    CONST URL = "http://api.walmartlabs.com/v1/items?";
+    CONST ITEMS_URL = "http://api.walmartlabs.com/v1/items?";
+    CONST REVIEWS_URL = "http://api.walmartlabs.com/v1/reviews";
     CONST FORMAT = "json";
     CONST HEADERS = ['Accept' => 'application/json'];
 
@@ -70,20 +71,24 @@ class Walmart implements ConsumeRawData
         foreach($itemIds as $itemId) {
             // first call to get item by UPC
             $upcData = ['format' => self::FORMAT, 'apiKey' => $provider->getProviderKey(), 'upc' => $itemId];
-            $upcResponse = Unirest\Request::get(self::URL, self::HEADERS, $upcData);
+            $upcResponse = Unirest\Request::get(self::ITEMS_URL, self::HEADERS, $upcData);
             // now we have the Walmart product id's
             array_push($walmartItemIds, $upcResponse->body->items[0]->itemId);
         }
         $walmartItemIds = implode(',', $walmartItemIds);
-        // get items by Walmart product id's
+        // get items by Walmart product id's (contains more data than by UPC)
         $itemData = ['format' => self::FORMAT, 'apiKey' => $provider->getProviderKey(), 'ids' => $walmartItemIds];
-        $itemResponse = Unirest\Request::get(self::URL, self::HEADERS, $itemData);
+        $itemResponse = Unirest\Request::get(self::ITEMS_URL, self::HEADERS, $itemData);
         $items = (array) $itemResponse->body->items;
         if (!$raw_data = $this->saveRawData(self::NAME, $items)) {
             return false;
         }
 
-        return $this->processData($raw_data);
+        if ($this->processData($raw_data)) {
+            $this->processReviews($walmartItemIds);
+        }
+
+        return true;
     }
 
 
@@ -135,7 +140,7 @@ class Walmart implements ConsumeRawData
      */
     public function processData($data)
     {
-        $savedUpcs = [];
+        $walmartItemIds = [];
         foreach ($data as $d) {
             $product = new Product();
             $product->setProductName($d->name)
@@ -145,13 +150,13 @@ class Walmart implements ConsumeRawData
                 ->setProductManufacturer($d->brandName)
                 ->setUpc($d->upc);
 
-            $savedUpcs[] = $d->upc;
             /** @todo listen and log these exceptions
              *  http://symfony.com/doc/current/event_dispatcher.html
              */
             try {
                 $this->em->persist($product);
-                $this->em->flush();
+                //$this->em->flush();
+                $walmartItemIds[] = $d->itemId;
             } catch (ORMInvalidArgumentException $e) {
                 echo $e->getMessage();
             } catch (UniqueConstraintViolationException $e) {
@@ -160,12 +165,24 @@ class Walmart implements ConsumeRawData
                 echo $e->getMessage();
             }
         }
+        $this->processReviews($walmartItemIds);
 
         return true;
     }
 
-    public function processReviews()
+    public function processReviews($itemIds)
     {
+        $repository = $this->em->getRepository('AppBundle:ExternalProvider');
+        $provider = $repository->findOneByProviderName(self::NAME);
+        foreach($itemIds as $id) {
+            $itemData = ['format' => self::FORMAT, 'apiKey' => $provider->getProviderKey(), 'id' => $id];
+            $reviewResponse = Unirest\Request::get(self::REVIEWS_URL, self::HEADERS, $itemData);
+
+            $reviews = $reviewResponse->body;
+            die(dump($reviews));
+
+        }
+
 
     }
 
