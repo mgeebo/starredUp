@@ -57,6 +57,8 @@ class Walmart implements ConsumeRawData
      * https://developer.walmartlabs.com/docs
      * user: bowen9284 password: starredup1
      *
+     * Pass the UPC not the item ID when adding from the ExternalDataProviderController
+     *
      * @param integer $itemIds
      * @return bool
      */
@@ -106,14 +108,14 @@ class Walmart implements ConsumeRawData
             $rawData = [];
             if (!empty($data)) {
                 foreach ($data as $k => $d) {
-                    $productExists = $this->em->getRepository('AppBundle:ExternalProviderProductRawData')
-                            ->findOneBy(['externalProviderId' => $extProId, 'upc' => $d->upc]);
                     $rd = new ExternalProviderProductRawData();
-                    if (!is_null($productExists)) {
-                        $rd->setId($extProId)
-                            ->setExternalProviderData(json_encode($d));
-                        $this->em->persist($rd);
+                    $rawProduct = $this->em->getRepository('AppBundle:ExternalProviderProductRawData')
+                            ->findOneBy(['externalProviderId' => $extProId, 'upc' => $d->upc]);
+                    if (!is_null($rawProduct)) {
+                        $rawProduct->setExternalProviderData(json_encode($d));
+                        $this->em->persist($rawProduct);
                         $rawData[$k] = $d;
+                        $rawData[$k]->exists = true;
                     } else {
                         $rd->setExternalProviderId($extProId)
                             ->setExternalProviderData(json_encode($d))
@@ -142,13 +144,19 @@ class Walmart implements ConsumeRawData
     {
         $walmartItemIds = [];
         foreach ($data as $d) {
-            $product = new Product();
-            $product->setProductName($d->name)
-                ->setProductDescription(json_encode($d->longDescription))
-                ->setProductRating($d->customerRating)
-                ->setReviewCount($d->numReviews)
-                ->setProductManufacturer($d->brandName)
-                ->setUpc($d->upc);
+            if (!$d->exists) {
+                $product = new Product();
+                $product->setProductName($d->name)
+                    ->setProductDescription(json_encode($d->longDescription))
+                    ->setProductRating($d->customerRating)
+                    ->setReviewCount($d->numReviews)
+                    ->setProductManufacturer($d->brandName)
+                    ->setUpc($d->upc);
+            } else {
+                $product = $this->em->getRepository(Product::class)->findOneByUpc($d->upc);
+                $product->setProductRating($d->customerRating)
+                    ->setReviewCount($d->numReviews);
+            }
 
             /** @todo listen and log these exceptions
              *  http://symfony.com/doc/current/event_dispatcher.html
@@ -182,9 +190,4 @@ class Walmart implements ConsumeRawData
             die(dump($reviews));
 
         }
-
-
-    }
-
-
 }

@@ -3,58 +3,59 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Swagger\Annotations as SWG;
 
 /**
- *  Users
- *
+ * Members
+ * @SWG\Definition(required={"member_name", "first_name", "last_name", "email", "password", "dob"}, type="object")
+ * @ORM\Table(name="members")
  * @ORM\Entity
- * @ORM\Table(name="users")
  */
-class User
+class Member
 {
     use BaseTrait;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="user_id", type="integer")
+     * @ORM\Column(name="member_id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $userId;
+    private $memberId;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Username", type="string", length=20, unique=true)
+     * @ORM\Column(name="member_name", type="string", length=20, unique=true)
      */
-    private $username;
+    private $memberName;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="First_Name", type="string", length=20)
+     * @ORM\Column(name="first_name", type="string", length=20)
      */
     private $firstName;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Last_Name", type="string", length=20)
+     * @ORM\Column(name="last_name", type="string", length=20)
      */
     private $lastName;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Email", type="string", length=255, unique=true)
+     * @ORM\Column(name="email", type="string", length=255, unique=true)
      */
     private $email;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Password", type="string", length=25)
+     * @ORM\Column(name="password", type="string", length=25)
      */
     private $password;
 
@@ -68,7 +69,7 @@ class User
     /**
      * @var bool
      *
-     * @ORM\Column(name="Is_Admin", type="boolean")
+     * @ORM\Column(name="is_admin", type="boolean")
      */
     private $isAdmin;
 
@@ -78,33 +79,33 @@ class User
      *
      * @return int
      */
-    public function getUserId()
+    public function getMemberId()
     {
-        return $this->userId;
+        return $this->memberId;
     }
 
     /**
-     * Set username
+     * Set memberName
      *
-     * @param string $username
+     * @param string $memberName
      *
-     * @return User
+     * @return Member
      */
-    public function setUsername($username)
+    public function setMemberName($memberName)
     {
-        $this->username = $username;
+        $this->memberName = $memberName;
 
         return $this;
     }
 
     /**
-     * Get username
+     * Get memberName
      *
      * @return string
      */
-    public function getUsername()
+    public function getMemberName()
     {
-        return $this->username;
+        return $this->memberName;
     }
 
     /**
@@ -112,7 +113,7 @@ class User
      *
      * @param string $firstName
      *
-     * @return User
+     * @return Member
      */
     public function setFirstName($firstName)
     {
@@ -136,7 +137,7 @@ class User
      *
      * @param string $lastName
      *
-     * @return User
+     * @return Member
      */
     public function setLastName($lastName)
     {
@@ -160,7 +161,7 @@ class User
      *
      * @param string $email
      *
-     * @return User
+     * @return Member
      */
     public function setEmail($email)
     {
@@ -184,7 +185,7 @@ class User
      *
      * @param string $password
      *
-     * @return User
+     * @return Member
      */
     public function setPassword($password)
     {
@@ -208,7 +209,7 @@ class User
      *
      * @param \DateTime $dob
      *
-     * @return User
+     * @return Member
      */
     public function setDOB($dob)
     {
@@ -232,7 +233,7 @@ class User
      *
      * @param boolean $isAdmin
      *
-     * @return User
+     * @return Member
      */
     public function setIsAdmin($isAdmin)
     {
