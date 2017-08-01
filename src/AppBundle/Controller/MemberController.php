@@ -59,23 +59,22 @@ class MemberController extends ApiController
     {
         $em = $this->getDoctrine();
 
-        try {
+
             $member = $em->getRepository(Member::class)->findByMemberId($memberId);
-        } catch (InvalidArgumentException $e) {
-            return new JsonResponse(["No member found for ID: $memberId"], 404);
-        }
 
-        if (!empty($member)) {
-            $success = [
-                "success" => [
-                    "member" => $member[0]
-                ]
-            ];
-            // Serialize array to make it returnable as a string for the Response
-            $member = $this->serializer->serialize($success, 'json');
-        }
+            if (!empty($member))
+            {
+                $success = ["success" => ["member" => $member[0]]];
 
-        return new Response($member);
+                // Serialize array to make it returnable as a string for the Response
+                $member = $this->serializer->serialize($success, 'json');
+            }
+            else
+            {
+                return new JsonResponse(["No member found for ID: $memberId"], 404);
+            }
+
+        return new JsonResponse($member);
     }
 
     /**

@@ -57,11 +57,10 @@ class ProductController extends ApiController
     {
         $em = $this->getDoctrine();
 
-        try {
+
             $product = $em->getRepository(Product::class)->findByProductId($productId);
-        } catch (InvalidArgumentException $e) {
-            return new JsonResponse(["No product found for ID: $productId"], 404);
-        }
+
+
 
         if (!empty($product)) {
             $success = [
@@ -72,8 +71,12 @@ class ProductController extends ApiController
             // Serialize array to make it returnable as a string for the Response
             $product = $this->serializer->serialize($success, 'json');
         }
+        else
+        {
+            return new JsonResponse(["No product found for ID: $productId"], 404);
+        }
 
-        return new Response($product);
+        return new JsonResponse($product);
     }
 
     /**

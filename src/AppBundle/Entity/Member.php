@@ -7,7 +7,7 @@ use Swagger\Annotations as SWG;
 
 /**
  * Members
- * @SWG\Definition(required={"MemberName", "First_Name", "Last_Name", "Email", "Password", "dob"}, type="object")
+ * @SWG\Definition(required={"member_name", "first_name", "last_name", "email", "password", "dob"}, type="object")
  * @ORM\Table(name="members")
  * @ORM\Entity
  */
@@ -27,40 +27,40 @@ class Member
     /**
      * @var string
      *
-     * @ORM\Column(name="MemberName", type="string", length=20, unique=true)
+     * @ORM\Column(name="member_name", type="string", length=20, unique=true)
      */
     private $memberName;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="First_Name", type="string", length=20)
+     * @ORM\Column(name="first_name", type="string", length=20)
      */
     private $firstName;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Last_Name", type="string", length=20)
+     * @ORM\Column(name="last_name", type="string", length=20)
      */
     private $lastName;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Email", type="string", length=255, unique=true)
+     * @ORM\Column(name="email", type="string", length=255, unique=true)
      */
     private $email;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Password", type="string", length=25)
+     * @ORM\Column(name="password", type="string", length=25)
      */
     private $password;
 
     /**
-     * @var DateTime
+     * @var \DateTime
      *
      * @ORM\Column(name="dob", type="date")
      */
@@ -69,7 +69,7 @@ class Member
     /**
      * @var bool
      *
-     * @ORM\Column(name="Is_Admin", type="boolean")
+     * @ORM\Column(name="is_admin", type="boolean")
      */
     private $isAdmin;
 
@@ -105,7 +105,7 @@ class Member
      */
     public function getMemberName()
     {
-        return $this->MemberName;
+        return $this->memberName;
     }
 
     /**
