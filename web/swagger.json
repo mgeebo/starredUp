@@ -133,7 +133,6 @@
           "name" : "body",
           "in" : "body",
           "description" : "Updates a review based on this data",
-          "required" : true,
           "schema" : {
             "$ref" : "#/definitions/Review"
           }
@@ -144,6 +143,34 @@
           },
           "404" : {
             "description" : "No product found for ID: {productId}"
+          }
+        }
+      }
+    },
+    "/reviews/{reviewId}/remove" : {
+      "post" : {
+        "tags" : [ "reviews" ],
+        "summary" : "Deactivate a review",
+        "description" : "Return JSON object of the effected review and isActive status",
+        "operationId" : "removeReview",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "reviewId",
+          "in" : "path",
+          "description" : "The review ID of the review to be deactivated",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success => [reviewId => {reviewId}, isActive => {isActive}]"
+          },
+          "404" : {
+            "description" : "No review found for ID: {reviewId}"
+          },
+          "409" : {
+            "description" : "Review has already been removed"
           }
         }
       }

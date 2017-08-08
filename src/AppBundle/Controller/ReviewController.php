@@ -171,8 +171,31 @@ class ReviewController extends ApiController
      * @Route("/reviews/{reviewId}/remove")
      * @Method({"POST"})
      */
-    public function removeReview($review)
+    public function removeReview($reviewId)
     {
-        return new Response("Product");
+        $em = $this->getDoctrine()->getManager();
+        if (is_null($review = $em->getRepository(Review::class)->find($reviewId))) {
+            return new JsonResponse(["No review found for ID: $reviewId"], 404);
+        }
+
+        if ($review->getIsActive() == false) {
+            return new JsonResponse(["Review has already been removed"], 409);
+        }
+
+        $review->setIsActive(0);
+
+        try {
+            $em->persist($review);
+            $em->flush();
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+
+        return new JsonResponse([
+            "success" => [
+                "reviewId" => $review->getreviewId(),
+                "isActive" => $review->getIsActive()
+            ]
+        ]);
     }
 }
