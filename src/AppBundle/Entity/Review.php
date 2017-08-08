@@ -5,22 +5,23 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Swagger\Annotations as SWG;
 
 /**
  * Review
- *
+ * @SWG\Definition(required={"reviewId"}, type="object")
  * @ORM\Table(name="reviews")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\ReviewsRepository")
+ * @ORM\Entity
  */
 class Review
 {
-    use BaseTrait;
-
     //<editor-fold desc="Variables">
+
+    use BaseTrait;
 
     /**
      * @var int
-     *
+     * @SWG\Property(example=1)
      * @ORM\Column(name="review_id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -29,26 +30,42 @@ class Review
 
     /**
      * @var int
-     *
+     * @SWG\Property(example=1)
      * @ORM\Column(name="product_id", type="integer")
      */
     private $productId;
 
     /**
      * @var int
-     *
-     * @ORM\Column(name="user_id", type="integer")
+     * @SWG\Property(example=1)
+     * @ORM\Column(name="member_id", type="integer")
      */
-    private $userId;
+    private $memberId;
+
+    /**
+     * @var int
+     * @SWG\Property(example=1)
+     * @ORM\Column(name="original_member_id", type="integer")
+     */
+    private $originalMemberId;
 
     /**
      * @var string
+     * @SWG\Property(example="Very Good")
+     * @ORM\Column(name="review_title", type="string", length=255)
+     */
+    private $reviewTitle;
+
+    /**
+     * @var string
+     * @SWG\Property(example="Very Good")
      * @ORM\Column(name="description", type="string", length=255)
      */
     private $description;
 
     /**
      * @var double
+     * @SWG\Property(example=4.5)
      * @ORM\Column(name="rating", type="float")
      */
     private $rating;
@@ -92,17 +109,49 @@ class Review
     /**
      * @return int
      */
-    public function getUserId()
+    public function getMemberId()
     {
-        return $this->userId;
+        return $this->memberId;
     }
 
     /**
-     * @param int $userId
+     * @param int $memberId
      */
-    public function setUserId($userId)
+    public function setMemberId($memberId)
     {
-        $this->userId = $userId;
+        $this->memberId = $memberId;
+    }
+
+    /**
+     * @return int
+     */
+    public function getOriginalMemberId()
+    {
+        return $this->originalMemberId;
+    }
+
+    /**
+     * @param int $originalMemberId
+     */
+    public function setOriginalMemberId($originalMemberId)
+    {
+        $this->originalMemberId = $originalMemberId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getReviewTitle()
+    {
+        return $this->reviewTitle;
+    }
+
+    /**
+     * @param string $reviewTitle
+     */
+    public function setReviewTitle($reviewTitle)
+    {
+        $this->reviewTitle = $reviewTitle;
     }
 
     /**
