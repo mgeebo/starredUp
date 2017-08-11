@@ -222,6 +222,107 @@
                     }
                 }
             }
+        },
+        "/reviews/{reviewId}": {
+            "get": {
+                "tags": [
+                    "reviews"
+                ],
+                "summary": "Get a single review by ID",
+                "description": "Return JSON object of a single review",
+                "operationId": "getReview",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "reviewId",
+                        "in": "path",
+                        "description": "Review ID of the desired review",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success => [product => {product}]"
+                    },
+                    "404": {
+                        "description": "No product found for ID: {productId}"
+                    }
+                }
+            }
+        },
+        "/reviews/add": {
+            "post": {
+                "tags": [
+                    "reviews"
+                ],
+                "summary": "Adds a new review",
+                "description": "Adds a new review",
+                "operationId": "addReview",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Updates a review based on this data",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Review"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success => [review => {review}]"
+                    },
+                    "404": {
+                        "description": "No review found for ID: {reviewId}"
+                    }
+                }
+            }
+        },
+        "/reviews/{reviewId}/remove": {
+            "post": {
+                "tags": [
+                    "reviews"
+                ],
+                "summary": "Deactivate a review",
+                "description": "Return JSON object of the effected review and isActive status",
+                "operationId": "removeReview",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "reviewId",
+                        "in": "path",
+                        "description": "The ID of the review to be deactivated",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success => [reviewId => {reviewId}, isActive => {isActive}]"
+                    },
+                    "404": {
+                        "description": "No review found for ID: {reviewId}"
+                    },
+                    "409": {
+                        "description": "Review has already been removed"
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -274,6 +375,50 @@
                 "productImage": {
                     "type": "string",
                     "example": "null"
+                }
+            },
+            "type": "object"
+        },
+        "Review": {
+            "required": [
+                "reviewId"
+            ],
+            "properties": {
+                "reviewId": {
+                    "description": "",
+                    "type": "integer",
+                    "example": 1
+                },
+                "productId": {
+                    "description": "",
+                    "type": "integer",
+                    "example": 1
+                },
+                "memberId": {
+                    "description": "",
+                    "type": "integer",
+                    "example": 1
+                },
+                "originalMemberId": {
+                    "description": "",
+                    "type": "integer",
+                    "example": 1
+                },
+                "reviewTitle": {
+                    "description": "",
+                    "type": "string",
+                    "example": "Very Good"
+                },
+                "description": {
+                    "description": "",
+                    "type": "string",
+                    "example": "Very Good"
+                },
+                "rating": {
+                    "description": "",
+                    "type": "number",
+                    "format": "double",
+                    "example": 4.5
                 }
             },
             "type": "object"
