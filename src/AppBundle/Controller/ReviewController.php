@@ -195,5 +195,5 @@ class ReviewController extends ApiController
                 "isActive" => $review->getIsActive()
             ]
         ]);
-    }
+    } 
 }
