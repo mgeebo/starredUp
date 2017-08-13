@@ -9,8 +9,12 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Review
  *
- * @ORM\Table(name="reviews")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\ReviewsRepository")
+ * @ORM\Table(name="reviews",indexes={
+ *     @ORM\Index(name="product_member", columns={"product_id", "member_id"}),
+ *     @ORM\Index(name="product_original_member", columns={"product_id", "original_member_name"})
+ *  }
+ * )
+ * @ORM\Entity
  */
 class Review
 {
@@ -37,9 +41,9 @@ class Review
     /**
      * @var int
      *
-     * @ORM\Column(name="user_id", type="integer")
+     * @ORM\Column(name="member_id", type="integer")
      */
-    private $userId;
+    private $memberId;
 
     /**
      * @var string
@@ -52,6 +56,18 @@ class Review
      * @ORM\Column(name="rating", type="float")
      */
     private $rating;
+
+    /**
+     * @var string
+     * @ORM\Column(name="review_title", type="string", length=20)
+     */
+    private $reviewTitle;
+
+    /**
+     * @var string
+     * @ORM\Column(name="original_member_name", type="string", length=20)
+     */
+    private $originalMemberName;
 
     //</editor-fold>
 
@@ -92,17 +108,17 @@ class Review
     /**
      * @return int
      */
-    public function getUserId()
+    public function getMemberId()
     {
-        return $this->userId;
+        return $this->memberId;
     }
 
     /**
-     * @param int $userId
+     * @param int $memberId
      */
-    public function setUserId($userId)
+    public function setMemberId($memberId)
     {
-        $this->userId = $userId;
+        $this->memberIdId = $memberId;
     }
 
     /**
@@ -137,6 +153,38 @@ class Review
         $this->rating = $rating;
     }
 
+    /**
+     * @return string
+     */
+    public function getReviewTitle()
+    {
+        return $this->reviewTitle;
+    }
+
+    /**
+     * @param string $reviewTitle
+     */
+    public function setReviewTitle($reviewTitle)
+    {
+        $this->reviewTitle = $reviewTitle;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOriginalMemberName()
+    {
+        return $this->originalMemberName;
+    }
+
+    /**
+     * @param string $originalMemberName
+     */
+    public function setOriginalMemberName($originalMemberName)
+    {
+        $this->originalMemberName = $originalMemberName;
+    }
+
     //</editor-fold>
 
     //<editor-fold desc="Methods">
@@ -146,7 +194,6 @@ class Review
      */
     public static function CalculateRating()
     {}
-
     //</editor-fold>
 }
 

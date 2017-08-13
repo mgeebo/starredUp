@@ -7,6 +7,7 @@ use AppBundle\Entity\ExternalProviderReviewRawData;
 use AppBundle\Entity\ExternalProviderProductRawData;
 use AppBundle\Entity\ExternalProvider;
 use AppBundle\Entity\Product;
+use AppBundle\Entity\Review;
 use AppBundle\Model\ExternalDataProviders\ConsumeRawData;
 use AppBundle\Repository\ExternalProviderProductRawDataRepository as ProductRepo;
 use AppBundle\Repository\ExternalProviderRepository;
@@ -21,9 +22,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use AppBundle\Service\ExternalProviderService;
 use Monolog\Logger;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\Serializer;
 use Unirest;
 
 
@@ -36,7 +34,7 @@ class Walmart implements ConsumeRawData
      */
     CONST NAME = "Walmart";
     CONST ITEMS_URL = "http://api.walmartlabs.com/v1/items?";
-    CONST REVIEWS_URL = "http://api.walmartlabs.com/v1/reviews";
+    CONST REVIEWS_URL = "http://api.walmartlabs.com/v1/reviews/";
     CONST FORMAT = "json";
     CONST HEADERS = ['Accept' => 'application/json'];
 
@@ -49,7 +47,7 @@ class Walmart implements ConsumeRawData
 
     public function authenticate()
     {
-        // Not needed for this method
+        // Not needed for walmart
     }
 
     /** consume is where we make our api call to gather product data.
@@ -57,7 +55,7 @@ class Walmart implements ConsumeRawData
      * https://developer.walmartlabs.com/docs
      * user: bowen9284 password: starredup1
      *
-     * Pass the UPC not the item ID when adding from the ExternalDataProviderController
+     * Pass the UPC, not the item ID when adding from the ExternalDataProviderController
      *
      * @param integer $itemIds
      * @return bool
@@ -65,12 +63,10 @@ class Walmart implements ConsumeRawData
     public function consume($itemIds)
     {
         $itemIds = explode(',', $itemIds);
-        $repository = $this->em->getRepository('AppBundle:ExternalProvider');
-        $provider = $repository->findOneByProviderName(self::NAME);
-
+        $provider = $this->getProvider();
         $walmartItemIds = [];
 
-        foreach($itemIds as $itemId) {
+        foreach ($itemIds as $itemId) {
             // first call to get item by UPC
             $upcData = ['format' => self::FORMAT, 'apiKey' => $provider->getProviderKey(), 'upc' => $itemId];
             $upcResponse = Unirest\Request::get(self::ITEMS_URL, self::HEADERS, $upcData);
@@ -81,36 +77,34 @@ class Walmart implements ConsumeRawData
         // get items by Walmart product id's (contains more data than by UPC)
         $itemData = ['format' => self::FORMAT, 'apiKey' => $provider->getProviderKey(), 'ids' => $walmartItemIds];
         $itemResponse = Unirest\Request::get(self::ITEMS_URL, self::HEADERS, $itemData);
-        $items = (array) $itemResponse->body->items;
-        if (!$raw_data = $this->saveRawData(self::NAME, $items)) {
+        $items = (array)$itemResponse->body->items;
+        if (!$rawProductData = $this->saveRawProductData(self::NAME, $items)) {
             return false;
         }
 
-        if ($this->processData($raw_data)) {
-            $this->processReviews($walmartItemIds);
-        }
+        $this->processProducts($rawProductData);
 
         return true;
     }
 
-
-    /** saveRawData is where save  our initial data
+    /** saveRawData is where save our initial data raw
      * @param $providerName
      * @param array $data
      * @return array|bool
      */
-    public function saveRawData($providerName, array $data)
+    public function saveRawProductData($providerName, array $data)
     {
-        $repository = $this->em->getRepository('AppBundle:ExternalProvider');
+        $repository = $this->em->getRepository(ExternalProvider::class);
         $provider = $repository->findOneByProviderName($providerName);
         if (!empty($provider)) {
             $extProId = $provider->getExternalProviderId();
-            $rawData = [];
+            $rawData = $itemIds = $rawProducts = [];
             if (!empty($data)) {
                 foreach ($data as $k => $d) {
+                    $itemIds[] = $d->itemId;
                     $rd = new ExternalProviderProductRawData();
-                    $rawProduct = $this->em->getRepository('AppBundle:ExternalProviderProductRawData')
-                            ->findOneBy(['externalProviderId' => $extProId, 'upc' => $d->upc]);
+                    $rawProduct = $this->em->getRepository(ExternalProviderProductRawData::class)
+                        ->findOneBy(['externalProviderId' => $extProId, 'upc' => $d->upc]);
                     if (!is_null($rawProduct)) {
                         $rawProduct->setExternalProviderData(json_encode($d));
                         $this->em->persist($rawProduct);
@@ -124,7 +118,9 @@ class Walmart implements ConsumeRawData
                         $this->em->persist($rd);
                         $rawData[$k] = $d;
                     }
+                    $rawProducts[] = $rawProduct ?: $rd;
                 }
+                $this->em->flush();
             }
         } else {
             return false;
@@ -140,11 +136,12 @@ class Walmart implements ConsumeRawData
      * @param $data
      * @return mixed
      */
-    public function processData($data)
+    public function processProducts($data)
     {
-        $walmartItemIds = [];
+        $products = [];
         foreach ($data as $d) {
-            if (!$d->exists) {
+            // if the item doesn't exist already, create a new one, else update
+            if (!isset($d->exists)) {
                 $product = new Product();
                 $product->setProductName($d->name)
                     ->setProductDescription(json_encode($d->longDescription))
@@ -158,13 +155,12 @@ class Walmart implements ConsumeRawData
                     ->setReviewCount($d->numReviews);
             }
 
+            $products[] = $product;
             /** @todo listen and log these exceptions
              *  http://symfony.com/doc/current/event_dispatcher.html
              */
             try {
                 $this->em->persist($product);
-                //$this->em->flush();
-                $walmartItemIds[] = $d->itemId;
             } catch (ORMInvalidArgumentException $e) {
                 echo $e->getMessage();
             } catch (UniqueConstraintViolationException $e) {
@@ -173,22 +169,83 @@ class Walmart implements ConsumeRawData
                 echo $e->getMessage();
             }
         }
-        $this->processReviews($walmartItemIds);
+        $this->em->flush();
+        $this->saveRawReviewData($products);
 
         return true;
     }
 
-    public function processReviews($itemIds)
+    public function saveRawReviewData(array $products)
     {
-        $repository = $this->em->getRepository('AppBundle:ExternalProvider');
-        $provider = $repository->findOneByProviderName(self::NAME);
-        foreach ($itemIds as $id) {
-            $itemData = ['format' => self::FORMAT, 'apiKey' => $provider->getProviderKey(), 'id' => $id];
-            $reviewResponse = Unirest\Request::get(self::REVIEWS_URL, self::HEADERS, $itemData);
-
-            $reviews = $reviewResponse->body;
-            die(dump($reviews));
-
+        if (empty($products)) {
+            echo "product can't be empty.";
         }
+        $rawIds = [];
+        $rawReviewRepository = $this->em->getRepository(ExternalProviderReviewRawData::class);
+        $rawProductRepository = $this->em->getRepository(ExternalProviderProductRawData::class);
+        $provider = $this->getProvider();
+
+        foreach ($products as $p) {
+            $rawProduct = $rawProductRepository->findOneByUpc($p->getUpc());
+            $providerData = json_decode($rawProduct->getExternalProviderData());
+            if ($id = (string)$providerData->itemId) {
+                $itemData = ['format' => self::FORMAT, 'apiKey' => $provider->getProviderKey(), $id];
+                $response = Unirest\Request::get(
+                    "http://api.walmartlabs.com/v1/reviews/$id?format=json&apiKey=ep7npckux5mvje859n62btkz", 'json');
+                $reviewResponse = (array)$response->body->reviews;
+                if ($updateReview = $rawReviewRepository->findOneByExternalRawProductDataId($p->getProductId())) {
+                    $updateReview->setExternalProviderData(json_encode($reviewResponse));
+                    $this->em->persist($updateReview);
+                    $this->em->flush();
+                    $rawIds[] = $updateReview->getExternalReviewRawDataId();
+                } else {
+                    $rawReview = new ExternalProviderReviewRawData();
+                    $rawReview->setExternalProductRawDataId($p->getProductId());
+                    $rawReview->setExternalProviderData(json_encode($reviewResponse));
+                    $rawReview->setUpc($p->getUpc());
+                    $rawReview->setExternalProviderId($provider->getExternalProviderId());
+                    $this->em->persist($rawReview);
+                    $this->em->flush();
+                    $rawIds[] = $rawReview->getExternalReviewRawDataId();
+                }
+            }
+        }
+
+        $this->processReviews($rawIds);
+
+        return true;
+    }
+
+    public function processReviews(array $rawIds)
+    {
+        $rawReviewRepository = $this->em->getRepository(ExternalProviderReviewRawData::class);
+
+        foreach ($rawIds as $id) {
+            // retrieve the product id from this custom query
+            $product = $rawReviewRepository->getProductFromReviewRawDataId($id);
+            $productId = $product[0]->getProductId();
+            $rawReview = $rawReviewRepository->findOneByExternalReviewRawDataId($id);
+            $rawReviewProviderData = json_decode($rawReview->getExternalProviderData());
+
+            foreach($rawReviewProviderData as $rd) {
+                $review = new Review();
+                $review->setProductId($productId);
+                $review->setRating($rd->overallRating->rating);
+                $review->setReviewTitle($rd->title);
+                $review->setDescription($rd->reviewText);
+                $review->setOriginalMemberName($rd->reviewer);
+                $this->em->persist($review);
+            }
+        }
+
+        $this->em->flush();
+    }
+
+    public function getProvider()
+    {
+        $repository = $this->em->getRepository(ExternalProvider::class);
+        $provider = $repository->findOneByProviderName(self::NAME);
+
+        return $provider;
     }
 }

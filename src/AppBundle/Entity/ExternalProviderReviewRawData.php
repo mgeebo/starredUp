@@ -7,9 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ExternalProviderReviewRawData
  *
- * @ORM\Table(name="external_provider_review_raw_data")
- * @ORM\Entity
- */
+ * @ORM\Table(name="external_provider_review_raw_data",indexes={@ORM\Index(name="product_upc", columns={"external_provider_id", "upc", "is_active"})})
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ExternalProviderReviewRawDataRepository") */
 class ExternalProviderReviewRawData
 {
     use BaseTrait;
@@ -21,7 +20,7 @@ class ExternalProviderReviewRawData
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    private $externalReviewRawDataId;
 
     /**
      * @var int
@@ -38,35 +37,27 @@ class ExternalProviderReviewRawData
     private $externalProviderId;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="product_id", type="integer")
+     * @ORM\Column(name="external_provider_data", type="text")
      */
-    private $productId;
+    private $externalProviderData;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="review_description", type="string", length=255, nullable=true)
+     * @ORM\Column(name="upc", type="string", length=12)
      */
-    private $reviewDescription;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="review_rating", type="integer", nullable=true)
-     */
-    private $reviewRating;
-
+    private $upc;
 
     /**
      * Get id
      *
      * @return int
      */
-    public function getId()
+    public function getExternalReviewRawDataId()
     {
-        return $this->id;
+        return $this->externalReviewRawDataId;
     }
 
     /**
@@ -118,30 +109,6 @@ class ExternalProviderReviewRawData
     }
 
     /**
-     * Set productId
-     *
-     * @param integer $productId
-     *
-     * @return string
-     */
-    public function setProductId($productId)
-    {
-        $this->productId = $productId;
-
-        return $this;
-    }
-
-    /**
-     * Get productId
-     *
-     * @return int
-     */
-    public function getProductId()
-    {
-        return $this->productId;
-    }
-
-    /**
      * Set reviewDescription
      *
      * @param string $reviewDescription
@@ -166,27 +133,37 @@ class ExternalProviderReviewRawData
     }
 
     /**
-     * Set reviewRating
-     *
-     * @param integer $reviewRating
-     *
      * @return string
      */
-    public function setReviewRating($reviewRating)
+    public function getExternalProviderData()
     {
-        $this->reviewRating = $reviewRating;
-
-        return $this;
+        return $this->externalProviderData;
     }
 
     /**
-     * Get reviewRating
-     *
-     * @return int
+     * @param string $externalProviderData
      */
-    public function getReviewRating()
+    public function setExternalProviderData($externalProviderData)
     {
-        return $this->reviewRating;
+        $this->externalProviderData = $externalProviderData;
     }
+
+    /**
+     * @return string
+     */
+    public function getUpc()
+    {
+        return $this->upc;
+    }
+
+    /**
+     * @param string $upc
+     */
+    public function setUpc($upc)
+    {
+        $this->upc = $upc;
+    }
+
+
 }
 

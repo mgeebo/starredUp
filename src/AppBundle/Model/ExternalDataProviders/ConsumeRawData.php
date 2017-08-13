@@ -2,11 +2,14 @@
 
 namespace AppBundle\Model\ExternalDataProviders;
 
+use AppBundle\Entity\ExternalProviderProductRawData;
+use AppBundle\Entity\Product;
+
 interface ConsumeRawData
 {
     public function authenticate();
     public function consume($itemIds);
-    public function processData($data);
-    public function processReviews($data);
+    public function processProducts($data);
+    public function processReviews(array $ids);
 
 }
