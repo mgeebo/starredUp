@@ -7,7 +7,7 @@ use Swagger\Annotations as SWG;
 
 /**
  * Clients
- * @SWG\Definition(required={"client_name", "first_name", "last_name", "email", "password", "dob"}, type="object")
+ * @SWG\Definition(required={"client_name", "client_member_name", "client_password"}, type="object")
  * @ORM\Table(name="clients")
  * @ORM\Entity
  */
@@ -34,45 +34,16 @@ class Client
     /**
      * @var string
      *
-     * @ORM\Column(name="first_name", type="string", length=20)
+     * @ORM\Column(name="client_member_name", type="string", length=20)
      */
-    private $firstName;
+    private $clientMemberName;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="last_name", type="string", length=20)
+     * @ORM\Column(name="client_password", type="string", length=20)
      */
-    private $lastName;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="email", type="string", length=255, unique=true)
-     */
-    private $email;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="password", type="string", length=25)
-     */
-    private $password;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="dob", type="date")
-     */
-    private $dob;
-
-    /**
-     * @var bool
-     *
-     * @ORM\Column(name="is_admin", type="boolean")
-     */
-    private $isAdmin;
-
+    private $clientPassword;
 
     /**
      * Get id
@@ -109,146 +80,50 @@ class Client
     }
 
     /**
-     * Set firstName
+     * Set clientMemberName
      *
-     * @param string $firstName
+     * @param string $clientMemberName
      *
      * @return Client
      */
-    public function setFirstName($firstName)
+    public function setClientMemberName($clientMemberName)
     {
-        $this->firstName = $firstName;
+        $this->clientMemberName = $clientMemberName;
 
         return $this;
     }
 
     /**
-     * Get firstName
+     * Get clientMemberName
      *
      * @return string
      */
-    public function getFirstName()
+    public function getClientMemberName()
     {
-        return $this->firstName;
+        return $this->clientMemberName;
     }
 
     /**
-     * Set lastName
+     * Set clientPassword
      *
-     * @param string $lastName
+     * @param string $clientPassword
      *
      * @return Client
      */
-    public function setLastName($lastName)
+    public function setClientPassword($clientPassword)
     {
-        $this->lastName = $lastName;
+        $this->clientPassword = $clientPassword;
 
         return $this;
     }
 
     /**
-     * Get lastName
+     * Get clientPassword
      *
      * @return string
      */
-    public function getLastName()
+    public function getClientPassword()
     {
-        return $this->lastName;
-    }
-
-    /**
-     * Set email
-     *
-     * @param string $email
-     *
-     * @return Client
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-     * Get email
-     *
-     * @return string
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * Set password
-     *
-     * @param string $password
-     *
-     * @return Client
-     */
-    public function setPassword($password)
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    /**
-     * Get password
-     *
-     * @return string
-     */
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-    /**
-     * Set dob
-     *
-     * @param \DateTime $dob
-     *
-     * @return Client
-     */
-    public function setDOB($dob)
-    {
-        $this->dob = $dob;
-
-        return $this;
-    }
-
-    /**
-     * Get dob
-     *
-     * @return \DateTime
-     */
-    public function getDOB()
-    {
-        return $this->dob;
-    }
-
-    /**
-     * Set isAdmin
-     *
-     * @param boolean $isAdmin
-     *
-     * @return Client
-     */
-    public function setIsAdmin($isAdmin)
-    {
-        $this->isAdmin = $isAdmin;
-
-        return $this;
-    }
-
-    /**
-     * Get isAdmin
-     *
-     * @return bool
-     */
-    public function getIsAdmin()
-    {
-        return $this->isAdmin;
+        return $this->clientPassword;
     }
 }
