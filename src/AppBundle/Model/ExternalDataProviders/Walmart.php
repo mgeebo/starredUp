@@ -94,6 +94,7 @@ class Walmart implements ConsumeRawData
      */
     public function saveRawProductData($providerName, array $data)
     {
+        $rawData = null;
         $repository = $this->em->getRepository(ExternalProvider::class);
         $provider = $repository->findOneByProviderName($providerName);
         if (!empty($provider)) {
@@ -120,10 +121,9 @@ class Walmart implements ConsumeRawData
                     }
                     $rawProducts[] = $rawProduct ?: $rd;
                 }
+
                 $this->em->flush();
             }
-        } else {
-            return false;
         }
 
         return $rawData;
@@ -169,6 +169,7 @@ class Walmart implements ConsumeRawData
                 echo $e->getMessage();
             }
         }
+
         $this->em->flush();
         $this->saveRawReviewData($products);
 
@@ -189,9 +190,8 @@ class Walmart implements ConsumeRawData
             $rawProduct = $rawProductRepository->findOneByUpc($p->getUpc());
             $providerData = json_decode($rawProduct->getExternalProviderData());
             if ($id = (string)$providerData->itemId) {
-                $itemData = ['format' => self::FORMAT, 'apiKey' => $provider->getProviderKey(), $id];
                 $response = Unirest\Request::get(
-                    "http://api.walmartlabs.com/v1/reviews/$id?format=json&apiKey=ep7npckux5mvje859n62btkz", 'json');
+                    "http://api.walmartlabs.com/v1/reviews/$id?format=json&apiKey={$provider->getProviderKey()}", 'json');
                 $reviewResponse = (array)$response->body->reviews;
                 if ($updateReview = $rawReviewRepository->findOneByExternalRawProductDataId($p->getProductId())) {
                     $updateReview->setExternalProviderData(json_encode($reviewResponse));
@@ -238,7 +238,11 @@ class Walmart implements ConsumeRawData
             }
         }
 
-        $this->em->flush();
+        try {
+            $this->em->flush();
+        } catch (UniqueConstraintViolationException $e) {
+           echo $e->getMessage();
+        }
     }
 
     public function getProvider()

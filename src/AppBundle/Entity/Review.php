@@ -5,26 +5,27 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Swagger\Annotations as SWG;
 
 /**
  * Review
  *
- * @ORM\Table(name="reviews",indexes={
- *     @ORM\Index(name="product_member", columns={"product_id", "member_id"}),
- *     @ORM\Index(name="product_original_member", columns={"product_id", "original_member_name"})
- *  }
- * )
+ * @ORM\Table(
+ *     name="reviews",
+ *     uniqueConstraints={@ORM\UniqueConstraint(name="product_original_member", columns={"product_id", "original_member_name"})},
+ *     indexes={@ORM\Index(name="product_member", columns={"product_id", "member_id"})}
+ *     )
  * @ORM\Entity
  */
 class Review
 {
-    use BaseTrait;
-
     //<editor-fold desc="Variables">
+
+    use BaseTrait;
 
     /**
      * @var int
-     *
+     * @SWG\Property(example=1)
      * @ORM\Column(name="review_id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -33,39 +34,49 @@ class Review
 
     /**
      * @var int
-     *
+     * @SWG\Property(example=1)
      * @ORM\Column(name="product_id", type="integer")
      */
     private $productId;
 
     /**
      * @var int
-     *
-     * @ORM\Column(name="member_id", type="integer")
+     * @SWG\Property(example=1)
+     * @ORM\Column(name="member_id", type="integer", nullable=true)
      */
     private $memberId;
 
     /**
+     * @var int
+     * @SWG\Property(example=1)
+     * @ORM\Column(name="original_member_id", type="integer", nullable=true)
+     */
+    private $originalMemberId;
+
+    /**
      * @var string
-     * @ORM\Column(name="description", type="string", length=255)
+     * @SWG\Property(example="Very Good")
+     * @ORM\Column(name="review_title", type="string", length=255)
+     */
+    private $reviewTitle;
+
+    /**
+     * @var string
+     * @SWG\Property(example="Very Good")
+     * @ORM\Column(name="description", type="text")
      */
     private $description;
 
     /**
      * @var double
+     * @SWG\Property(example=4.5)
      * @ORM\Column(name="rating", type="float")
      */
     private $rating;
 
     /**
      * @var string
-     * @ORM\Column(name="review_title", type="string", length=20)
-     */
-    private $reviewTitle;
-
-    /**
-     * @var string
-     * @ORM\Column(name="original_member_name", type="string", length=20)
+     * @ORM\Column(name="original_member_name", type="string", length=20, nullable=true)
      */
     private $originalMemberName;
 
@@ -113,12 +124,45 @@ class Review
         return $this->memberId;
     }
 
+
     /**
      * @param int $memberId
      */
     public function setMemberId($memberId)
     {
-        $this->memberIdId = $memberId;
+        $this->memberId = $memberId;
+    }
+
+    /**
+     * @return int
+     */
+    public function getOriginalMemberId()
+    {
+        return $this->originalMemberId;
+    }
+
+    /**
+     * @param int $originalMemberId
+     */
+    public function setOriginalMemberId($originalMemberId)
+    {
+        $this->originalMemberId = $originalMemberId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getReviewTitle()
+    {
+        return $this->reviewTitle;
+    }
+
+    /**
+     * @param string $reviewTitle
+     */
+    public function setReviewTitle($reviewTitle)
+    {
+        $this->reviewTitle = $reviewTitle;
     }
 
     /**
@@ -151,22 +195,6 @@ class Review
     public function setRating($rating)
     {
         $this->rating = $rating;
-    }
-
-    /**
-     * @return string
-     */
-    public function getReviewTitle()
-    {
-        return $this->reviewTitle;
-    }
-
-    /**
-     * @param string $reviewTitle
-     */
-    public function setReviewTitle($reviewTitle)
-    {
-        $this->reviewTitle = $reviewTitle;
     }
 
     /**
