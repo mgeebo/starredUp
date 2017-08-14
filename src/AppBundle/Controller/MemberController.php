@@ -74,7 +74,7 @@ class MemberController extends ApiController
                 return new JsonResponse(["No member found for ID: $memberId"], 404);
             }
 
-        return new JsonResponse($member);
+        return new Response($member);
     }
 
     /**

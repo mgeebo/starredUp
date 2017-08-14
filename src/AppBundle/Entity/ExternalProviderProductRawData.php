@@ -21,7 +21,7 @@ class ExternalProviderProductRawData
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    private $externalProductRawDataId;
 
     /**
      * @var int
@@ -49,9 +49,9 @@ class ExternalProviderProductRawData
      *
      * @return int
      */
-    public function getId()
+    public function getexternalProductRawDataId()
     {
-        return $this->id;
+        return $this->externalProductRawDataId;
     }
 
     /**
@@ -59,9 +59,9 @@ class ExternalProviderProductRawData
      *
      * @return int
      */
-    public function setId($id)
+    public function setExternalProductRawDataId($externalProductRawDataId)
     {
-        $this->id = $id;
+        $this->externalProductRawDataId = $externalProductRawDataId;
 
         return $this;
     }
@@ -73,7 +73,7 @@ class ExternalProviderProductRawData
      */
     public function getExternalProductProviderId()
     {
-        return $this->externalProductRawDataId;
+        return $this->externalProviderId;
     }
 
     /**

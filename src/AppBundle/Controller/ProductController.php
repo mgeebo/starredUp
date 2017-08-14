@@ -56,11 +56,7 @@ class ProductController extends ApiController
     public function getProduct($productId)
     {
         $em = $this->getDoctrine();
-
-
-            $product = $em->getRepository(Product::class)->findByProductId($productId);
-
-
+        $product = $em->getRepository(Product::class)->findByProductId($productId);
 
         if (!empty($product)) {
             $success = [
@@ -70,13 +66,11 @@ class ProductController extends ApiController
             ];
             // Serialize array to make it returnable as a string for the Response
             $product = $this->serializer->serialize($success, 'json');
-        }
-        else
-        {
+        } else {
             return new JsonResponse(["No product found for ID: $productId"], 404);
         }
 
-        return new JsonResponse($product);
+        return new Response($product);
     }
 
     /**
@@ -111,7 +105,7 @@ class ProductController extends ApiController
         $product = new Product();
         $prop = $r->request->all();
 
-        if (!is_null($productId = $prop['productId'])) {
+        if (isset($prop['productId']) && !is_null($productId = $prop['productId'])) {
             $product = $em->getRepository(Product::class)->find($productId);
             if (!$product) {
                 return new JsonResponse(["No product found for ID: $productId"], 404);

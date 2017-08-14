@@ -9,8 +9,12 @@ use Swagger\Annotations as SWG;
 
 /**
  * Review
- * @SWG\Definition(required={"reviewId"}, type="object")
- * @ORM\Table(name="reviews")
+ *
+ * @ORM\Table(
+ *     name="reviews",
+ *     uniqueConstraints={@ORM\UniqueConstraint(name="product_original_member", columns={"product_id", "original_member_name"})},
+ *     indexes={@ORM\Index(name="product_member", columns={"product_id", "member_id"})}
+ *     )
  * @ORM\Entity
  */
 class Review
@@ -38,14 +42,14 @@ class Review
     /**
      * @var int
      * @SWG\Property(example=1)
-     * @ORM\Column(name="member_id", type="integer")
+     * @ORM\Column(name="member_id", type="integer", nullable=true)
      */
     private $memberId;
 
     /**
      * @var int
      * @SWG\Property(example=1)
-     * @ORM\Column(name="original_member_id", type="integer")
+     * @ORM\Column(name="original_member_id", type="integer", nullable=true)
      */
     private $originalMemberId;
 
@@ -59,7 +63,7 @@ class Review
     /**
      * @var string
      * @SWG\Property(example="Very Good")
-     * @ORM\Column(name="description", type="string", length=255)
+     * @ORM\Column(name="description", type="text")
      */
     private $description;
 
@@ -69,6 +73,12 @@ class Review
      * @ORM\Column(name="rating", type="float")
      */
     private $rating;
+
+    /**
+     * @var string
+     * @ORM\Column(name="original_member_name", type="string", length=20, nullable=true)
+     */
+    private $originalMemberName;
 
     //</editor-fold>
 
@@ -113,6 +123,7 @@ class Review
     {
         return $this->memberId;
     }
+
 
     /**
      * @param int $memberId
@@ -186,6 +197,22 @@ class Review
         $this->rating = $rating;
     }
 
+    /**
+     * @return string
+     */
+    public function getOriginalMemberName()
+    {
+        return $this->originalMemberName;
+    }
+
+    /**
+     * @param string $originalMemberName
+     */
+    public function setOriginalMemberName($originalMemberName)
+    {
+        $this->originalMemberName = $originalMemberName;
+    }
+
     //</editor-fold>
 
     //<editor-fold desc="Methods">
@@ -195,7 +222,6 @@ class Review
      */
     public static function CalculateRating()
     {}
-
     //</editor-fold>
 }
 
