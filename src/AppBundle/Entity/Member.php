@@ -7,7 +7,7 @@ use Swagger\Annotations as SWG;
 
 /**
  * Members
- * @SWG\Definition(required={"member_name", "first_name", "last_name", "email", "password", "dob"}, type="object")
+ * @SWG\Definition(required={"memberName", "firstName", "lastName", "email", "password", "dob"}, type="object")
  * @ORM\Table(name="members")
  * @ORM\Entity
  */
