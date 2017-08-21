@@ -5,7 +5,3 @@ app:
 appBackend:
     resource: '@AppBundle/Controller/Backend/'
     type: annotation
-
-appSwagger:
-    resource: '@AppBundle/Resources/'
-    type: annotation

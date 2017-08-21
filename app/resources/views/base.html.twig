@@ -1,17 +1,19 @@
 <!DOCTYPE html>
-<html ng-app="StarredUp">
+<html>
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
-    <body ng-app="app">
-    <div ng-controller="LuckyController">
-        <div class="container">
-            {% block body %}{% endblock %}
-
-            </div>
-    </div>
+    <body ng-app="starredUp">
+         <ng-view></ng-view>
     </body>
+    <script src="{{ asset('angular/js/angular.js') }}" type="application/javascript"></script>
+    <script src="{{ asset('bower_components/angular-route/angular-route.js') }}" type="application/javascript"></script>
+
+    <script src="{{ asset('app/app.module.js') }}" type="application/javascript"></script>
+    <script src="{{ asset('app/app.config.js') }}" type="application/javascript"></script>
+    <script src="{{ asset('app/home/homeController.js') }}" type="application/javascript"></script>
+
 </html>
