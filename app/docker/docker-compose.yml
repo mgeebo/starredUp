@@ -1,0 +1,32 @@
+
+version: '3'
+services:
+    web:
+        container_name: et_nginx
+        restart: always
+        image: nginx:latest
+        ports:
+            - "8000:80"
+        environment:
+            - NGINX_HOST="foobar.com"
+            - NGINX_PORT="80"
+        volumes:
+            - "$DEVPATH/StarredUp"
+            - "./site.conf:/etc/nginx/conf.d/mysite.template"
+        links:
+            - "php"
+    php:
+        image: php:5.6-fpm
+    mysql:
+        container_name: et_mysql
+        restart: always
+        image: mysql:5.7.13
+        environment:
+            MYSQL_DATABASE: docker_test               
+            MYSQL_ROOT_PASSWORD: root
+        ports:
+            - "localhost:3306:3306"
+        volumes:
+            - "mysql:/var/lib/mysql"
+volumes:
+    mysql:
