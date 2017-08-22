@@ -3,11 +3,12 @@
 
     angular
         .module("starredUp")
-        .controller("homeController", homeController);
+        .controller("reviewController", reviewController);
 
-    function homeController($http) {
+    function reviewController($http) {
         var vm = this;
         vm.data = "test";
+
 
     }
 
