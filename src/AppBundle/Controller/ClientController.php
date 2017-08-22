@@ -171,7 +171,6 @@ class ClientController extends ApiController
      * @Route("/clients/{clientId}/remove")
      * @Method({"POST"})
      */
-
     public function removeClient($clientId) {
         $em = $this->getDoctrine()->getManager();
         if (is_null($client = $em->getRepository(Client::class)->find($clientId))) {
