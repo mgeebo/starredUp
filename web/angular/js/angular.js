@@ -2209,7 +2209,7 @@ function setupModuleLoader(window) {
      *
      * # Module
      *
-     * A module is a collection of services, directives, controllers, filters, and configuration information.
+     * A module is a collection of service, directives, controllers, filters, and configuration information.
      * `angular.module` is used to configure the {@link auto.$injector $injector}.
      *
      * ```js
@@ -2219,7 +2219,7 @@ function setupModuleLoader(window) {
      * // register a new service
      * myModule.value('appName', 'MyCoolApp');
      *
-     * // configure existing services inside initialization blocks.
+     * // configure existing service inside initialization blocks.
      * myModule.config(['$locationProvider', function($locationProvider) {
      *   // Configure existing providers
      *   $locationProvider.hashPrefix('!');
@@ -4363,7 +4363,7 @@ function annotate(fn, strictDi, name) {
  *
  * @description
  * Returns an array of service names which the function is requesting for injection. This API is
- * used by the injector to determine which services need to be injected into the function when the
+ * used by the injector to determine which service need to be injected into the function when the
  * function is invoked. There are three ways in which the function can be annotated with the needed
  * dependencies.
  *
@@ -4390,7 +4390,7 @@ function annotate(fn, strictDi, name) {
  * # The `$inject` property
  *
  * If a function has an `$inject` property and its value is an array of strings, then the strings
- * represent names of services to be injected into the function.
+ * represent names of service to be injected into the function.
  * ```js
  *   // Given
  *   var MyController = function(obfuscatedScope, obfuscatedRoute) {
@@ -4438,7 +4438,7 @@ function annotate(fn, strictDi, name) {
  *
  * @param {boolean=} [strictDi=false] Disallow argument name annotation inference.
  *
- * @returns {Array.<string>} The names of the services which the function requires.
+ * @returns {Array.<string>} The names of the service which the function requires.
  */
 
 
@@ -4462,17 +4462,17 @@ function annotate(fn, strictDi, name) {
  * correct **service provider**, instantiating it and then calling its `$get` **service factory**
  * function to get the instance of the **service**.
  *
- * Often services have no configuration options and there is no need to add methods to the service
+ * Often service have no configuration options and there is no need to add methods to the service
  * provider.  The provider will be no more than a constructor function with a `$get` property. For
  * these cases the {@link auto.$provide $provide} service has additional helper methods to register
- * services without specifying a provider.
+ * service without specifying a provider.
  *
  * * {@link auto.$provide#provider provider(name, provider)} - registers a **service provider** with the
  *     {@link auto.$injector $injector}
  * * {@link auto.$provide#constant constant(name, obj)} - registers a value/object that can be accessed by
- *     providers and services.
+ *     providers and service.
  * * {@link auto.$provide#value value(name, obj)} - registers a value/object that can only be accessed by
- *     services, not providers.
+ *     service, not providers.
  * * {@link auto.$provide#factory factory(name, fn)} - registers a service **factory function**
  *     that will be wrapped in a **service provider** object, whose `$get` property will contain the
  *     given factory function.
@@ -4677,9 +4677,9 @@ function annotate(fn, strictDi, name) {
  * Register a **value service** with the {@link auto.$injector $injector}, such as a string, a
  * number, an array, an object or a function. This is short for registering a service where its
  * provider's `$get` property is a factory function that takes no arguments and returns the **value
- * service**. That also means it is not possible to inject other services into a value service.
+ * service**. That also means it is not possible to inject other service into a value service.
  *
- * Value services are similar to constant services, except that they cannot be injected into a
+ * Value service are similar to constant service, except that they cannot be injected into a
  * module configuration function (see {@link angular.Module#config}) but they can be overridden by
  * an Angular {@link auto.$provide#decorator decorator}.
  *
@@ -4688,7 +4688,7 @@ function annotate(fn, strictDi, name) {
  * @returns {Object} registered provider instance
  *
  * @example
- * Here are some examples of creating value services.
+ * Here are some examples of creating value service.
  * ```js
  *   $provide.value('ADMIN_USER', 'admin');
  *
@@ -17340,8 +17340,8 @@ function $RootScopeProvider() {
      *
      * @param {Object.<string, function()>=} providers Map of service factory which need to be
      *                                       provided for the current scope. Defaults to {@link ng}.
-     * @param {Object.<string, *>=} instanceCache Provides pre-instantiated services which should
-     *                              append/override services provided by `providers`. This is handy
+     * @param {Object.<string, *>=} instanceCache Provides pre-instantiated service which should
+     *                              append/override service provided by `providers`. This is handy
      *                              when unit-testing and having the need to override a default
      *                              service.
      * @returns {Object} Newly created scope.

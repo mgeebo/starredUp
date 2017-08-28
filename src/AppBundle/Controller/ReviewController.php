@@ -190,10 +190,32 @@ class ReviewController extends ApiController
         }
 
         return new JsonResponse([
-            "success" => [
                 "reviewId" => $review->getreviewId(),
                 "isActive" => $review->getIsActive()
-            ]
         ]);
-    } 
+    }
+
+    /**
+     * @Route("/reviews/component/recentReviews")
+     * @Method({"GET"})
+     */
+    public function getRecentReviews() {
+        $em = $this->getDoctrine();
+        $reviewRepository = $em->getRepository(Review::class);
+        $recentReviews = $this->serializer->serialize($reviewRepository->getRecentReviews(), 'json');
+        return new Response($recentReviews);
+    }
+
+    /**
+     * @Route("/reviews/component/featuredReviews")
+     * @Method({"GET"})
+     */
+    public function getFeaturedReviews() {
+        $count = 5;
+        $orderBy = 'r.isFeatured';
+        $em = $this->getDoctrine();
+        $reviewRepository = $em->getRepository(Review::class);
+        $recentReviews = $this->serializer->serialize($reviewRepository->getRecentReviews($count, $orderBy, true), 'json');
+        return new Response($recentReviews);
+    }
 }

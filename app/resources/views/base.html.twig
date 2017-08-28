@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
+<head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    {% block stylesheets %}{% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+</head>
 
-    <body ng-app="starredUp">
-        <div class="container-fluid">
-            <nav class="navbar navbar-default">
-                <div class="container-fluid">
+<body ng-app="starredUp">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="navbar"></div>
+                <nav class="navbar navbar-default">
                     <!-- Brand and toggle get grouped for better mobile display -->
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -19,7 +20,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="#">Brand</a>
+                        <a class="navbar-brand" href="#">StarredUp<i class="glyphicon glyphicon-star-empty"></i></a>
                     </div>
 
                     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -41,10 +42,12 @@
                             </li>
                         </ul>
                         <form class="navbar-form navbar-left" role="search">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Search">
+                            <div class="input-group">
+                                <input class="form-control" placeholder="Search">
+                                <span class="input-group-btn">
+                                    <button id="search-submit" class="btn btn-secondary" type="button"><i class="glyphicon glyphicon-search"></i></button>
+                                </span>
                             </div>
-                            <button type="submit" class="btn btn-default">Submit</button>
                         </form>
                         <ul class="nav navbar-nav navbar-right">
                             <li><a href="#">Link</a></li>
@@ -60,22 +63,26 @@
                             </li>
                         </ul>
                     </div><!-- /.navbar-collapse -->
-                </div><!-- /.container-fluid -->
-            </nav>
-             <div ui-view></div>
+                </nav>
+            <ui-view></ui-view>
         </div>
-    </body>
-    <script src="{{ asset('bower_components/jquery/dist/jquery.min.js') }}" type="application/javascript"></script>
-    <script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js') }}" type="application/javascript"></script>
-    <script src="{{ asset('angular/js/angular.js') }}" type="application/javascript"></script>
-    <script src="{{ asset('bower_components/angular-ui-router/release/angular-ui-router.js') }}" type="application/javascript"></script>
+    </div>
+</body>
+<script src="{{ asset('bower_components/jquery/dist/jquery.min.js') }}" type="application/javascript"></script>
+<script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js') }}" type="application/javascript"></script>
+<script src="{{ asset('angular/js/angular.js') }}" type="application/javascript"></script>
+<script src="{{ asset('bower_components/angular-ui-router/release/angular-ui-router.js') }}" type="application/javascript"></script>
 
-    <script src="{{ asset('app/app.module.js') }}" type="application/javascript"></script>
-    <script src="{{ asset('app/app.config.js') }}" type="application/javascript"></script>
+<script src="{{ asset('app/app.module.js') }}" type="application/javascript"></script>
+<script src="{{ asset('app/app.config.js') }}" type="application/javascript"></script>
 
+<script src="{{ asset('app/home/homeController.js') }}" type="application/javascript"></script>
+<script src="{{ asset('app/product/productController.js') }}" type="application/javascript"></script>
+<script src="{{ asset('app/review/reviewController.js') }}" type="application/javascript"></script>
 
-    <script src="{{ asset('app/home/homeController.js') }}" type="application/javascript"></script>
-    <script src="{{ asset('app/product/productController.js') }}" type="application/javascript"></script>
-    <script src="{{ asset('app/review/reviewController.js') }}" type="application/javascript"></script>
+<script src="{{ asset('app/service/reviewService.js') }}" type="application/javascript"></script>
+
+<script src="{{ asset('app/shared/directives/recentReviews.js') }}" type="application/javascript"></script>
+<script src="{{ asset('app/shared/partials/recentReviews.html') }}" type="text/html"></script>
 
 </html>

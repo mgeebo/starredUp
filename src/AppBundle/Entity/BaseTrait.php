@@ -3,40 +3,47 @@
 namespace AppBundle\Entity;
 
 use DateTime;
+use Swagger\Annotations as SWG;
 
 trait BaseTrait
 {
-    /** @ORM\Column(type="boolean") */
-    protected $is_active = 1;
+    /** @ORM\Column(name="is_active", type="boolean")
+     * @SWG\Property(example="1")
+    */
+    protected $isActive = 1;
 
-    /** @ORM\Column(type="datetime") */
-    protected $create_date;
+    /** @ORM\Column(name="create_date", type="datetime")
+     * @SWG\Property(example="2017-08-13 19:29:17")
+     */
+    protected $createDate;
 
-    /** @ORM\Column(type="datetime") */
-    protected $modify_date;
+    /** @ORM\Column(name="modify_date", type="datetime")
+     * @SWG\Property(example="2017-08-13 19:29:17")
+     */
+    protected $modifyDate;
 
     public function __construct()
     {
-        if (!isset($this->create_date)) {
-            $this->create_date = new DateTime();
+        if (!isset($this->createDate)) {
+            $this->createDate = new DateTime();
         }
-        $this->is_active = true;
-        $this->modify_date = new DateTime();
+        $this->isActive = true;
+        $this->modifyDate = new DateTime();
     }
     /**
      * @return integer
      */
     public function getIsActive()
     {
-        return $this->is_active;
+        return $this->isActive;
     }
 
     /**
-     * @param integer $is_active
+     * @param integer $isActive
      */
-    public function setIsActive($is_active)
+    public function setIsActive($isActive)
     {
-        $this->is_active = $is_active;
+        $this->isActive = $isActive;
     }
 
     /**
@@ -44,15 +51,15 @@ trait BaseTrait
      */
     public function getCreateDate()
     {
-        return $this->create_date;
+        return $this->createDate;
     }
 
     /**
-     * @param DateTime $create_date
+     * @param DateTime $createDate
      */
-    public function setCreateDate($create_date)
+    public function setCreateDate($createDate)
     {
-        $this->create_date = $create_date;
+        $this->createDate = $createDate;
     }
 
     /**
@@ -60,14 +67,14 @@ trait BaseTrait
      */
     public function getModifyDate()
     {
-        return $this->modify_date;
+        return $this->modifyDate;
     }
 
     /**
-     * @param DateTime $modify_date
+     * @param DateTime $modifyDate
      */
-    public function setModifyDate($modify_date)
+    public function setModifyDate($modifyDate)
     {
-        $this->modify_date = $modify_date;
+        $this->modifyDate = $modifyDate;
     }
 }

@@ -9,7 +9,7 @@ use Swagger\Annotations as SWG;
  * Products
  * @SWG\Definition(required={"productName", "upc"}, type="object")
  * @ORM\Table(name="products")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ProductRepository")
  */
 class Product
 {

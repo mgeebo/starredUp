@@ -15,7 +15,7 @@ use Swagger\Annotations as SWG;
  *     uniqueConstraints={@ORM\UniqueConstraint(name="product_original_member", columns={"product_id", "original_member_name"})},
  *     indexes={@ORM\Index(name="product_member", columns={"product_id", "member_id"})}
  *     )
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ReviewRepository")
  */
 class Review
 {
@@ -76,9 +76,17 @@ class Review
 
     /**
      * @var string
+     * @SWG\Property(example="sam123")
      * @ORM\Column(name="original_member_name", type="string", length=20, nullable=true)
      */
     private $originalMemberName;
+
+    /**
+     * @var boolean
+     * @SWG\Property(example=1)
+     * @ORM\Column(name="is_featured", type="boolean", nullable=true)
+     */
+    private $isFeatured;
 
     //</editor-fold>
 
@@ -213,6 +221,22 @@ class Review
         $this->originalMemberName = $originalMemberName;
     }
 
+    /**
+     * @return bool
+     */
+    public function isFeatured()
+    {
+        return $this->isFeatured;
+    }
+
+    /**
+     * @param bool $isFeatured
+     */
+    public function setIsFeatured($isFeatured)
+    {
+        $this->isFeatured = $isFeatured;
+    }
+
     //</editor-fold>
 
     //<editor-fold desc="Methods">
@@ -222,6 +246,7 @@ class Review
      */
     public static function CalculateRating()
     {}
+
     //</editor-fold>
 }
 

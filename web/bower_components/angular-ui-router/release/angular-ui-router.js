@@ -4869,7 +4869,7 @@ var UrlMatcher = (function () {
 /**
  * Factory for [[UrlMatcher]] instances.
  *
- * The factory is available to ng1 services as
+ * The factory is available to ng1 service as
  * `$urlMatcherFactor` or ng1 providers as `$urlMatcherFactoryProvider`.
  */
 var UrlMatcherFactory = (function () {
@@ -5883,7 +5883,7 @@ var _routerInstance = 0;
  * The master class used to instantiate an instance of UI-Router.
  *
  * UI-Router (for each specific framework) will create an instance of this class during bootstrap.
- * This class instantiates and wires the UI-Router services together.
+ * This class instantiates and wires the UI-Router service together.
  *
  * After a new instance of the UIRouter class is created, it should be configured for your app.
  * For instance, app states should be registered with the [[UIRouter.stateRegistry]].
@@ -5912,9 +5912,9 @@ var UIRouter = (function () {
         /** @hidden */ this._disposables = [];
         /** Provides trace information to the console */
         this.trace = trace;
-        /** Provides services related to ui-view synchronization */
+        /** Provides service related to ui-view synchronization */
         this.viewService = new ViewService();
-        /** Provides services related to Transitions */
+        /** Provides service related to Transitions */
         this.transitionService = new TransitionService(this);
         /** Global router state */
         this.globals = new UIRouterGlobals();
@@ -5928,11 +5928,11 @@ var UIRouter = (function () {
          * @deprecated Use [[urlService]] instead
          */
         this.urlRouter = new UrlRouter(this);
-        /** Provides a registry for states, and related registration services */
+        /** Provides a registry for states, and related registration service */
         this.stateRegistry = new StateRegistry(this);
-        /** Provides services related to states */
+        /** Provides service related to states */
         this.stateService = new StateService(this);
-        /** Provides services related to the URL */
+        /** Provides service related to the URL */
         this.urlService = new UrlService(this);
         /** @hidden */
         this._plugins = {};
@@ -6464,7 +6464,7 @@ var defaultTransOpts = {
     source: "unknown"
 };
 /**
- * This class provides services related to Transitions.
+ * This class provides service related to Transitions.
  *
  * - Most importantly, it allows global Transition Hooks to be registered.
  * - It allows the default transition error handler to be set.
@@ -6667,7 +6667,7 @@ var TransitionService = (function () {
 /**
  * Provides state related service functions
  *
- * This class provides services related to ui-router states.
+ * This class provides service related to ui-router states.
  * An instance of this class is located on the global [[UIRouter]] object.
  */
 var StateService = (function () {
@@ -8438,7 +8438,7 @@ var UrlRouterProvider = (function () {
      * ```
      *
      * @param ruleFn
-     * Handler function that takes `$injector` and `$location` services as arguments.
+     * Handler function that takes `$injector` and `$location` service as arguments.
      * You can use them to detect a url and return a different url as a string.
      *
      * @return [[UrlRouterProvider]] (`this`)
@@ -8477,7 +8477,7 @@ var UrlRouterProvider = (function () {
      *
      * @param rule
      * The url path you want to redirect to or a function rule that returns the url path or performs a `$state.go()`.
-     * The function version is passed two params: `$injector` and `$location` services, and should return a url string.
+     * The function version is passed two params: `$injector` and `$location` service, and should return a url string.
      *
      * @return {object} `$urlRouterProvider` - `$urlRouterProvider` instance
      */
@@ -8605,7 +8605,7 @@ var mod_main = ng.module('ui.router', ['ui.router.init', 'ui.router.state', 'ui.
 var mod_cmpt = ng.module('ui.router.compat', ['ui.router']); // tslint:disable-line
 var router = null;
 $uiRouter.$inject = ['$locationProvider'];
-/** This angular 1 provider instantiates a Router and exposes its services via the angular injector */
+/** This angular 1 provider instantiates a Router and exposes its service via the angular injector */
 function $uiRouter($locationProvider) {
     // Create a new instance of the Router when the $uiRouterProvider is initialized
     router = this.router = new UIRouter();
@@ -8690,7 +8690,7 @@ var getLocals = function (ctx) {
 };
 
 /**
- * # Angular 1 injectable services
+ * # Angular 1 injectable service
  *
  * This is a list of the objects which can be injected using angular's injector.
  *
@@ -8786,7 +8786,7 @@ var getLocals = function (ctx) {
  *
  * ---
  *
- * This object can be injected into other services.
+ * This object can be injected into other service.
  *
  * #### Deprecated Example:
  * ```js
