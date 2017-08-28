@@ -485,13 +485,29 @@
                 "productImage": {
                     "type": "string",
                     "example": "null"
+                },
+                "productCategory": {
+                    "type": "string",
+                    "example": "Mobile Devices"
+                },
+                "productSubcategory": {
+                    "type": "string",
+                    "example": "Tablets"
+                },
+                "isFeatured": {
+                    "type": "boolean",
+                    "example": 1
                 }
             },
             "type": "object"
         },
         "Review": {
             "required": [
-                "reviewId"
+                "productId",
+                "reviewTitle",
+                "description",
+                "rating",
+                "upc"
             ],
             "properties": {
                 "reviewId": {
@@ -522,6 +538,14 @@
                     "type": "number",
                     "format": "double",
                     "example": 4.5
+                },
+                "originalMemberName": {
+                    "type": "string",
+                    "example": "sam123"
+                },
+                "isFeatured": {
+                    "type": "boolean",
+                    "example": 1
                 }
             },
             "type": "object"

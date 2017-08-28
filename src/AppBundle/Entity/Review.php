@@ -9,7 +9,7 @@ use Swagger\Annotations as SWG;
 
 /**
  * Review
- *
+ * @SWG\Definition(required={"productId", "reviewTitle", "description", "rating", "upc"}, type="object")
  * @ORM\Table(
  *     name="reviews",
  *     uniqueConstraints={@ORM\UniqueConstraint(name="product_original_member", columns={"product_id", "original_member_name"})},
