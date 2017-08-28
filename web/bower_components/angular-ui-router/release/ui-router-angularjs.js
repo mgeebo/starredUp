@@ -589,7 +589,7 @@ var UrlRouterProvider = (function () {
      * ```
      *
      * @param ruleFn
-     * Handler function that takes `$injector` and `$location` services as arguments.
+     * Handler function that takes `$injector` and `$location` service as arguments.
      * You can use them to detect a url and return a different url as a string.
      *
      * @return [[UrlRouterProvider]] (`this`)
@@ -628,7 +628,7 @@ var UrlRouterProvider = (function () {
      *
      * @param rule
      * The url path you want to redirect to or a function rule that returns the url path or performs a `$state.go()`.
-     * The function version is passed two params: `$injector` and `$location` services, and should return a url string.
+     * The function version is passed two params: `$injector` and `$location` service, and should return a url string.
      *
      * @return {object} `$urlRouterProvider` - `$urlRouterProvider` instance
      */
@@ -756,7 +756,7 @@ var mod_main = ng.module('ui.router', ['ui.router.init', 'ui.router.state', 'ui.
 var mod_cmpt = ng.module('ui.router.compat', ['ui.router']); // tslint:disable-line
 var router = null;
 $uiRouter.$inject = ['$locationProvider'];
-/** This angular 1 provider instantiates a Router and exposes its services via the angular injector */
+/** This angular 1 provider instantiates a Router and exposes its service via the angular injector */
 function $uiRouter($locationProvider) {
     // Create a new instance of the Router when the $uiRouterProvider is initialized
     router = this.router = new _uirouter_core.UIRouter();
@@ -841,7 +841,7 @@ var getLocals = function (ctx) {
 };
 
 /**
- * # Angular 1 injectable services
+ * # Angular 1 injectable service
  *
  * This is a list of the objects which can be injected using angular's injector.
  *
@@ -937,7 +937,7 @@ var getLocals = function (ctx) {
  *
  * ---
  *
- * This object can be injected into other services.
+ * This object can be injected into other service.
  *
  * #### Deprecated Example:
  * ```js

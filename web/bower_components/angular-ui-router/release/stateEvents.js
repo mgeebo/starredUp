@@ -103,7 +103,7 @@ var $stateChangeSuccess;
  * ### Deprecation warning: use [[TransitionService.onStart]] and [[Transition.promise]], or [[Transition.onError]]
  *
  * It's important to note that if you
- * have any errors in your resolve functions (javascript errors, non-existent services, etc)
+ * have any errors in your resolve functions (javascript errors, non-existent service, etc)
  * they will not throw traditionally. You must listen for this $stateChangeError event to
  * catch **ALL** errors.
  *

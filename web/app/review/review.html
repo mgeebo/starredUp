@@ -1,6 +1,43 @@
 <div class="jumbotron text-center">
     <h1>The REVIEWS Page</h1>
-    <span class="text-danger">PRODUCTS!!!!</span>
+    <span class="text-danger">REVIEWS!!!!</span>
 </div>
 
-{{$ctrl.data}}
+<div class="container">
+    <div class="row">
+        <div class="col-xs-4">
+            <strong class="text-center">Recent</strong>
+            <div class="well review-widget">
+                <div ng-repeat="(key,review) in vm.recentReviews" class="review-widget-list">
+                    <h4 class="review-widget-title">{{review.reviewTitle | limitTo: 30}}
+                        <small ng-show="review.originalMemberName">{{review.originalMemberName}}</small>
+                        <small ng-show="review.memberName">{{review.memberName}}</small>
+                    </h4>
+                    <small class="review-widget-name">{{review.productName}}</small>
+                    <p>Rating: {{review.rating}}</p>
+                    <div class="review-body"><p>{{review.description | limitTo: 70}}...</p></div>
+                    <span ng-repeat="rating in review.rating track by $index"><i class="glyphicon glyphicon-star">{{i}}</i></span>
+                    <hr ng-if="!$last" class="style14">
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-4">
+            <strong class="text-center">Top</strong>
+            <div class="well review-widget">
+                <div ng-repeat="(key,review) in vm.featuredReviews" class="review-widget-list">
+                    <h4 class="review-widget-title">{{review.reviewTitle | limitTo: 30}}
+                        <small ng-show="review.originalMemberName">{{review.originalMemberName}}</small>
+                        <small ng-show="review.memberName">{{review.memberName}}</small>
+                    </h4>
+                    <small class="review-widget-name">{{review.productName}}</small>
+                    <p>Rating: {{review.rating}}</p>
+                    <div class="review-body"><p>{{review.description | limitTo: 70}}...</p></div>
+                    <span ng-repeat="rating in review.rating track by $index"><i class="glyphicon glyphicon-star">{{i}}</i></span>
+                    <hr ng-if="!$last" class="style14">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
