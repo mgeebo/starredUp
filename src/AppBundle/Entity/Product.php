@@ -74,6 +74,29 @@ class Product
     private $productImage;
 
     /**
+     * @var string
+     * @SWG\Property(example="Mobile Devices")
+     * @ORM\Column(name="product_category", type="string", length=255, nullable=true)
+     */
+    private $productCategory;
+
+    /**
+     * @var string
+     * @SWG\Property(example="Tablets")
+     * @ORM\Column(name="product_subcategory", type="string", length=255, nullable=true)
+     */
+    private $productSubcategory;
+
+
+    /**
+     * @var boolean
+     * @SWG\Property(example=1)
+     * @ORM\Column(name="is_featured", type="boolean", nullable=true)
+     */
+    private $isFeatured;
+
+
+    /**
      * Get id
      *
      * @return int
@@ -240,14 +263,61 @@ class Product
      * Set reviewCount
      *
      * @param int $reviewCount
-     *
-     * return $this
+     * @return $this
      */
     public function setReviewCount($reviewCount)
     {
         $this->reviewCount = $reviewCount;
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getProductCategory()
+    {
+        return $this->productCategory;
+    }
+
+    /**
+     * @param string $productCategory
+     */
+    public function setProductCategory($productCategory)
+    {
+        $this->productCategory = $productCategory;
+    }
+
+    /**
+     * @return string
+     */
+    public function getProductSubcategory()
+    {
+        return $this->productSubcategory;
+    }
+
+    /**
+     * @param string $productSubcategory
+     */
+    public function setProductSubcategory($productSubcategory)
+    {
+        $this->productSubcategory = $productSubcategory;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isFeatured()
+    {
+        return $this->isFeatured;
+    }
+
+    /**
+     * @param bool $isFeatured
+     */
+    public function setIsFeatured($isFeatured)
+    {
+        $this->isFeatured = $isFeatured;
     }
 }
 

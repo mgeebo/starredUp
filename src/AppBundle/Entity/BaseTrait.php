@@ -5,20 +5,18 @@ namespace AppBundle\Entity;
 use DateTime;
 use Swagger\Annotations as SWG;
 
+
 trait BaseTrait
 {
     /** @ORM\Column(name="is_active", type="boolean")
-     * @SWG\Property(example="1")
     */
     protected $isActive = 1;
 
     /** @ORM\Column(name="create_date", type="datetime")
-     * @SWG\Property(example="2017-08-13 19:29:17")
      */
     protected $createDate;
 
     /** @ORM\Column(name="modify_date", type="datetime")
-     * @SWG\Property(example="2017-08-13 19:29:17")
      */
     protected $modifyDate;
 
