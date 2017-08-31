@@ -11,7 +11,8 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider) {
         .state('home', {
             url: '/home',
             templateUrl: 'app/home/home.html',
-            controller: 'homeController as vm'
+            controller: 'homeController as vm',
+            resolve: homeController.resolve
         })
         .state('product', {
             url: '/product',
@@ -21,8 +22,13 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider) {
         .state('review', {
             url: '/review',
             templateUrl: 'app/review/review.html',
-            controller: 'reviewController',
-            controllerAs: 'vm',
+            controller: 'reviewController as vm',
             resolve: reviewController.resolve
         })
+            .state('review_edit', {
+                url: '/review/:reviewId',
+                templateUrl: 'app/review/editReview.html',
+                controller: 'editReviewController as vm',
+                resolve: editReviewController.resolve
+            })
 }
