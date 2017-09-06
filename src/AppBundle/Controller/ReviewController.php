@@ -59,11 +59,7 @@ class ReviewController extends ApiController
         }
 
         if (!empty($review)) {
-            $success = [
-                "success" => [
-                    "review" => $review[0]
-                ]
-            ];
+            $success = $review[0];
             // Serialize array to make it returnable as a string for the Response
             $review = $this->serializer->serialize($success, 'json');
         }
@@ -217,5 +213,16 @@ class ReviewController extends ApiController
         $reviewRepository = $em->getRepository(Review::class);
         $recentReviews = $this->serializer->serialize($reviewRepository->getRecentReviews($count, $orderBy, true), 'json');
         return new Response($recentReviews);
+    }
+
+    /**
+     * @Route("/reviews/util/productByReviewId/{reviewId}")
+     * @Method({"GET"})
+     */
+    public function getProductByReviewId($reviewId) {
+        $em = $this->getDoctrine();
+        $reviewRepository = $em->getRepository(Review::class);
+        $product = $this->serializer->serialize($reviewRepository->getProductByReviewId($reviewId), 'json');
+        return new Response($product);
     }
 }
