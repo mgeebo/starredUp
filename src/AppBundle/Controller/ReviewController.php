@@ -100,7 +100,6 @@ class ReviewController extends ApiController
         $review = new Review();
         $prop = $r->getContent();
         $prop = json_decode($prop, true);
-
         if (isset($prop['reviewId']) && !is_null($reviewId = $prop['reviewId'])) {
             $review = $em->getRepository(Review::class)->find($reviewId);
             if (!$review) {
@@ -112,7 +111,10 @@ class ReviewController extends ApiController
         $review->setMemberId($prop['memberId']);
         $review->setDescription($prop['description']);
         $review->setRating($prop['rating']);
-        $review->setOriginalMemberId($prop['originalMemberId']);
+        // prop doesn't exist when adding from starredUp
+        if (isset($prop['originalMemberId'])) {
+            $review->setOriginalMemberId($prop['originalMemberId']);
+        }
         $review->setReviewTitle($prop['reviewTitle']);
 
         try {

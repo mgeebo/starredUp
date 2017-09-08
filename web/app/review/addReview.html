@@ -1,0 +1,30 @@
+<div class="container">
+        <form class="well" name="addReview">
+            <div class="form-group">
+                <h4 class="form-control-static text-success">{{vm.member.memberName}}</h4>
+            </div>
+            <div class="form-group">
+                <label for="dropdown-products">Select a product</label>
+                <select class="form-control" id="dropdown-products"
+                        ng-model="vm.selectedProduct"
+                        ng-options="product.productName for product in vm.productList track by product.productId" required>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="rating">Rating</label>
+                <input type="number" class="form-control" id="rating" ng-model="vm.review.rating" value="{{vm.review.rating}}" required>
+            </div>
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input class="form-control" id="title" name="title" ng-model="vm.review.reviewTitle" minlength="5" value="{{vm.review.reviewTitle}}" required>
+                <div role="alert">
+                    <span class="error" ng-show="myForm.title.$error.minlength">Too short!</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea class="form-control" rows="3" ng-model="vm.review.description" minlength="10" id="description" required>{{vm.review.description}}</textarea>
+            </div>
+            <button class="btn btn-success" ng-click="vm.save(vm.review)">Save Review</button>
+        </form>
+</div>
