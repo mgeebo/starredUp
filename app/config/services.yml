@@ -10,3 +10,11 @@ services:
         autoconfigure: true
         public: true
         synthetic: true
+
+    # makes classes in src/AppBundle available to be used as services
+    AppBundle\:
+        resource: '../../src/AppBundle/*'
+        synthetic: true
+        # you can exclude directories or files
+        # but if a service is unused, it's removed anyway
+        exclude: '../../src/AppBundle/{Entity,Repository}'
