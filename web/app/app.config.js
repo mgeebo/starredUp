@@ -25,10 +25,16 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider) {
             controller: 'reviewController as vm',
             resolve: reviewController.resolve
         })
-            .state('review_edit', {
-                url: '/review/:reviewId',
-                templateUrl: 'app/review/editReview.html',
-                controller: 'editReviewController as vm',
-                resolve: editReviewController.resolve
-            })
+        .state('review_edit', {
+            url: '/review/:reviewId',
+            templateUrl: 'app/review/editReview.html',
+            controller: 'editReviewController as vm',
+            resolve: editReviewController.resolve
+        })
+        .state('login', {
+            url: '/login',
+            templateUrl: 'app/login/login.html',
+            controller: 'loginController as vm',
+            resolve: loginController.resolve
+        })
 }

@@ -1,0 +1,32 @@
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-6 col-xs-offset-3">
+            <h3>Log In</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6 col-xs-offset-3">
+            <input type="text" class="form-control" placeholder="User Name" id="username"/>
+            <input type="text" class="form-control" placeholder="Password" id="password" style="display: none;"/>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-xs-6 col-xs-offset-3">
+            <button class="btn btn-primary btn-block" onclick="
+            if($(this).text() == 'Next'){
+                $('#password').css('display','');
+                $('#username').css('display','none');
+                $('#password').fadeTo(1,0).delay(500).fadeTo(600, 1);
+                $(this).text('Submit');
+            }
+            else {
+                //Do Submit stuff
+                alert('doing submit stuff');
+            }
+            ">Next</button>
+        </div>
+    </div>
+</div>
