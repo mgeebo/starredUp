@@ -4,13 +4,13 @@ angular
     .module('starredUp')
     .controller('addReviewController', addReviewController);
 
-function addReviewController(reviewService, productList, $state) {
+function addReviewController(reviewService, productList, $scope, $state) {
     var vm = this;
     vm.productList = productList;
-    vm.selectedProduct = '';
-    vm.saveDisabled = false;
+    vm.minRating = 1;
+    vm.maxRating = 5;
 
-
+    // mock data for member
     vm.member = {
         memberId: 1,
         memberName: 'test-user'
@@ -30,24 +30,21 @@ function addReviewController(reviewService, productList, $state) {
         // some error message
     }
 
-    vm.save = function (review) {
-        if (angular.isUndefined(review.productId = vm.selectedProduct.productId)) {
-            return;
+    vm.save = function(review) {
+        // check to make sure the form is completely valid
+        if ($scope.addReviewForm.$valid) {
+            vm.review.productId = vm.selectedProduct.productId;
+            reviewService.saveReview(review)
+                .then(function(){
+                    $state.transitionTo('product_edit', {productId: review.productId} );
+                })
+                .catch(function(error){
+                });
         }
-        vm.saveDisabled = true;
-
-
-        reviewService.saveReview(review)
-            .then(function(){
-                $state.transitionTo('product_edit', {productId: review.productId} );
-            })
-            .catch(function(error){
-            });
-    }
+    };
 }
 
-addReviewController.$inject = ['reviewService', 'productList'];
-
+addReviewController.$inject = ['reviewService', 'productList', '$scope'];
 addReviewController.resolve = {
     productList: ['productService', function (productService) {
         return productService.getAllProducts();
