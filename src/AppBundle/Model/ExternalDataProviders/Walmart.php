@@ -200,7 +200,7 @@ class Walmart implements ConsumeRawData
                     $rawIds[] = $updateReview->getExternalReviewRawDataId();
                 } else {
                     $rawReview = new ExternalProviderReviewRawData();
-                    $rawReview->setExternalProductRawDataId($p->getProductId());
+                    $rawReview->setExternalProductRawDataId($rawProduct->getExternalProductRawDataId());
                     $rawReview->setExternalProviderData(json_encode($reviewResponse));
                     $rawReview->setUpc($p->getUpc());
                     $rawReview->setExternalProviderId($provider->getExternalProviderId());
