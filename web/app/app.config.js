@@ -37,4 +37,10 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider) {
             controller: 'loginController as vm',
             resolve: loginController.resolve
         })
+        .state('search', {
+            url: '/search/results',
+            templateUrl: 'app/search/productSearch.html',
+            controller: 'productSearchController as vm',
+            resolve: productSearchController.resolve
+        })
 }

@@ -194,6 +194,15 @@ class ProductController extends ApiController
         ]);
     }
 
-
+    /**
+     * @Route("/products/search/results/{searchString}")
+     * @Method({"GET"})
+     */
+    public function getProductSearchResults($searchString) {
+        $em = $this->getDoctrine();
+        $productRepository = $em->getRepository(Product::class);
+        $searchResults = $this->serializer->serialize($productRepository->getProductSearchResults($searchString), 'json');
+        return new Response($searchResults);
+    }
 
 }

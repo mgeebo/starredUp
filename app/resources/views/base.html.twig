@@ -42,9 +42,9 @@
                         </ul>
                         <form class="navbar-form navbar-left" role="search">
                             <div class="input-group">
-                                <input class="form-control" placeholder="Search">
+                                <input search-term ng-model="searchTerm" value="searchTerm" class="form-control" placeholder="Search">
                                 <span class="input-group-btn">
-                                    <button id="search-submit" class="btn btn-secondary" type="button"><i class="glyphicon glyphicon-search"></i></button>
+                                    <button ui-sref="search" id="search-button" class="btn btn-secondary" type="button"><i class="glyphicon glyphicon-search"></i></button>
                                 </span>
                             </div>
                         </form>
@@ -80,13 +80,15 @@
 <script src="{{ asset('app/review/reviewController.js') }}" type="application/javascript"></script>
 <script src="{{ asset('app/review/editReviewController.js') }}" type="application/javascript"></script>
 <script src="{{ asset('app/login/loginController.js') }}" type="application/javascript"></script>
+<script src="{{ asset('app/search/ProductSearchController.js') }}" type="application/javascript"></script>
 
 <script src="{{ asset('app/service/reviewService.js') }}" type="application/javascript"></script>
+<script src="{{ asset('app/service/searchService.js') }}" type="application/javascript"></script>
 
 <script src="{{ asset('app/review/editReview.html') }}" type="text/html"></script>
 
-{#<script src="{{ asset('app/shared/directives/recentReviews.js') }}" type="application/javascript"></script>#}
-{#<script src="{{ asset('app/shared/partials/recentReviews.html') }}" type="text/html"></script>#}
+<script src="{{ asset('app/shared/directives/searchTerm.js') }}" type="application/javascript"></script>
+
 
 
 
