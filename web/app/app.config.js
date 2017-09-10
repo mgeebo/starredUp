@@ -8,6 +8,11 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider) {
     $urlRouterProvider.otherwise('/home');
     $locationProvider.hashPrefix('');
     $stateProvider
+        .state('admin_addProduct', {
+            url: '/admin/addProduct',
+            templateUrl: 'app/admin/addProductAdmin.html',
+            controller: 'addProductAdminController as vm'
+        })
         .state('home', {
             url: '/home',
             templateUrl: 'app/home/home.html',
@@ -25,12 +30,12 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider) {
             controller: 'reviewController as vm',
             resolve: reviewController.resolve
         })
-        .state('review_edit', {
-            url: '/review/:reviewId',
-            templateUrl: 'app/review/editReview.html',
-            controller: 'editReviewController as vm',
-            resolve: editReviewController.resolve
-        })
+            .state('review_edit', {
+                url: '/review/:reviewId',
+                templateUrl: 'app/review/editReview.html',
+                controller: 'editReviewController as vm',
+                resolve: editReviewController.resolve
+            })
         .state('login', {
             url: '/login',
             templateUrl: 'app/login/login.html',
