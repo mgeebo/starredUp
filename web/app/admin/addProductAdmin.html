@@ -1,0 +1,32 @@
+<h1>Add a product</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-offset-4 col-xs-4">
+            <form ng-submit="vm.import(vm.upcs)" class="well" name="importProductsAndReviewsForm" novalidate>
+                <label>Enter UPC(s)</label>
+                <br>
+                <small>UPC must be 12 characters in length</small>
+                <div class="form-group" ng-class="{ 'has-error' : importProductsAndReviewsForm.title.$invalid && !importProductsAndReviewsForm.title.$pristine }">
+                    <input class="form-control" name="upc" ng-model="vm.upcs[0].value" ng-maxlength="12" ng-minlength="12" required>
+                    <p ng-if="importProductsAndReviewsForm.upc.$invalid && !importProductsAndReviewsForm.upc.$pristine && !importProductsAndReviewsForm.upc.$error.minlength" class="help-block">upc must be 12 characters long</p>
+
+                    <div ng-repeat="upc in vm.upcs" ng-if="!$first">
+                        <br>
+                        <input class="form-control" name="upc" ng-model="upc.value" ng-maxlength="12" ng-minlength="12" required>
+                        <p ng-if="importProductsAndReviewsForm.upc.$invalid && !importProductsAndReviewsForm.upc.$pristine && !importProductsAndReviewsForm.upc.$error.minlength" class="help-block">upc must be 12 characters long</p>
+                    </div>
+                </div>
+                <button class="btn btn-success" ng-disabled="importProductsAndReviewsForm.$invalid">Save Review</button>
+                <div class="btn-group btn-group pull-right" role="group" aria-label="...">
+                    <button type="button" class="btn btn-default" ng-click="vm.addField()">Add field</button>
+                    <button type="button" class="btn btn-default" ng-click="vm.removeField()">Remove field</button>
+                </div>
+                <br>
+                <span us-spinner spinner-key="spinner-1"></span>
+            </form>
+            <div ng-show="vm.success == false" class="alert alert-danger"><strong class="text-center">{{vm.message}}</strong></div>
+            <div ng-show="vm.success" class="alert alert-success text-center"><strong>{{vm.message}}</strong></div>
+        </div>
+
+    </div>
+</div>
