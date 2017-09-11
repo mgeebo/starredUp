@@ -1,8 +1,8 @@
 'use strict';
 
 angular
-    .module("starredUp")
-    .factory("reviewService", reviewService);
+    .module('starredUp')
+    .factory('reviewService', reviewService);
 
 function reviewService($http) {
     return {
@@ -43,7 +43,7 @@ function reviewService($http) {
 
     function saveReview(review) {
         var config = {
-            method: "POST",
+            method: 'POST',
             url: '/reviews/'+review.reviewId,
             data: review,
             headers: {

@@ -10,11 +10,7 @@ function memberService() {
     };
 
     function getMemberAndSource() {
-        if (true) {
-
-        }
-
-        return $http.get('/reviews/component/recentReviews')
+        return $http.get('/members/util/memberAndSource')
             .then(function (response) {
                 return response.data;
             });

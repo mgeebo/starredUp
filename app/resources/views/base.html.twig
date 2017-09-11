@@ -26,6 +26,10 @@
                         <ul class="nav navbar-nav">
                             <li ui-sref-active="active" class="dropdown">
                             <li ui-sref-active="active"><a ui-sref="product">Products<span class="sr-only">(current)</span></a></li>
+<<<<<<< HEAD
+=======
+                            <li ui-sref-active="active"><a ui-sref="review">Reviews</a></li>
+>>>>>>> 64855c51dc195bf6f9009a77f009d0b2b5c7ecce
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
@@ -58,13 +62,13 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li><a href="#">Link</a></li>
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#">Action</a></li>
+                                    <li><a ui-sref="login">Log In</a></li>
                                     <li><a href="#">Another action</a></li>
                                     <li><a href="#">Something else here</a></li>
                                     <li role="separator" class="divider"></li>
-                                    <li><a href="#">Separated link</a></li>
+                                    <li><a ui-sref="admin_addProduct">Add product</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -76,10 +80,13 @@
 </body>
 <script src="{{ asset('bower_components/jquery/dist/jquery.min.js') }}" type="application/javascript"></script>
 <script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js') }}" type="application/javascript"></script>
+<script src="{{ asset('spin/spin.js') }}" type="application/javascript"></script>
+
 <script src="{{ asset('angular/js/angular.js') }}" type="application/javascript"></script>
 <script src="{{ asset('bower_components/angular-bootstrap/ui-bootstrap.js') }}" type="application/javascript"></script>
 
 <script src="{{ asset('bower_components/angular-ui-router/release/angular-ui-router.js') }}" type="application/javascript"></script>
+<script src="{{ asset('bower_components/angular-spinner/dist/angular-spinner.min.js') }}" type="application/javascript"></script>
 
 <script src="{{ asset('app/app.module.js') }}" type="application/javascript"></script>
 <script src="{{ asset('app/app.config.js') }}" type="application/javascript"></script>
@@ -91,9 +98,13 @@
 <script src="{{ asset('app/review/editReviewController.js') }}" type="application/javascript"></script>
 <script src="{{ asset('app/review/addReviewController.js') }}" type="application/javascript"></script>
 <script src="{{ asset('app/login/loginController.js') }}" type="application/javascript"></script>
+<script src="{{ asset('app/admin/addProductAdminController.js') }}" type="application/javascript"></script>
 
+<script src="{{ asset('app/service/angular-spinner.js') }}" type="application/javascript"></script>
 <script src="{{ asset('app/service/reviewService.js') }}" type="application/javascript"></script>
 <script src="{{ asset('app/service/productService.js') }}" type="application/javascript"></script>
+<script src="{{ asset('app/service/adminService.js') }}" type="application/javascript"></script>
+<script src="{{ asset('app/service/memberService.js') }}" type="application/javascript"></script>
 
 <script src="{{ asset('app/review/editReview.html') }}" type="text/html"></script>
 <script src="{{ asset('app/review/addReview.html') }}" type="text/html"></script>
