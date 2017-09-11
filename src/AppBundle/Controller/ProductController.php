@@ -60,9 +60,7 @@ class ProductController extends ApiController
 
         if (!empty($product)) {
             $success = [
-                "success" => [
                     "product" => $product[0]
-                ]
             ];
             // Serialize array to make it returnable as a string for the Response
             $product = $this->serializer->serialize($success, 'json');
@@ -132,9 +130,7 @@ class ProductController extends ApiController
         }
 
         return new JsonResponse([
-            "success" => [
                 "productId" => $product->getProductId()
-            ]
         ]);
     }
     /**
@@ -187,11 +183,21 @@ class ProductController extends ApiController
         }
 
         return new JsonResponse([
-            "success" => [
                 "productId" => $product->getProductId(),
                 "isActive" => $product->getIsActive()
-            ]
         ]);
+    }
+
+    /**
+    * @Route("/products/util/allProducts")
+    * @Method({"GET"})
+    */
+    public function getAllProducts()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $productRepository = $em->getRepository(Product::class);
+        $allProducts = $this->serializer->serialize($productRepository->getAllProducts(), 'json');
+        return new Response($allProducts);
     }
 
 

@@ -24,12 +24,24 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider) {
             templateUrl: 'app/product/product.html',
             controller: 'productController as vm'
         })
+            .state('product_edit', {
+                url: '/product/:productId',
+                templateUrl: 'app/product/product.html',
+                controller: 'productController as vm'
+            })
+
         .state('review', {
             url: '/review',
             templateUrl: 'app/review/review.html',
             controller: 'reviewController as vm',
             resolve: reviewController.resolve
         })
+            .state('review_add', {
+                url: '/review/new',
+                templateUrl: 'app/review/addReview.html',
+                controller: 'addReviewController as vm',
+                resolve: addReviewController.resolve
+            })
             .state('review_edit', {
                 url: '/review/:reviewId',
                 templateUrl: 'app/review/editReview.html',

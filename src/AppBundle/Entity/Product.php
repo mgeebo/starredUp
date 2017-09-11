@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Swagger\Annotations as SWG;
 
 /**
- * Products
+ * Product
  * @SWG\Definition(required={"productName", "upc"}, type="object")
  * @ORM\Table(name="products")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ProductRepository")
