@@ -128,9 +128,7 @@ class ProductController extends ApiController
         }
 
         return new JsonResponse([
-            "success" => [
                 "productId" => $product->getProductId()
-            ]
         ]);
     }
     /**
@@ -183,10 +181,8 @@ class ProductController extends ApiController
         }
 
         return new JsonResponse([
-            "success" => [
                 "productId" => $product->getProductId(),
                 "isActive" => $product->getIsActive()
-            ]
         ]);
     }
 
@@ -201,4 +197,15 @@ class ProductController extends ApiController
         return new Response($searchResults);
     }
 
+    /**
+    * @Route("/products/util/allProducts")
+    * @Method({"GET"})
+    */
+    public function getAllProducts()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $productRepository = $em->getRepository(Product::class);
+        $allProducts = $this->serializer->serialize($productRepository->getAllProducts(), 'json');
+        return new Response($allProducts);
+    }
 }

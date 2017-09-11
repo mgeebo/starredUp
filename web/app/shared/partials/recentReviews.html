@@ -1,11 +1,10 @@
 <div ng-repeat="(key,review) in vm.recentReviews" class="review-widget-list">
-    <h4 class="review-widget-title">{{review.reviewTitle | limitTo: 30}}   <small>{{review.originalMemberName}}</small></h4>
+    <h4 class="review-widget-title">{{review.reviewTitle | limitTo: 30}}   <small>{{review.originalMemberName}}{{review.memberName}}</small></h4>
     <small class="review-widget-name">{{review.productName}}</small>
     <p>Rating: {{review.rating}}</p>
 
     <div class="review-body"><p>{{review.description | limitTo: 70}}...</p>
     </div>
     <span ng-repeat="rating in review.rating track by $index"><i class="glyphicon glyphicon-star">{{i}}</i></span>
-
     <hr ng-if="!$last" class="style14">
 </div>

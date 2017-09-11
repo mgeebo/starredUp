@@ -36,6 +36,12 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider) {
             controller: 'reviewController as vm',
             resolve: reviewController.resolve
         })
+            .state('review_add', {
+                url: '/review/new',
+                templateUrl: 'app/review/addReview.html',
+                controller: 'addReviewController as vm',
+                resolve: addReviewController.resolve
+            })
             .state('review_edit', {
                 url: '/review/:reviewId',
                 templateUrl: 'app/review/editReview.html',

@@ -7,7 +7,7 @@ use Swagger\Annotations as SWG;
 use Doctrine\ORM\Mapping\Index;
 
 /**
- * Products
+ * Product
  * @SWG\Definition(required={"productName", "upc"}, type="object")
  * @ORM\Table(name="products", indexes={
  *     @Index(columns={

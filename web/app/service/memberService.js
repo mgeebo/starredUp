@@ -6,8 +6,7 @@ angular
 
 function memberService() {
 
-    return {
-        getMemberAndSource: getMemberAndSource
+    return {: getMemberAndSource
     };
 
     function getMemberAndSource() {

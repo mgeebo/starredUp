@@ -4,10 +4,19 @@ angular
     .module("starredUp")
     .controller("homeController", homeController);
 
-function homeController(recentReviews,featuredReviews) {
-        var vm = this;
-        vm.recentReviews = recentReviews;
-        vm.featuredReviews = featuredReviews;
+function homeController(recentReviews,featuredReviews, $scope) {
+    var vm = this;
+    vm.recentReviews = recentReviews;
+    vm.featuredReviews = featuredReviews;
+
+    vm.rate = 7;
+    vm.max = 10;
+    vm.isReadonly = false;
+
+    vm.hoveringOver = function(value) {
+        vm.overStar = value;
+        vm.percent = 100 * (value / vm.max);
+    };
 }
 
 

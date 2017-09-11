@@ -13,8 +13,9 @@ use Doctrine\ORM\EntityRepository;
  */
 class ProductRepository extends EntityRepository
 {
-    public function getProductSearchResults($searchString) {
-        $searchString = '%'.$searchString.'%';
+    public function getProductSearchResults($searchString)
+    {
+        $searchString = '%' . $searchString . '%';
         return $this->getEntityManager()->createQueryBuilder()
             ->select('p.productId, p.productName, p.productManufacturer, p.productRating, p.productImage, p.productCategory, p.isFeatured')
             ->from('AppBundle:Product', 'p')
@@ -24,5 +25,14 @@ class ProductRepository extends EntityRepository
             ->orderBy('p.productName', 'desc')
             ->getQuery()
             ->getResult();
+    }
+
+    public function getAllProducts()
+    {
+        $query = $this->getEntityManager()->createQueryBuilder()
+            ->select('p')
+            ->from('AppBundle:Product', 'p')
+            ->where('p.isActive = 1');
+        return $query->getQuery()->getResult();
     }
 }
