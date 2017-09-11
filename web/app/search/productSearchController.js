@@ -4,15 +4,28 @@ angular
     .module('starredUp')
     .controller('productSearchController', productSearchController);
 
-function productSearchController(searchService, $rootScope, $scope) {
+function productSearchController(searchService, $rootScope, $scope, usSpinnerService) {
     var vm = this;
-    console.log($scope.searchInput);
 
-    vm.search = function (searchString) {
+    vm.search = function (searchString)  {
         searchService.getProductSearchResults(searchString)
             .then(function (response) {
                 vm.results = response.data;
+            })
+            .catch(function (error) {
+                console.log("There was an error searching"+error);
+            })
+            .then(function () {
+                vm.stopSpin();
             });
+    };
+
+    vm.startSpin = function(){
+        usSpinnerService.spin('spinner-search');
+    };
+
+    vm.stopSpin = function(){
+        usSpinnerService.stop('spinner-search');
     };
 
     var init = function() {
@@ -21,4 +34,4 @@ function productSearchController(searchService, $rootScope, $scope) {
 
     init();
 }
-productSearchController.$inject = ['searchService', '$rootScope', '$scope'];
+productSearchController.$inject = ['searchService', '$rootScope', '$scope', 'usSpinnerService'];

@@ -59,11 +59,7 @@ class ProductController extends ApiController
         $product = $em->getRepository(Product::class)->findByProductId($productId);
 
         if (!empty($product)) {
-            $success = [
-                "success" => [
-                    "product" => $product[0]
-                ]
-            ];
+            $success = $product[0];
             // Serialize array to make it returnable as a string for the Response
             $product = $this->serializer->serialize($success, 'json');
         } else {

@@ -24,6 +24,12 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider) {
             templateUrl: 'app/product/product.html',
             controller: 'productController as vm'
         })
+            .state('product_view', {
+                url: '/product/:productId',
+                templateUrl: 'app/product/viewProduct.html',
+                controller: 'viewProductController as vm',
+                resolve: viewProductController.resolve
+            })
         .state('review', {
             url: '/review',
             templateUrl: 'app/review/review.html',

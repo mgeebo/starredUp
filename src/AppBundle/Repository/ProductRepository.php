@@ -16,7 +16,7 @@ class ProductRepository extends EntityRepository
     public function getProductSearchResults($searchString) {
         $searchString = '%'.$searchString.'%';
         return $this->getEntityManager()->createQueryBuilder()
-            ->select('p.productName, p.productManufacturer, p.productRating, p.productImage, p.productCategory, p.isFeatured')
+            ->select('p.productId, p.productName, p.productManufacturer, p.productRating, p.productImage, p.productCategory, p.isFeatured')
             ->from('AppBundle:Product', 'p')
             ->where('p.productName LIKE :searchString')
             ->andWhere('p.isActive = 1')
