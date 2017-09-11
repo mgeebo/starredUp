@@ -194,6 +194,39 @@ class ProductController extends ApiController
         ]);
     }
 
+    /**
+     * @Route("/products/component/recentProducts")
+     * @Method({"GET"})
+     */
+    public function getRecentProducts() {
+        $em = $this->getDoctrine();
+        $productRepository = $em->getRepository(Product::class);
+        $recentProducts = $this->serializer->serialize($productRepository->getRecentProducts(), 'json');
+        return new Response($recentProducts);
+    }
 
+    /**
+     * @Route("/products/component/featuredProducts")
+     * @Method({"GET"})
+     */
+    public function getFeaturedProducts() {
+        $count = 5;
+        $orderBy = 'p.isFeatured';
+        $em = $this->getDoctrine();
+        $productRepository = $em->getRepository(Product::class);
+        $recentProducts = $this->serializer->serialize($productRepository->getRecentProducts($count, $orderBy, true), 'json');
+        return new Response($recentProducts);
+    }
+
+    /**
+     * @Route("/products/util/productByProductId/{productId}")
+     * @Method({"GET"})
+     */
+    public function getProductByProductId($productId) {
+        $em = $this->getDoctrine();
+        $productRepository = $em->getRepository(Product::class);
+        $product = $this->serializer->serialize($productRepository->getProductByProductId($productId), 'json');
+        return new Response($product);
+    }
 
 }
