@@ -24,12 +24,12 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider) {
             templateUrl: 'app/product/product.html',
             controller: 'productController as vm'
         })
-            .state('product_edit', {
+            .state('product_view', {
                 url: '/product/:productId',
-                templateUrl: 'app/product/product.html',
-                controller: 'productController as vm'
+                templateUrl: 'app/product/viewProduct.html',
+                controller: 'viewProductController as vm',
+                resolve: viewProductController.resolve
             })
-
         .state('review', {
             url: '/review',
             templateUrl: 'app/review/review.html',
@@ -53,5 +53,11 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider) {
             templateUrl: 'app/login/login.html',
             controller: 'loginController as vm',
             resolve: loginController.resolve
+        })
+        .state('search', {
+            url: '/search/results',
+            templateUrl: 'app/search/productSearch.html',
+            controller: 'productSearchController as vm',
+            resolve: productSearchController.resolve
         })
 }
