@@ -46,6 +46,13 @@ class Client
     private $clientPassword;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="client_image", type="string", length=255)
+     */
+    private $clientImage;
+
+    /**
      * Get id
      *
      * @return int
@@ -125,5 +132,29 @@ class Client
     public function getClientPassword()
     {
         return $this->clientPassword;
+    }
+
+    /**
+     * Set clientImage
+     *
+     * @param string $clientImage
+     *
+     * @return Client
+     */
+    public function setClientImage($clientImage)
+    {
+        $this->clientImage = $clientImage;
+
+        return $this;
+    }
+
+    /**
+     * Get clientImage
+     *
+     * @return string
+     */
+    public function getClientImage()
+    {
+        return $this->clientImage;
     }
 }

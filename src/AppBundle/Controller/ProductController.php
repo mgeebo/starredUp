@@ -59,11 +59,7 @@ class ProductController extends ApiController
         $product = $em->getRepository(Product::class)->findByProductId($productId);
 
         if (!empty($product)) {
-            $success = [
-                "success" => [
-                    "product" => $product[0]
-                ]
-            ];
+            $success = $product[0];
             // Serialize array to make it returnable as a string for the Response
             $product = $this->serializer->serialize($success, 'json');
         } else {
@@ -132,9 +128,7 @@ class ProductController extends ApiController
         }
 
         return new JsonResponse([
-            "success" => [
                 "productId" => $product->getProductId()
-            ]
         ]);
     }
     /**
@@ -187,10 +181,8 @@ class ProductController extends ApiController
         }
 
         return new JsonResponse([
-            "success" => [
                 "productId" => $product->getProductId(),
                 "isActive" => $product->getIsActive()
-            ]
         ]);
     }
 
@@ -219,14 +211,25 @@ class ProductController extends ApiController
     }
 
     /**
-     * @Route("/products/util/productByProductId/{productId}")
+     * @Route("/products/search/results/{searchString}")
      * @Method({"GET"})
      */
-    public function getProductByProductId($productId) {
+    public function getProductSearchResults($searchString) {
         $em = $this->getDoctrine();
         $productRepository = $em->getRepository(Product::class);
-        $product = $this->serializer->serialize($productRepository->getProductByProductId($productId), 'json');
-        return new Response($product);
+        $searchResults = $this->serializer->serialize($productRepository->getProductSearchResults($searchString), 'json');
+        return new Response($searchResults);
     }
 
+    /**
+    * @Route("/products/util/allProducts")
+    * @Method({"GET"})
+    */
+    public function getAllProducts()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $productRepository = $em->getRepository(Product::class);
+        $allProducts = $this->serializer->serialize($productRepository->getAllProducts(), 'json');
+        return new Response($allProducts);
+    }
 }

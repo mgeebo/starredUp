@@ -21,7 +21,7 @@ class ReviewRepository extends EntityRepository
             $query->andWhere('r.isFeatured = :featured')
             ->setParameter('featured', boolval($featured));
         }
-            $query->orderBy($orderBy)
+            $query->orderBy($orderBy, 'DESC')
             ->setMaxResults($count);
         return $query->getQuery()->getResult();
     }

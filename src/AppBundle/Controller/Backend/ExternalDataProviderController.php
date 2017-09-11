@@ -19,7 +19,7 @@ use Doctrine\ORM\ORMException;
 class ExternalDataProviderController extends Controller
 {
     /**
-     * @Route("/add/product")
+     * @Route("/admin/addProduct")
      * @Method({"POST"})
      */
     public function postProductsAndReviews(Request $request)

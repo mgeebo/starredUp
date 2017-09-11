@@ -4,11 +4,20 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Swagger\Annotations as SWG;
+use Doctrine\ORM\Mapping\Index;
 
 /**
- * Products
+ * Product
  * @SWG\Definition(required={"productName", "upc"}, type="object")
- * @ORM\Table(name="products")
+ * @ORM\Table(name="products", indexes={
+ *     @Index(columns={
+ *          "product_name",
+ *          "product_manufacturer"
+ *      },
+ *     flags={
+ *          "fulltext"
+ *      })
+ * })
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ProductRepository")
  */
 class Product

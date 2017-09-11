@@ -9,7 +9,7 @@ function editReviewController(review, reviewService) {
     vm.edit = false;
     vm.review = review;
 
-    //pseudo code
+    // pseudo code
     // var user = "user";
     // if (user.isAdmin && user.notExternal) {
     //     vm.readOnly = false;
