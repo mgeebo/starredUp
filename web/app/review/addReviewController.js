@@ -4,7 +4,7 @@ angular
     .module('starredUp')
     .controller('addReviewController', addReviewController);
 
-function addReviewController(reviewService, productList, $scope, $state) {
+function addReviewController(reviewService, productList, $scope, usSpinnerService) {
     var vm = this;
     vm.productList = productList;
     vm.minRating = 1;
@@ -32,19 +32,32 @@ function addReviewController(reviewService, productList, $scope, $state) {
 
     vm.save = function(review) {
         // check to make sure the form is completely valid
+        vm.startSpin();
         if ($scope.addReviewForm.$valid) {
             vm.review.productId = vm.selectedProduct.productId;
             reviewService.saveReview(review)
                 .then(function(){
-                    $state.transitionTo('product_edit', {productId: review.productId} );
+                    
                 })
                 .catch(function(error){
+                })
+                .then(function(){
+                    vm.stopSpin();
                 });
         }
     };
+
+    vm.startSpin = function(){
+        usSpinnerService.spin('spinner-addReview');
+    };
+
+    vm.stopSpin = function(){
+        usSpinnerService.stop('spinner-addReview');
+    };
+
 }
 
-addReviewController.$inject = ['reviewService', 'productList', '$scope'];
+addReviewController.$inject = ['reviewService', 'productList', '$scope', 'usSpinnerService'];
 addReviewController.resolve = {
     productList: ['productService', function (productService) {
         return productService.getAllProducts();
