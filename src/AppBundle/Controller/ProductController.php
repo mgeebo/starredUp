@@ -208,4 +208,6 @@ class ProductController extends ApiController
         $allProducts = $this->serializer->serialize($productRepository->getAllProducts(), 'json');
         return new Response($allProducts);
     }
+
+
 }

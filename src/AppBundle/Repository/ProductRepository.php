@@ -2,8 +2,8 @@
 
 namespace AppBundle\Repository;
 
-use AppBundle\AppBundle;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query\Expr;
 
 /**
  * ProductRepository
