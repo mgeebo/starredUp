@@ -211,6 +211,17 @@ class ProductController extends ApiController
     }
 
     /**
+     * @Route("/products/{productId}/reviews")
+     * @Method({"GET"})
+     */
+    public function getReviewsByProductId($productId) {
+        $em = $this->getDoctrine();
+        $productRepository = $em->getRepository(Product::class);
+        $productReviews = $this->serializer->serialize($productRepository->getReviewsByProductId($productId), 'json');
+        return new Response($productReviews);
+    }
+
+    /**
      * @Route("/products/search/results/{searchString}")
      * @Method({"GET"})
      */
