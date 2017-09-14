@@ -7,7 +7,7 @@ angular
 function registerMemberController(memberService, $scope, $state) {
     var vm = this;
 
-    // mock data
+    // mock data for testing
     vm.member = {
         memberName: vm.memberName,
         memberFirstName : vm.memberFirstName,
@@ -18,16 +18,14 @@ function registerMemberController(memberService, $scope, $state) {
     };
 
     vm.save = function(member) {
-        console.log('member', member);
         if ($scope.registerMemberForm.$valid) {
             memberService.registerMember(member)
                 .then(function(){
-
+                    $state.go('home');
                 })
                 .catch(function(error){
                 });
         }
-        $state.go('home');
     };
 }
 

@@ -19,7 +19,6 @@ function memberService($http) {
     }
 
     function registerMember(member){
-        console.log('service', member);
         var config = {
             method: 'POST',
             url: '/members/add',
