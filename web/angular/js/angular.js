@@ -10730,7 +10730,7 @@ function identifierForController(controller, ident) {
  * The {@link ng.$controller $controller service} is used by Angular to create new
  * controllers.
  *
- * This provider allows controller registration via the
+ * This provider allows controller register via the
  * {@link ng.$controllerProvider#register register} method.
  */
 function $ControllerProvider() {
@@ -17635,7 +17635,7 @@ function $RootScopeProvider() {
        *    and the `oldValues` array contains the previous values of the `watchExpressions`, with the indexes matching
        *    those of `watchExpression`
        *    The `scope` refers to the current scope.
-       * @returns {function()} Returns a de-registration function for all listeners.
+       * @returns {function()} Returns a de-register function for all listeners.
        */
       $watchGroup: function(watchExpressions, listener) {
         var oldValues = new Array(watchExpressions.length);
@@ -17748,8 +17748,8 @@ function $RootScopeProvider() {
        *      `listener` function declares two or more arguments.
        *    - The `scope` argument refers to the current scope.
        *
-       * @returns {function()} Returns a de-registration function for this listener. When the
-       *    de-registration function is executed, the internal watch operation is terminated.
+       * @returns {function()} Returns a de-register function for this listener. When the
+       *    de-register function is executed, the internal watch operation is terminated.
        */
       $watchCollection: function(obj, listener) {
         $watchCollectionInterceptor.$stateful = true;
@@ -20455,7 +20455,7 @@ function $$CookieReaderProvider() {
  * </div>
  *
  * ```js
- *   // Filter registration
+ *   // Filter register
  *   function MyModule($provide, $filterProvider) {
  *     // create a service to demonstrate injection (not always needed)
  *     $provide.value('greet', function(name){

@@ -1,0 +1,40 @@
+<div class="container">
+    <form ng-submit="vm.save(vm.member)" class="well" name="registerMemberForm" novalidate>
+        <div class="form-group">
+            <h4 class="form-control-static text-success">{{vm.member.memberName}}</h4>
+        </div>
+        <div class="form-group" ng-class="{ 'has-error' : registerMemberForm.memberName.$invalid && !registerMemberForm.memberName.$pristine }">
+            <label for="memberName">Desired User Name</label>
+            <input class="form-control" id="memberName" name="memberName" ng-model="vm.member.memberName" ng-minlength="1" ng-maxlength="20" required>
+            <p ng-if="registerMemberForm.memberName.$invalid && !registerMemberForm.memberName.$pristine && (!registerMemberForm.memberName.$error.maxlength || !registerMemberForm.memberName.$error.minLength)" class="help-block">UserName must be between 1 and 20 characters</p>
+        </div>
+        <div class="form-group" ng-class="{ 'has-error' : registerMemberForm.memberPassword.$invalid && !registerMemberForm.memberPassword.$pristine }">
+            <label for="memberPassword">Password</label>
+            <input type="password" class="form-control" id="memberPassword" name="memberPassword" ng-model="vm.member.memberPassword" ng-minlength="6" ng-maxlength="30" required>
+            <p ng-if="registerMemberForm.memberPassword.$invalid && !registerMemberForm.memberPassword.$untouched && (!registerMemberForm.memberPassword.$error.maxlength || !registerMemberForm.memberPassword.$error.minLength)" class="help-block">Password must be between 6 and 30 characters</p>
+        </div>
+        <div class="form-group" ng-class="{ 'has-error' : registerMemberForm.memberFirstName.$invalid && !registerMemberForm.memberFirstName.$pristine }">
+            <label for="memberFirstName">First Name</label>
+            <input class="form-control" id="memberFirstName" name="memberFirstName" ng-model="vm.member.memberFirstName" ng-minlength="1" ng-maxlength="20" required>
+            <p ng-if="registerMemberForm.memberFirstName.$invalid && !registerMemberForm.memberFirstName.$pristine && (!registerMemberForm.memberFirstName.$error.maxlength || !registerMemberForm.memberFirstName.$error.minLength)" class="help-block">First name must be between 1 and 20 characters</p>
+        </div>
+        <div class="form-group" ng-class="{ 'has-error' : registerMemberForm.memberLastName.$invalid && !registerMemberForm.memberLastName.$pristine }">
+            <label for="memberLastName">Last Name</label>
+            <input class="form-control" id="memberLastName" name="memberLastName" ng-model="vm.member.memberLastName" ng-minlength="1" ng-maxlength="20" required>
+            <p ng-if="registerMemberForm.memberLastName.$invalid && !registerMemberForm.memberLastName.$pristine && (!registerMemberForm.memberLastName.$error.maxlength || !registerMemberForm.memberLastName.$error.minLength)" class="help-block">Last name must be between 1 and 20 characters</p>
+        </div>
+        <div class="form-group" ng-class="{ 'has-error' : registerMemberForm.memberEmail.$invalid && !registerMemberForm.memberEmail.$pristine }">
+            <label for="memberEmail">Email</label>
+            <input type="email" class="form-control" id="memberEmail" name="memberEmail" ng-model="vm.member.memberEmail" required>
+            <p ng-if="registerMemberForm.memberEmail.$invalid && !registerMemberForm.memberEmail.$untouched" class="help-block">Invalid email address</p>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error' : registerMemberForm.dob.$invalid && !registerMemberForm.dob.$pristine }">
+            <label for="dob">Date of Birth</label>
+            <input class="form-control" type="date" id="dob" name="dob" ng-model="vm.member.dob" required>
+
+            <p ng-if="registerMemberForm.dob.$invalid && !registerMemberForm.dob.$pristine" class="help-block">Date of birth is required</p>
+        </div>
+        <button class="btn btn-success" ng-disabled="registerMemberForm.$invalid">Register</button>
+    </form>
+</div>

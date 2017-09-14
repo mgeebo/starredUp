@@ -13,14 +13,27 @@ function homeController(recentReviews,featuredReviews, $scope) {
     vm.max = 10;
     vm.isReadonly = false;
 
-    vm.hoveringOver = function(value) {
-        vm.overStar = value;
-        vm.percent = 100 * (value / vm.max);
-    };
+    //carousel @todo
+    // $scope.myInterval = 3000;
+    // $scope.noWrapSlides = false;
+    // $scope.active = 0;
+    // $scope.slides = [
+    //     {
+    //         image: 'http://lorempixel.com/400/200/'
+    //     },
+    //     {
+    //         image: 'http://lorempixel.com/400/200/food'
+    //     },
+    //     {
+    //         image: 'http://lorempixel.com/400/200/sports'
+    //     }
+    // ];
+
+
 }
 
 
-homeController.$inject = ['recentReviews', 'featuredReviews'];
+homeController.$inject = ['recentReviews', 'featuredReviews', '$scope'];
 homeController.resolve = {
     recentReviews: ['reviewService', function (reviewService) {
         return reviewService.getRecentReviews();
