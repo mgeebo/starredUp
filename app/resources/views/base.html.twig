@@ -9,8 +9,7 @@
 <body ng-app="starredUp">
     <div class="container-fluid">
         <div class="row">
-            <div class="navbar"></div>
-                <nav class="navbar navbar-default">
+                <nav class="navbar navbar-default navbar-fixed-top">
                     <!-- Brand and toggle get grouped for better mobile display -->
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -24,9 +23,9 @@
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
-                            <li ui-sref-active="active" class="dropdown">
-                            <li ui-sref-active="active"><a ui-sref="product">Products<span class="sr-only">(current)</span></a></li>
-                            <li ui-sref-active="active" class="dropdown">
+                            <li class="dropdown">
+                            <li><a ui-sref="product">Products</a></li>
+                            <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reviews <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <li><a ui-sref="review">Reviews</a></li>
@@ -41,19 +40,18 @@
                         </ul>
                         <form class="navbar-form navbar-left" role="search">
                             <div class="input-group">
-                                <input search-term ng-model="searchTerm" value="searchTerm" class="form-control" placeholder="Search">
+                                <input style="width:700px;" search-term ng-model="searchTerm" value="searchTerm" class="form-control" placeholder="Search">
                                 <span class="input-group-btn">
                                     <button ui-sref="search" ng-click="productSearchController.init()" id="search-button" class="btn btn-secondary" type="button"><i class="glyphicon glyphicon-search"></i></button>
                                 </span>
                             </div>
                         </form>
-                        <ul class="nav navbar-nav navbar-right">
+                        <ul class="nav navbar-nav">
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account <span class="caret"></span></a>
+                                <a href="#" class="dropdown-toggle text-left" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <li><a ui-sref="login">Log In</a></li>
-                                    <li><a href="#">Another action</a></li>
-                                    <li><a href="#">Something else here</a></li>
+                                    <li><a ui-sref="create_account">Sign Up</a></li>
                                     <li role="separator" class="divider"></li>
                                     <li><a ui-sref="admin_addProduct">Add product</a></li>
                                 </ul>
@@ -61,6 +59,7 @@
                         </ul>
                     </div><!-- /.navbar-collapse -->
                 </nav>
+
             <div ui-view=""></div>
         </div>
     </div>
@@ -88,6 +87,7 @@
 <script src="{{ asset('app/login/loginController.js') }}" type="application/javascript"></script>
 <script src="{{ asset('app/search/productSearchController.js') }}" type="application/javascript"></script>
 <script src="{{ asset('app/admin/addProductAdminController.js') }}" type="application/javascript"></script>
+<script src="{{ asset('app/register/registerMemberController.js') }}" type="application/javascript"></script>
 
 <script src="{{ asset('app/service/angular-spinner.js') }}" type="application/javascript"></script>
 <script src="{{ asset('app/service/reviewService.js') }}" type="application/javascript"></script>
@@ -103,5 +103,9 @@
 
 
 
-
+<footer class="footer">
+    <div class="container">
+        <p class="text-muted">Place sticky footer content here.</p>
+    </div>
+</footer>
 </html>

@@ -1745,7 +1745,7 @@ function matchState(state, criterion) {
 }
 /**
  * @internalapi
- * The registration data for a registered transition hook
+ * The register data for a registered transition hook
  */
 var RegisteredHook = (function () {
     function RegisteredHook(tranSvc, eventType, callback, matchCriteria, options) {
@@ -1839,12 +1839,12 @@ var RegisteredHook = (function () {
     };
     return RegisteredHook;
 }());
-/** @hidden Return a registration function of the requested type. */
+/** @hidden Return a register function of the requested type. */
 function makeEvent(registry, transitionService, eventType) {
     // Create the object which holds the registered transition hooks.
     var _registeredHooks = registry._registeredHooks = (registry._registeredHooks || {});
     var hooks = _registeredHooks[eventType.name] = [];
-    // Create hook registration function on the IHookRegistry for the event
+    // Create hook register function on the IHookRegistry for the event
     registry[eventType.name] = hookRegistrationFn;
     function hookRegistrationFn(matchObject, callback, options) {
         if (options === void 0) { options = {}; }
@@ -1895,7 +1895,7 @@ var HookBuilder = (function () {
      * - Finds [[PathNode]] (or `PathNode[]`) to use as the TransitionHook context(s)
      * - For each of the [[PathNode]]s, creates a TransitionHook
      *
-     * @param hookType the type of the hook registration function, e.g., 'onEnter', 'onFinish'.
+     * @param hookType the type of the hook register function, e.g., 'onEnter', 'onFinish'.
      */
     HookBuilder.prototype.buildHooks = function (hookType) {
         var transition = this.transition;
@@ -2900,7 +2900,7 @@ var Transition = (function () {
          * When the transition is unsuccessful, the promise is rejected with the [[Rejection]] or javascript error
          */
         this.promise = this._deferred.promise;
-        /** @hidden Holds the hook registration functions such as those passed to Transition.onStart() */
+        /** @hidden Holds the hook register functions such as those passed to Transition.onStart() */
         this._registeredHooks = {};
         /** @hidden */
         this._hookBuilder = new HookBuilder(this);
@@ -2940,7 +2940,7 @@ var Transition = (function () {
     /** @inheritdoc */
     Transition.prototype.onError = function (criteria, callback, options) { return; };
     /** @hidden
-     * Creates the transition-level hook registration functions
+     * Creates the transition-level hook register functions
      * (which can then be used to register hooks)
      */
     Transition.prototype.createTransitionHookRegFns = function () {
@@ -4294,7 +4294,7 @@ var StateRegistry = (function () {
     /**
      * Adds a state to the registry
      *
-     * Registers a [[StateDeclaration]] or queues it for registration.
+     * Registers a [[StateDeclaration]] or queues it for register.
      *
      * Note: a state will be queued if the state's parent isn't yet registered.
      *
@@ -5225,7 +5225,7 @@ var idSort = function (a, b) {
  * - Explicit priority (set rule priority using [[UrlRulesApi.when]])
  * - Rule type (STATE: 4, URLMATCHER: 4, REGEXP: 3, RAW: 2, OTHER: 1)
  * - `UrlMatcher` specificity ([[UrlMatcher.compare]]): works for STATE and URLMATCHER types to pick the most specific rule.
- * - Rule registration order (for rule types other than STATE and URLMATCHER)
+ * - Rule register order (for rule types other than STATE and URLMATCHER)
  *   - Equally sorted State and UrlMatcher rules will each match the URL.
  *     Then, the *best* match is chosen based on how many parameter values were matched.
  *
@@ -5598,7 +5598,7 @@ var ViewService = (function () {
      * Registers a `ui-view` component
      *
      * When a `ui-view` component is created, it uses this method to register itself.
-     * After registration the [[sync]] method is used to ensure all `ui-view` are configured with the proper [[ViewConfig]].
+     * After register the [[sync]] method is used to ensure all `ui-view` are configured with the proper [[ViewConfig]].
      *
      * Note: the `ui-view` component uses the `ViewConfig` to determine what view should be loaded inside the `ui-view`,
      * and what the view's state context is.
@@ -5607,7 +5607,7 @@ var ViewService = (function () {
      *       A `ui-view` should hang on to the return value of `registerUIView` and invoke it to deregister itself.
      *
      * @param uiView The metadata for a UIView
-     * @return a de-registration function used when the view is destroyed.
+     * @return a de-register function used when the view is destroyed.
      */
     ViewService.prototype.registerUIView = function (uiView) {
         trace.traceViewServiceUIViewEvent("-> Registering", uiView);
@@ -5928,7 +5928,7 @@ var UIRouter = (function () {
          * @deprecated Use [[urlService]] instead
          */
         this.urlRouter = new UrlRouter(this);
-        /** Provides a registry for states, and related registration service */
+        /** Provides a registry for states, and related register service */
         this.stateRegistry = new StateRegistry(this);
         /** Provides service related to states */
         this.stateService = new StateService(this);
@@ -6517,7 +6517,7 @@ var TransitionService = (function () {
      * @internalapi
      * @param criteria defines which Transitions the Hook should be invoked for.
      * @param callback the hook function which will be invoked.
-     * @param options the registration options
+     * @param options the register options
      * @returns a function which deregisters the hook.
      */
     TransitionService.prototype.onCreate = function (criteria, callback, options) { return; };
@@ -8700,7 +8700,7 @@ var getLocals = function (ctx) {
  * #### injectable into a `.config()` block during configtime
  *
  * - [[$uiRouterProvider]]: The UI-Router instance
- * - [[$stateProvider]]: State registration
+ * - [[$stateProvider]]: State register
  * - [[$transitionsProvider]]: Transition hooks
  * - [[$urlServiceProvider]]: All URL related public APIs
  *
@@ -8715,7 +8715,7 @@ var getLocals = function (ctx) {
  * - [[$trace]]: Enable transition trace/debug
  * - [[$transitions]]: Transition hooks
  * - [[$state]]: Imperative state related APIs
- * - [[$stateRegistry]]: State registration
+ * - [[$stateRegistry]]: State register
  * - [[$urlService]]: All URL related public APIs
  * - [[$uiRouterGlobals]]: Global variables
  * - [[$uiViewScroll]]: Scroll an element into view

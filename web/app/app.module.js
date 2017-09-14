@@ -1,3 +1,3 @@
 (function() {
-    angular.module("starredUp", ['angularSpinner']);
+    angular.module("starredUp", ['angularSpinner', 'uibCarousel']);
 }());

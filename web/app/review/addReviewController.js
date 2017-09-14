@@ -36,7 +36,7 @@ function addReviewController(reviewService, productList, $scope, $state) {
             vm.review.productId = vm.selectedProduct.productId;
             reviewService.saveReview(review)
                 .then(function(){
-                    $state.transitionTo('product_edit', {productId: review.productId} );
+                    $state.go('product_view', {productId: review.productId} );
                 })
                 .catch(function(error){
                 });
@@ -44,7 +44,7 @@ function addReviewController(reviewService, productList, $scope, $state) {
     };
 }
 
-addReviewController.$inject = ['reviewService', 'productList', '$scope'];
+addReviewController.$inject = ['reviewService', 'productList', '$scope', '$state'];
 addReviewController.resolve = {
     productList: ['productService', function (productService) {
         return productService.getAllProducts();

@@ -19,6 +19,11 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider) {
             controller: 'homeController as vm',
             resolve: homeController.resolve
         })
+        .state('create_account', {
+            url: '/register',
+            templateUrl: 'app/register/registerMember.html',
+            controller: 'registerMemberController as vm'
+        })
         .state('product', {
             url: '/product',
             templateUrl: 'app/product/product.html',

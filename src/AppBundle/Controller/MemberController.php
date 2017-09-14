@@ -104,26 +104,26 @@ class MemberController extends ApiController
      * @Route("/members/add")
      * @Method({"POST"})
      */
-
     public function addMember(Request $r) {
         $em = $this->getDoctrine()->getManager();
+        $prop = $r->getContent();
+        $prop = json_decode($prop, true);
         $member = new Member();
-        $prop = $r->request->all();
-
-        if (!is_null($memberId = $prop['memberId'])) {
+        if (isset($prop['memberId']) && !is_null($memberId = $prop['memberId'])) {
             $member = $em->getRepository(Member::class)->find($memberId);
             if (!$member) {
                 return new JsonResponse(["No member found for ID: $memberId"], 404);
             }
         }
 
+        $dobDateTime = new \DateTime($prop['dob']);
         $member->setMemberName($prop['memberName'])
-            ->setMemberFirstName($prop['memberFirstName'])
-            ->setMemberLastName($prop['memberLastName'])
-            ->setMemberEmail($prop['memberEmail'])
-            ->setMemberPassword($prop['memberPassword'])
-            ->setMemberDob($prop['dob'])
-            ->setIsActive($prop['isActive']);
+            ->setFirstName($prop['memberFirstName'])
+            ->setLastName($prop['memberLastName'])
+            ->setEmail($prop['memberEmail'])
+            ->setPassword($prop['memberPassword'])
+            ->setDob($dobDateTime)
+            ->setIsAdmin(0);
 
         try {
             $em->persist($member);
