@@ -79,7 +79,7 @@ class Member implements UserInterface
     private $isAdmin;
 
     /**
-     * @ORM\Column(name="apiKey", type="string", unique=true, nullable=true)
+     * @ORM\Column(name="api_key", type="string", unique=true, nullable=true)
      * @Auth\ApiKey
      */
     private $apiKey;
