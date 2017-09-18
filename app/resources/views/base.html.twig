@@ -5,6 +5,17 @@
     <title>{% block title %}Welcome!{% endblock %}</title>
     {% block stylesheets %}{% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    <script type="text/javascript" src="https://static.filestackapi.com/v3/filestack.js"></script>
+    <script>
+        var client = filestack.init('AcyWmQJmRhKbeB8QasP3Qz');
+        function showPicker() {
+            client.pick({
+            }).then(function(result) {
+                var url = result.filesUploaded[0].url;
+                $('.memberImg').attr('src', url);
+            });
+        }
+    </script>
 </head>
 <body ng-app="starredUp">
     <div class="container-fluid">
