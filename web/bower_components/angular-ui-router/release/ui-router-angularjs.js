@@ -851,7 +851,7 @@ var getLocals = function (ctx) {
  * #### injectable into a `.config()` block during configtime
  *
  * - [[$uiRouterProvider]]: The UI-Router instance
- * - [[$stateProvider]]: State registration
+ * - [[$stateProvider]]: State register
  * - [[$transitionsProvider]]: Transition hooks
  * - [[$urlServiceProvider]]: All URL related public APIs
  *
@@ -866,7 +866,7 @@ var getLocals = function (ctx) {
  * - [[$trace]]: Enable transition trace/debug
  * - [[$transitions]]: Transition hooks
  * - [[$state]]: Imperative state related APIs
- * - [[$stateRegistry]]: State registration
+ * - [[$stateRegistry]]: State register
  * - [[$urlService]]: All URL related public APIs
  * - [[$uiRouterGlobals]]: Global variables
  * - [[$uiViewScroll]]: Scroll an element into view

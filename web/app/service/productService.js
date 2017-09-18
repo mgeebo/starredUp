@@ -9,7 +9,8 @@ function productService($http) {
 
     return {
         getProduct: getProduct,
-        getAllProducts: getAllProducts
+        getAllProducts: getAllProducts,
+        getReviewsByProductId: getReviewsByProductId
     };
 
     function getProduct(productId) {
@@ -21,5 +22,9 @@ function productService($http) {
             .then(function (response) {
                 return response.data;
             });
+    }
+
+    function getReviewsByProductId(productId) {
+        return $http.get('/products/'+productId+'/reviews')
     }
 }
