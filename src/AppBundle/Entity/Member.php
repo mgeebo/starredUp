@@ -4,6 +4,8 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Swagger\Annotations as SWG;
+use Ma27\ApiKeyAuthenticationBundle\Annotation as Auth;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Members
@@ -11,8 +13,9 @@ use Swagger\Annotations as SWG;
  * @ORM\Table(name="members")
  * @ORM\Entity
  */
-class Member
+class Member implements UserInterface
 {
+    //<editor-fold desc="Variables">
     use BaseTrait;
 
     /**
@@ -49,13 +52,15 @@ class Member
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=255, unique=true)
+     * @Auth\Login
      */
     private $email;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="password", type="string", length=25)
+     * @ORM\Column(name="password", type="string", length=255)
+     * @Auth\Password
      */
     private $password;
 
@@ -73,7 +78,14 @@ class Member
      */
     private $isAdmin;
 
+    /**
+     * @ORM\Column(name="api_key", type="string", unique=true, nullable=true)
+     * @Auth\ApiKey
+     */
+    private $apiKey;
+    //</editor-fold>
 
+    //<editor-fold desc="Getters & Setters">
     /**
      * Get id
      *
@@ -251,5 +263,43 @@ class Member
     {
         return $this->isAdmin;
     }
+
+    /**
+     * Set apiKey
+     *
+     * @param string $apiKey
+     *
+     * @return Member
+     */
+    public function setApiKey($apiKey)
+    {
+        $this->apiKey = $apiKey;
+
+        return $this;
+    }
+
+    /**
+     * Get apiKey
+     *
+     * @return string
+     */
+    public function getApiKey()
+    {
+        return $this->apiKey;
+    }
+    //</editor-fold>
+
+    //<editor-fold desc="User Interface Methods">
+    public function getUsername()
+    {
+        $this->getEmail();
+    }
+
+    public function getRoles(){}
+
+    public function getSalt(){}
+
+    public function eraseCredentials(){}
+    //</editor-fold>
 }
 

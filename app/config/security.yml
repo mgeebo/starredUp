@@ -8,6 +8,13 @@ security:
             memory: ~
 
     firewalls:
+        rest:
+            pattern: "^/api/secured_area"
+            stateless: true
+            simple_preauth:
+                authenticator: ma27_api_key_authentication.security.authenticator
+        default:
+            anonymous: ~
         # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/

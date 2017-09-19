@@ -95,3 +95,11 @@ nelmio_cors:
                 allow_headers: ['*']
                 allow_methods: ['POST', 'PUT', 'GET', 'DELETE']
                 max_age: 3600
+
+ma27_api_key_authentication:
+    user:
+        object_manager: "doctrine.orm.default_entity_manager"
+        model_name: "AppBundle\\Entity\\Member"
+        password:
+          strategy:
+            php55

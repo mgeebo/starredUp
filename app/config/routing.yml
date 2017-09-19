@@ -5,3 +5,6 @@ app:
 appBackend:
     resource: '@AppBundle/Controller/Backend/'
     type: annotation
+
+ma27_api_key_authentication:
+    resource: "@Ma27ApiKeyAuthenticationBundle/Resources/config/routing/routing.yml"
