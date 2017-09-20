@@ -27,10 +27,11 @@
             <div class="form-group" ng-class="{ 'has-error' : addReviewForm.description.$invalid && !addReviewForm.description.$pristine }">
                 <label for="description">Description</label>
                 <textarea class="form-control" id="description" rows="3" name="description" ng-model="vm.review.description" ng-minlength="10" ng-maxlength="300" required>{{vm.review.description}}</textarea>
+                <p ng-if="addReviewForm.description.$invalid && !addReviewForm.description.$pristine && !addReviewForm.description.$error.minlength" class="help-block">Description must be at least 10 characters</p>
+                <p ng-if="addReviewForm.description.$invalid && !addReviewForm.description.$pristine && !addReviewForm.description.$error.maxlength" class="help-block">Description cannot exceed 300 characters</p>
                 <p ng-if="addReviewForm.description.$invalid && !addReviewForm.description.$pristine" class="help-block">Description is required</p>
-                <p ng-if="addReviewForm.description.$invalid && !addReviewForm.description.$pristine && !addReviewForm.description.$error.minlength" class="help-block">Title must be at least 3 characters</p>
-                <p ng-if="addReviewForm.description.$invalid && !addReviewForm.description.$pristine && !addReviewForm.description.$error.maxlength" class="help-block">Title cannot exceed 25 characters</p>
             </div>
             <button class="btn btn-success" ng-disabled="addReviewForm.$invalid">Save Review</button>
+            <span us-spinner spinner-key="spinner-addReview"></span>
         </form>
 </div>
