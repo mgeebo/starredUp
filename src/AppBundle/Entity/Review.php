@@ -48,10 +48,10 @@ class Review
 
     /**
      * @var int
-     * @SWG\Property(example=1)
-     * @ORM\Column(name="original_member_id", type="integer", nullable=true)
+     * @SWG\Property(example="test-user")
+     * @ORM\Column(name="member_name", type="string", nullable=true)
      */
-    private $originalMemberId;
+    private $memberName;
 
     /**
      * @var string
@@ -142,19 +142,20 @@ class Review
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getOriginalMemberId()
+    public function getMemberName()
     {
-        return $this->originalMemberId;
+        return $this->memberName;
     }
 
+
     /**
-     * @param int $originalMemberId
+     * @param string $memberName
      */
-    public function setOriginalMemberId($originalMemberId)
+    public function setMemberName($memberName)
     {
-        $this->originalMemberId = $originalMemberId;
+        $this->memberName = $memberName;
     }
 
     /**
@@ -236,16 +237,6 @@ class Review
     {
         $this->isFeatured = $isFeatured;
     }
-
-    //</editor-fold>
-
-    //<editor-fold desc="Methods">
-
-    /*
-     * Will calculate the Rating based on an id or a number
-     */
-    public static function CalculateRating()
-    {}
 
     //</editor-fold>
 }

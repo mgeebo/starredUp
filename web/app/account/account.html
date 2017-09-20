@@ -1,33 +1,31 @@
 <div class="container">
-    <div class="row" style="background-color:#7CAFD6; padding: 15px;">
-        <div class="row">
-            <div class="col-xs-3 col-xs-offset-2">
-                <img class="memberImg" src="http://via.placeholder.com/150x150" alt="Placeholder" height="150px" width="150px"/>
-            </div>
-            <div style="margin-top: 50px;">
-                <h1>User / Client Name</h1>
-            </div>
+    <div class="row" style="background-color:#7CAFD6; padding-top: 15px;">
+        <div class="col-xs-3 col-xs-offset-1">
+            <form>
+                <div class="form-group">
+                    <a ng-href="{{vm.memberProfile.profileImage}}" target="_blank"><img class="img-thumbnail" ng-src="{{vm.memberProfile.profileImage}}" alt="Placeholder" height="150px" width="150px"/></a>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-lg btn-default" value="Upload" onclick="showPicker()">Upload</button>
+                </div>
+            </form>
         </div>
-        <div class="row">
-            <div class="col-xs-3 col-xs-offset-2">
-                <input type="button" value="Upload" onclick="showPicker()" />
-            </div>
+        <div style="margin-top: 50px;">
+            <h1>{{vm.memberProfile.memberName}}</h1>
         </div>
-
     </div>
     <br />
     <div class="row">
-        <div class="col-xs-3" style="background-color:#E2E2E2; margin-left: -5px; height:200px;">
+        <div class="col-xs-3 well" style="margin-left: -5px; height:150px;">
             <ul>
-                <li>List</li>
-                <li>Client</li>
-                <li>Info</li>
-                <li>Here</li>
+                <li>Member since: {{vm.memberProfile.memberName}}</li>
+                <li>Email: {{vm.memberProfile.email}}</li>
+                <li>Name: {{vm.memberProfile.firstName}} {{vm.memberProfile.lastName}}</li>
+                <li>Total Reviews: xxx</li>
             </ul>
-            <p>Or recent activity</p>
         </div>
-        <div class="col-xs-9" style="background-color:#E2E2E2;margin-left: 5px; height:200px;">
-            <p>List account details or client stuff</p>
+        <div class="col-xs-9 well " style="margin-left: 5px; height:150px;">
+            <p>{{vm.memberProfile.profileMessage}}</p>
         </div>
     </div>
 </div>

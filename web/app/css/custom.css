@@ -12,7 +12,7 @@ body {
     color: #FFFFFF;
 }
 .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
-    color: #000;  /*Sets the text hover color on navbar*/
+    color: #000;  /*Sets the text hover color on nav*/
 }
 
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active >

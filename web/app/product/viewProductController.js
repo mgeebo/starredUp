@@ -7,7 +7,6 @@ angular
 function viewProductController(product, productReviews) {
     var vm = this;
     vm.product = {};
-    console.log(productReviews);
     vm.product = product.data;
     vm.reviews = productReviews.data;
     vm.product.productDescription = vm.product.productDescription.replace(/&\w+?;/g, function( e ) {

@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Model\ExternalDataProviders;
+namespace AppBundle\Providers\ExternalDataProviders;
 
 use AppBundle\AppBundle;
 use AppBundle\Entity\ExternalProviderReviewRawData;

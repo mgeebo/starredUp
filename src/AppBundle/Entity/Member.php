@@ -11,7 +11,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * Members
  * @SWG\Definition(required={"memberName", "firstName", "lastName", "email", "password", "dob"}, type="object")
  * @ORM\Table(name="members")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\MemberRepository")
  */
 class Member implements UserInterface
 {
@@ -31,6 +31,7 @@ class Member implements UserInterface
      * @var string
      *
      * @ORM\Column(name="member_name", type="string", length=20, unique=true)
+     * @Auth\Login
      */
     private $memberName;
 
@@ -52,7 +53,6 @@ class Member implements UserInterface
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=255, unique=true)
-     * @Auth\Login
      */
     private $email;
 
@@ -83,6 +83,16 @@ class Member implements UserInterface
      * @Auth\ApiKey
      */
     private $apiKey;
+
+    /**
+     * @ORM\Column(name="profile_image", type="string", nullable=true)
+     */
+    private $profileImage;
+
+    /**
+     * @ORM\Column(name="profile_message", type="string", nullable=true)
+     */
+    private $profileMessage;
     //</editor-fold>
 
     //<editor-fold desc="Getters & Setters">
@@ -287,6 +297,38 @@ class Member implements UserInterface
     {
         return $this->apiKey;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getProfileImage()
+    {
+        return $this->profileImage;
+    }
+
+    /**
+     * @param mixed $profileImage
+     */
+    public function setProfileImage($profileImage)
+    {
+        $this->profileImage = $profileImage;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getProfileMessage()
+    {
+        return $this->profileMessage;
+    }
+
+    /**
+     * @param mixed $profileMessage
+     */
+    public function setProfileMessage($profileMessage)
+    {
+        $this->profileMessage = $profileMessage;
+    }
     //</editor-fold>
 
     //<editor-fold desc="User Interface Methods">
@@ -300,6 +342,7 @@ class Member implements UserInterface
     public function getSalt(){}
 
     public function eraseCredentials(){}
+
     //</editor-fold>
 }
 

@@ -4,16 +4,17 @@ angular
     .module('starredUp')
     .controller('addReviewController', addReviewController);
 
-function addReviewController(reviewService, productList, $scope, $state) {
+function addReviewController(reviewService, productList, $scope, $state, $window) {
     var vm = this;
+
     vm.productList = productList;
     vm.minRating = 1;
     vm.maxRating = 5;
+    vm.authorizedMember = JSON.parse($window.sessionStorage.getItem("authorizedMember"));
 
-    // mock data for member
     vm.member = {
-        memberId: 1,
-        memberName: 'test-user'
+        memberId: vm.authorizedMember.memberId,
+        memberName: vm.authorizedMember.memberName
     };
 
     vm.review = {
@@ -44,7 +45,7 @@ function addReviewController(reviewService, productList, $scope, $state) {
     };
 }
 
-addReviewController.$inject = ['reviewService', 'productList', '$scope', '$state'];
+addReviewController.$inject = ['reviewService', 'productList', '$scope', '$state', '$window'];
 addReviewController.resolve = {
     productList: ['productService', function (productService) {
         return productService.getAllProducts();

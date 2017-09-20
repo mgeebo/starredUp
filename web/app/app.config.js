@@ -63,7 +63,7 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider) {
             url: '/account',
             templateUrl: 'app/account/account.html',
             controller: 'accountController as vm',
-            //resolve: accountController.resolve
+            resolve: accountController.resolve
         })
         .state('search', {
             url: '/search/results',
