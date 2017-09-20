@@ -4,16 +4,17 @@ angular
     .module('starredUp')
     .controller('addReviewController', addReviewController);
 
-function addReviewController(reviewService, productList, $scope, usSpinnerService) {
+function addReviewController(reviewService, productList, $scope, usSpinnerService, $state, $window) {
     var vm = this;
+
     vm.productList = productList;
     vm.minRating = 1;
     vm.maxRating = 5;
+    vm.authorizedMember = JSON.parse($window.sessionStorage.getItem("authorizedMember"));
 
-    // mock data for member
     vm.member = {
-        memberId: 1,
-        memberName: 'test-user'
+        memberId: vm.authorizedMember.memberId,
+        memberName: vm.authorizedMember.memberName
     };
 
     vm.review = {
@@ -36,13 +37,13 @@ function addReviewController(reviewService, productList, $scope, usSpinnerServic
         if ($scope.addReviewForm.$valid) {
             vm.review.productId = vm.selectedProduct.productId;
             reviewService.saveReview(review)
-                .then(function(){
+                .then(function () {
 
-                    $state.go('product_view', {productId: review.productId} );
+                    $state.go('product_view', {productId: review.productId});
                 })
-                .catch(function(error){
+                .catch(function (error) {
                 })
-                .then(function(){
+                .then(function () {
                     vm.stopSpin();
                 });
         }
@@ -57,8 +58,8 @@ function addReviewController(reviewService, productList, $scope, usSpinnerServic
     };
 
 }
-addReviewController.$inject = ['reviewService', 'productList', '$scope', 'usSpinnerService'];
-addReviewController.$inject = ['reviewService', 'productList', '$scope', '$state'];
+
+addReviewController.$inject = ['reviewService', 'productList', '$scope', 'usSpinnerService', '$state', '$window'];
 addReviewController.resolve = {
     productList: ['productService', function (productService) {
         return productService.getAllProducts();

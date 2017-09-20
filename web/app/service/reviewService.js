@@ -56,6 +56,5 @@ function reviewService($http) {
             }, function (reason) {
                 console.log('failed', reason);
             });
-
     }
 }

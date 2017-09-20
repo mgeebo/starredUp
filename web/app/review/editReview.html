@@ -1,42 +1,44 @@
-<h1>EDIT REVIEWS</h1>
 <div class="container">
-    <div ng-if="vm.edit">
-        <form class="well">
-            <div class="form-group">
-                <h4 class="form-control-static text-success">{{vm.review.originalMemberName}}</h4>
-            </div>
-            <div class="form-group">
-                <label for="rating">Rating</label>
-                <input type="number" class="form-control" id="rating" ng-model="vm.review.rating" value="{{vm.review.rating}}" required>
-            </div>
-            <div class="form-group">
-                <label for="title">Title</label>
-                <input class="form-control" id="title" ng-model="vm.review.reviewTitle" value="{{vm.review.reviewTitle}} required">
-            </div>
-            <div class="form-group">
-                <label for="description">Description</label>
-                <textarea class="form-control" rows="3" ng-model="vm.review.description" id="description" required>{{vm.review.description}}</textarea>
-            </div>
-            <button class="btn btn-default" ng-click="vm.save(vm.review)">Save Review</button>
-            <button ng-click="vm.edit = false" class="btn btn-success">Back</button>
-        </form>
-    </div>
-
-    <div ng-if="!vm.edit">
+    <div class="col-xs-offset-2 col-xs-8">
+        <div ng-if="vm.edit">
             <form class="well">
-                rating: {{vm.review.rating}}
                 <div class="form-group">
-                    <h2 class="form-control-static">{{vm.review.reviewTitle}}
-                        <p>{{vm.review.createDate.timestamp}}</p>
-                    </h2>
+                    <h2 class="form-control-static text-success">{{vm.member.memberName}}</h2>
                 </div>
                 <div class="form-group">
-                    <h4 class="form-control-static text-success">{{vm.review.originalMemberName}}</h4>
-                    <p class="form-control-static">{{vm.review.description}}</p>
+                    <label for="rating">Rating</label>
+                    <input type="number" class="form-control" id="rating" ng-model="vm.review.rating" value="{{vm.review.rating}}" required>
                 </div>
-                <button class="btn btn-primary">Helpful</button>
-                <button ng-click="vm.edit = true" class="btn btn-primary">Edit</button>
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input class="form-control" id="title" ng-model="vm.review.reviewTitle" value="{{vm.review.reviewTitle}} required">
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea class="form-control" rows="3" ng-model="vm.review.description" id="description" required>{{vm.review.description}}</textarea>
+                </div>
+                <button class="btn btn-default" ng-click="vm.save(vm.review)">Save Review</button>
+                <button ng-click="vm.edit = false" class="btn btn-success">Back</button>
             </form>
+        </div>
+
+        <div ng-if="!vm.edit">
+                <form class="well">
+                    rating: {{vm.review.rating}}
+                    <div class="form-group">
+                        <h2 class="form-control-static">{{vm.review.reviewTitle}}
+                            <small>{{vm.review.createDate.timestamp * 1000 | date:'yyyy-MM-dd HH:mm'}}</small>
+                        </h2>
+                    </div>
+                    <div class="form-group">
+                        <h4 class="form-control-static text-success">{{vm.review.originalMemberName}}</h4>
+                        <p class="form-control-static">{{vm.review.description}}</p>
+                    </div>
+                    <button class="btn btn-primary">Helpful</button>
+                    <button ng-show="vm.review.memberName === vm.member.memberName" ng-click="vm.edit = true" class="btn btn-primary">Edit</button>
+                    <button ui-sref="product_view({productId: {{vm.review.productId}} })" class="btn btn-default">Back</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>

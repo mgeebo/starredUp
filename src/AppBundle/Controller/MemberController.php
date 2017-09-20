@@ -25,7 +25,6 @@ use Swagger\Annotations as SWG;
  *   path="/members"
  * )
  */
-
 class MemberController extends ApiController
 {
     /**
@@ -200,5 +199,17 @@ class MemberController extends ApiController
                 "isActive" => $member->getIsActive()
             ]
         ]);
+    }
+
+    /**
+     * @Route("/members/{memberId}/getProfile")
+     * @Method({"GET"})
+     */
+    public function getMemberProfile($memberId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $memberRepository = $em->getRepository(Member::class);
+        $memberProfile = $this->serializer->serialize($memberRepository->getMemberProfile($memberId), 'json');
+        return new Response($memberProfile);
     }
 }

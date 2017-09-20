@@ -20,6 +20,7 @@
 <body ng-app="starredUp">
     <div class="container-fluid">
         <div class="row">
+            <div ng-controller="navController as vm">
                 <nav class="navbar navbar-default navbar-fixed-top">
                     <!-- Brand and toggle get grouped for better mobile display -->
                     <div class="navbar-header">
@@ -32,47 +33,50 @@
                         <a class="navbar-brand" href="#">StarredUp<i class="glyphicon glyphicon-star-empty"></i></a>
                     </div>
                     <!-- Collect the nav links, forms, and other content for toggling -->
-                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <div class="collapse navbar-collapse">
                         <ul class="nav navbar-nav">
                             <li class="dropdown">
                             <li><a ui-sref="product">Products</a></li>
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reviews <span class="caret"></span></a>
+                                <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reviews <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <li><a ui-sref="review">Reviews</a></li>
                                     <li><a ui-sref="review_add">Write a Review</a></li>
-                                    <li><a href="#">Something else here</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="#">Separated link</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="#">One more separated link</a></li>
                                 </ul>
                             </li>
                         </ul>
                         <form class="navbar-form navbar-left" role="search">
                             <div class="input-group">
-                                <input style="width:700px;" search-term ng-model="searchTerm" value="searchTerm" class="form-control" placeholder="Search">
+                                <input style="width:400px;" search-term ng-model="searchTerm" class="form-control" placeholder="Search">
                                 <span class="input-group-btn">
                                     <button ui-sref="search" ng-click="productSearchController.init()" id="search-button" class="btn btn-secondary" type="button"><i class="glyphicon glyphicon-search"></i></button>
                                 </span>
                             </div>
                         </form>
-                        <ul class="nav navbar-nav">
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle text-left" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account <span class="caret"></span></a>
-                                <ul class="dropdown-menu">
-                                    <li><a ui-sref="login">Log In</a></li>
-                                    <li><a ui-sref="create_account">Sign Up</a></li>
-                                    <li><a ui-sref="account">My Account</a></li>
-                                    <li><a href="swagger">API Doc</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a ui-sref="admin_addProduct">Add product</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div><!-- /.navbar-collapse -->
+                        <div ng-show="vm.member.memberName" class="navbar-form navbar-left">
+                            <div class="visible-lg-inline">
+                                <h5 ng-bind="vm.welcomeMessage"></h5>
+                            </div>
+                        </div>
+                        <div class="nav navbar-right" style="padding-right: 30px;">
+                            <ul class="nav navbar-nav">
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle text-left" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li ng-show="!vm.member"><a ui-sref="login">Log In</a></li>
+                                        <li ng-show="!vm.member"><a ui-sref="create_account">Sign Up</a></li>
+                                        <li ng-show="vm.member"><a ui-sref="account">My Account</a></li>
+                                        <li ng-show="vm.member"><a target="_self" ng-click="vm.logout()">Log Out</a></li>
+                                        <li ng-show="vm.member"><a href="swagger">API Doc</a></li>
+                                        <li ng-show="vm.member" role="separator" class="divider"></li>
+                                        <li ng-show="vm.member"><a ui-sref="admin_addProduct">Add product</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div><!-- /.nav-collapse -->
                 </nav>
-
+            </div>
             <div ui-view=""></div>
         </div>
     </div>
@@ -91,6 +95,7 @@
 <script src="{{ asset('app/app.config.js') }}" type="application/javascript"></script>
 <script src="{{ asset('app/shared/directives/starRating.js') }}" type="application/javascript"></script>
 
+<script src="{{ asset('app/nav/navController.js') }}" type="application/javascript"></script>
 <script src="{{ asset('app/home/homeController.js') }}" type="application/javascript"></script>
 <script src="{{ asset('app/product/productController.js') }}" type="application/javascript"></script>
 <script src="{{ asset('app/product/viewProductController.js') }}" type="application/javascript"></script>
@@ -101,6 +106,7 @@
 <script src="{{ asset('app/search/productSearchController.js') }}" type="application/javascript"></script>
 <script src="{{ asset('app/admin/addProductAdminController.js') }}" type="application/javascript"></script>
 <script src="{{ asset('app/register/registerMemberController.js') }}" type="application/javascript"></script>
+<script src="{{ asset('app/account/accountController.js') }}" type="application/javascript"></script>
 
 <script src="{{ asset('app/service/angular-spinner.js') }}" type="application/javascript"></script>
 <script src="{{ asset('app/service/reviewService.js') }}" type="application/javascript"></script>
@@ -108,6 +114,8 @@
 <script src="{{ asset('app/service/productService.js') }}" type="application/javascript"></script>
 <script src="{{ asset('app/service/adminService.js') }}" type="application/javascript"></script>
 <script src="{{ asset('app/service/memberService.js') }}" type="application/javascript"></script>
+<script src="{{ asset('app/service/loginService.js') }}" type="application/javascript"></script>
+<script src="{{ asset('app/service/accountService.js') }}" type="application/javascript"></script>
 
 <script src="{{ asset('app/review/editReview.html') }}" type="text/html"></script>
 <script src="{{ asset('app/review/addReview.html') }}" type="text/html"></script>

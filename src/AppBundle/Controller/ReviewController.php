@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Member;
 use Swagger\Annotations as SWG;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -109,6 +110,12 @@ class ReviewController extends ApiController
 
         $review->setProductId($prop['productId']);
         $review->setMemberId($prop['memberId']);
+
+        $member = $em->getRepository(Member::class)->findOneByMemberId($prop['memberId']);
+        if(isset($member)) {
+            $review->setMemberName($member->getMemberName());
+        }
+
         $review->setDescription($prop['description']);
         $review->setRating($prop['rating']);
         // prop doesn't exist when adding from starredUp

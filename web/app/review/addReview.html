@@ -1,4 +1,6 @@
 <div class="container">
+    <div class="row">
+        <fieldset ng-disabled="!vm.authorizedMember">
         <form ng-submit="vm.save(vm.review)" class="well" name="addReviewForm" novalidate>
             <div class="form-group">
                 <h4 class="form-control-static text-success">{{vm.member.memberName}}</h4>
@@ -34,4 +36,6 @@
             <button class="btn btn-success" ng-disabled="addReviewForm.$invalid">Save Review</button>
             <span us-spinner spinner-key="spinner-addReview"></span>
         </form>
+        </fieldset>
+    </div>
 </div>

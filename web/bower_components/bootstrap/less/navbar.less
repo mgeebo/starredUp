@@ -5,16 +5,16 @@
 
 // Wrapper and base class
 //
-// Provide a static navbar from which we expand to create full-width, fixed, and
-// other navbar variations.
+// Provide a static nav from which we expand to create full-width, fixed, and
+// other nav variations.
 
 .navbar {
   position: relative;
-  min-height: @navbar-height; // Ensure a navbar always shows (e.g., without a .navbar-brand in collapsed mode)
+  min-height: @navbar-height; // Ensure a nav always shows (e.g., without a .nav-brand in collapsed mode)
   margin-bottom: @navbar-margin-bottom;
   border: 1px solid transparent;
 
-  // Prevent floats from breaking the navbar
+  // Prevent floats from breaking the nav
   &:extend(.clearfix all);
 
   @media (min-width: @grid-float-breakpoint) {
@@ -25,7 +25,7 @@
 
 // Navbar heading
 //
-// Groups `.navbar-brand` and `.navbar-toggle` into a single component for easy
+// Groups `.nav-brand` and `.nav-toggle` into a single component for easy
 // styling of responsive aspects.
 
 .navbar-header {
@@ -39,11 +39,11 @@
 
 // Navbar collapse (body)
 //
-// Group your navbar content into this for easy collapsing and expanding across
+// Group your nav content into this for easy collapsing and expanding across
 // various device sizes. By default, this content is collapsed when <768px, but
 // will expand past that for a horizontal display.
 //
-// To start (on mobile devices) the navbar links, forms, and buttons are stacked
+// To start (on mobile devices) the nav links, forms, and buttons are stacked
 // vertically and include a `max-height` to overflow in case you have too much
 // content for the user's viewport.
 
@@ -99,7 +99,7 @@
 }
 
 
-// Both navbar header and collapse
+// Both nav header and collapse
 //
 // When a container is present, change the behavior of the header and collapse.
 
@@ -121,10 +121,10 @@
 //
 // Navbar alignment options
 //
-// Display the navbar across the entirety of the page or fixed it to the top or
+// Display the nav across the entirety of the page or fixed it to the top or
 // bottom of the page.
 
-// Static top (unfixed, but 100% wide) navbar
+// Static top (unfixed, but 100% wide) nav
 .navbar-static-top {
   z-index: @zindex-navbar;
   border-width: 0 0 1px;
@@ -153,7 +153,7 @@
 }
 .navbar-fixed-bottom {
   bottom: 0;
-  margin-bottom: 0; // override .navbar defaults
+  margin-bottom: 0; // override .nav defaults
   border-width: 1px 0 0;
 }
 
@@ -187,7 +187,7 @@
 
 // Navbar toggle
 //
-// Custom button for toggling the `.navbar-collapse`, powered by the collapse
+// Custom button for toggling the `.nav-collapse`, powered by the collapse
 // JavaScript plugin.
 
 .navbar-toggle {
@@ -305,7 +305,7 @@
     }
   }
 
-  // Vertically center in expanded, horizontal navbar
+  // Vertically center in expanded, horizontal nav
   .navbar-vertical-align(@input-height-base);
 
   // Undo 100% width for pull classes
@@ -338,7 +338,7 @@
 
 // Buttons in navbars
 //
-// Vertically center a button within a navbar (when *not* in a form).
+// Vertically center a button within a nav (when *not* in a form).
 
 .navbar-btn {
   .navbar-vertical-align(@input-height-base);
@@ -369,11 +369,11 @@
 
 // Component alignment
 //
-// Repurpose the pull utilities as their own navbar utilities to avoid specificity
-// issues with parents and chaining. Only do this when the navbar is uncollapsed
-// though so that navbar contents properly stack and align in mobile.
+// Repurpose the pull utilities as their own nav utilities to avoid specificity
+// issues with parents and chaining. Only do this when the nav is uncollapsed
+// though so that nav contents properly stack and align in mobile.
 //
-// Declared after the navbar components to ensure more specificity on the margins.
+// Declared after the nav components to ensure more specificity on the margins.
 
 @media (min-width: @grid-float-breakpoint) {
   .navbar-left  { .pull-left(); }
@@ -391,7 +391,7 @@
 // Alternate navbars
 // --------------------------------------------------
 
-// Default navbar
+// Default nav
 .navbar-default {
   background-color: @navbar-default-bg;
   border-color: @navbar-default-border;
@@ -499,7 +499,7 @@
 
   // Links in navbars
   //
-  // Add a class to ensure links outside the navbar nav are colored correctly.
+  // Add a class to ensure links outside the nav nav are colored correctly.
 
   .navbar-link {
     color: @navbar-default-link-color;
@@ -524,7 +524,7 @@
   }
 }
 
-// Inverse navbar
+// Inverse nav
 
 .navbar-inverse {
   background-color: @navbar-inverse-bg;

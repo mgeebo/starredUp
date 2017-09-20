@@ -29,12 +29,12 @@ function addProductAdminController(adminService, $scope, usSpinnerService) {
                 }
             });
             adminService.importProductsAndReviews(upcString)
-                .then(function(data){
+                .then(function(data) {
                     vm.success = true;
                     vm.message = 'Success! Products and reviews were added!';
                     vm.stopSpin();
                 })
-                .catch(function(error){
+                .catch(function(error) {
                     vm.sucess = false;
                     vm.message = 'Error. There was an error saving.';
                     vm.stopSpin();
@@ -42,11 +42,11 @@ function addProductAdminController(adminService, $scope, usSpinnerService) {
         }
     };
 
-    vm.startSpin = function(){
+    vm.startSpin = function() {
         usSpinnerService.spin('spinner-1');
     };
 
-    vm.stopSpin = function(){
+    vm.stopSpin = function() {
         usSpinnerService.stop('spinner-1');
     };
 
