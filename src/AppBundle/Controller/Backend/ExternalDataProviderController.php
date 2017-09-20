@@ -2,7 +2,7 @@
 
 namespace AppBundle\Controller\Backend;
 
-use AppBundle\Model\ExternalDataProviders\Walmart;
+use AppBundle\Providers\ExternalDataProviders\Walmart;
 use \Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use AppBundle\Entity\ExternalProviderRawData;
