@@ -8,10 +8,11 @@
                         <p>{{p.productRating}}</p>
                         <p>{{p.productManufacturer}}</p>
                         <h4>{{p.productName}}</h4>
-                        <a ui-sref="product_view({productId: {{p.productId}} } )">Visit Product</a></div>
+                        <a ui-sref="product_view({productId: {{p.productId}} } )">Visit Product</a>
                     </td>
                 </tr>
             </table>
+        </div>
             <div ng-hide="vm.results.length">
                 <p class="lead text-center">No products found</p>
             </div>

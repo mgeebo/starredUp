@@ -1,42 +1,41 @@
 <div class="container">
     <div class="row">
-        <div class="col-xs-offset-2 col-xs-8">
-            <fieldset ng-disabled="!vm.authorizedMember">
-            <form ng-submit="vm.save(vm.review)" class="well" name="addReviewForm" novalidate>
-                <div class="form-group">
-                    <h4 class="form-control-static text-success">{{vm.member.memberName}}</h4>
-                </div>
-                <div class="form-group" ng-class="{ 'has-error' : addReviewForm.products.$invalid && !addReviewForm.products.$pristine }">
-                    <label for="dropdown-products">Select a product</label>
-                    <select class="form-control" id="dropdown-products" name="products"
-                            ng-model="vm.selectedProduct"
-                            ng-options="product.productName for product in vm.productList track by product.productId" required>
-                        <option value=''>Choose a product to review</option>
-                    </select>
-                    <p ng-if="addReviewForm.products.$invalid && !addReviewForm.products.$pristine" class="help-block">A product is required.</p>
-                </div>
-                <div class="form-group" ng-class="{ 'has-error' : addReviewForm.rating.$invalid && !addReviewForm.rating.$pristine }">
-                    <label for="rating">Rating</label>
-                    <input type="number" class="form-control" id="rating" name="rating" min="{{vm.minRating}}" max="{{vm.maxRating}}" ng-model="vm.review.rating" value="{{vm.review.rating}}" required>
-                    <br />
-                </div>
-                <div class="form-group" ng-class="{ 'has-error' : addReviewForm.title.$invalid && !addReviewForm.title.$pristine }">
-                    <label for="title">Title</label>
-                    <input class="form-control" id="title" name="title" ng-model="vm.review.reviewTitle" ng-minlength="3" ng-maxlength="25" value="{{vm.review.reviewTitle}}" required>
-                    <p ng-if="addReviewForm.title.$invalid && !addReviewForm.title.$pristine && !addReviewForm.title.$error.minlength" class="help-block">Title must be at least 3 characters</p>
-                    <p ng-if="addReviewForm.title.$invalid && !addReviewForm.title.$pristine && !addReviewForm.title.$error.maxlength" class="help-block">Title cannot exceed 25 characters</p>
-                    <p ng-if="addReviewForm.title.$invalid && !addReviewForm.title.$pristine" class="help-block">Title is required.</p>
-                </div>
-                <div class="form-group" ng-class="{ 'has-error' : addReviewForm.description.$invalid && !addReviewForm.description.$pristine }">
-                    <label for="description">Description</label>
-                    <textarea class="form-control" id="description" rows="3" name="description" ng-model="vm.review.description" ng-minlength="10" ng-maxlength="300" required>{{vm.review.description}}</textarea>
-                    <p ng-if="addReviewForm.description.$invalid && !addReviewForm.description.$pristine" class="help-block">Description is required</p>
-                    <p ng-if="addReviewForm.description.$invalid && !addReviewForm.description.$pristine && !addReviewForm.description.$error.minlength" class="help-block">Title must be at least 3 characters</p>
-                    <p ng-if="addReviewForm.description.$invalid && !addReviewForm.description.$pristine && !addReviewForm.description.$error.maxlength" class="help-block">Title cannot exceed 25 characters</p>
-                </div>
-                <button class="btn btn-success" ng-disabled="addReviewForm.$invalid">Save Review</button>
-            </form>
-            </fieldset>
-        </div>
+        <fieldset ng-disabled="!vm.authorizedMember">
+        <form ng-submit="vm.save(vm.review)" class="well" name="addReviewForm" novalidate>
+            <div class="form-group">
+                <h4 class="form-control-static text-success">{{vm.member.memberName}}</h4>
+            </div>
+            <div class="form-group" ng-class="{ 'has-error' : addReviewForm.products.$invalid && !addReviewForm.products.$pristine }">
+                <label for="dropdown-products">Select a product</label>
+                <select class="form-control" id="dropdown-products" name="products"
+                        ng-model="vm.selectedProduct"
+                        ng-options="product.productName for product in vm.productList track by product.productId" required>
+                    <option value=''>Choose a product to review</option>
+                </select>
+                <p ng-if="addReviewForm.products.$invalid && !addReviewForm.products.$pristine" class="help-block">A product is required.</p>
+            </div>
+            <div class="form-group" ng-class="{ 'has-error' : addReviewForm.rating.$invalid && !addReviewForm.rating.$pristine }">
+                <label for="rating">Rating</label>
+                <input type="number" class="form-control" id="rating" name="rating" min="{{vm.minRating}}" max="{{vm.maxRating}}" ng-model="vm.review.rating" value="{{vm.review.rating}}" required>
+                <br />
+            </div>
+            <div class="form-group" ng-class="{ 'has-error' : addReviewForm.title.$invalid && !addReviewForm.title.$pristine }">
+                <label for="title">Title</label>
+                <input class="form-control" id="title" name="title" ng-model="vm.review.reviewTitle" ng-minlength="3" ng-maxlength="25" value="{{vm.review.reviewTitle}}" required>
+                <p ng-if="addReviewForm.title.$invalid && !addReviewForm.title.$pristine && !addReviewForm.title.$error.minlength" class="help-block">Title must be at least 3 characters</p>
+                <p ng-if="addReviewForm.title.$invalid && !addReviewForm.title.$pristine && !addReviewForm.title.$error.maxlength" class="help-block">Title cannot exceed 25 characters</p>
+                <p ng-if="addReviewForm.title.$invalid && !addReviewForm.title.$pristine" class="help-block">Title is required.</p>
+            </div>
+            <div class="form-group" ng-class="{ 'has-error' : addReviewForm.description.$invalid && !addReviewForm.description.$pristine }">
+                <label for="description">Description</label>
+                <textarea class="form-control" id="description" rows="3" name="description" ng-model="vm.review.description" ng-minlength="10" ng-maxlength="300" required>{{vm.review.description}}</textarea>
+                <p ng-if="addReviewForm.description.$invalid && !addReviewForm.description.$pristine && !addReviewForm.description.$error.minlength" class="help-block">Description must be at least 10 characters</p>
+                <p ng-if="addReviewForm.description.$invalid && !addReviewForm.description.$pristine && !addReviewForm.description.$error.maxlength" class="help-block">Description cannot exceed 300 characters</p>
+                <p ng-if="addReviewForm.description.$invalid && !addReviewForm.description.$pristine" class="help-block">Description is required</p>
+            </div>
+            <button class="btn btn-success" ng-disabled="addReviewForm.$invalid">Save Review</button>
+            <span us-spinner spinner-key="spinner-addReview"></span>
+        </form>
+        </fieldset>
     </div>
 </div>

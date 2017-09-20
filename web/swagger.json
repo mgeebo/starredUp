@@ -71,7 +71,6 @@
                         "name": "body",
                         "in": "body",
                         "description": "Update a client by adding the clientId to the payload",
-                        "required": true,
                         "schema": {
                             "$ref": "#/definitions/Client"
                         }
@@ -172,7 +171,6 @@
                         "name": "body",
                         "in": "body",
                         "description": "Update a member by adding the memberId to the payload",
-                        "required": true,
                         "schema": {
                             "$ref": "#/definitions/Member"
                         }
@@ -273,7 +271,6 @@
                         "name": "body",
                         "in": "body",
                         "description": "Update a product by adding the productId to the payload",
-                        "required": true,
                         "schema": {
                             "$ref": "#/definitions/Product"
                         }
@@ -374,7 +371,6 @@
                         "name": "body",
                         "in": "body",
                         "description": "Updates a review based on this data",
-                        "required": true,
                         "schema": {
                             "$ref": "#/definitions/Review"
                         }

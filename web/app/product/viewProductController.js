@@ -9,15 +9,8 @@ function viewProductController(product, productReviews) {
     vm.product = {};
     vm.product = product.data;
     vm.reviews = productReviews.data;
-    vm.product.productDescription = vm.product.productDescription.replace(/&\w+?;/g, function( e ) {
-        switch (e) {
-            case '&lt;':
-                return '';
-            case '':
-                return '';
-            default:
-                return e;
-        }
+    vm.product.productDescription = vm.product.productDescription.replace(/&(.*?)([A-Z]|" ")/g, function( e ) {
+        return ' ' + e.substr(e.length-1);
     })
  }
 
