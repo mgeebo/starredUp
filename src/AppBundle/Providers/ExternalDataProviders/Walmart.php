@@ -8,7 +8,7 @@ use AppBundle\Entity\ExternalProviderProductRawData;
 use AppBundle\Entity\ExternalProvider;
 use AppBundle\Entity\Product;
 use AppBundle\Entity\Review;
-use AppBundle\Model\ExternalDataProviders\ConsumeRawData;
+use AppBundle\Providers\ExternalDataProviders\ConsumeRawData;
 use AppBundle\Repository\ExternalProviderProductRawDataRepository as ProductRepo;
 use AppBundle\Repository\ExternalProviderRepository;
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
